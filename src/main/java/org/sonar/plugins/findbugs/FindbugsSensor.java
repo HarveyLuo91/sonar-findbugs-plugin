@@ -130,6 +130,7 @@ public class FindbugsSensor implements Sensor {
               break;
             }
           }
+          System.out.println("--------------------type:" + bugInstance.getType() + "  message:" + bugInstance.getMessage());
           if (rule == null) {
             // ignore violations from report, if rule not activated in Sonar
             LOG.warn("Findbugs rule '{}' is not active in Sonar.", bugInstance.getType());
