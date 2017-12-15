@@ -12,14 +12,6 @@ public class jlintReportParser {
     public static ArrayList<BugInstance> ReportedBugs = new ArrayList();
 
 
-    public static void main(String[] args) {
-        ArrayList<BugInstance> bugs = parseReportBugsFile();
-
-        for (BugInstance bug: bugs) {
-            System.out.println(bug.toString());
-        }
-
-    }
     public static ArrayList<BugInstance> parseReportBugsFile(){
 
         try{
