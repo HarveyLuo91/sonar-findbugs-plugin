@@ -70,7 +70,7 @@ public class Jsp extends AbstractLanguage {
     /**
      * {@inheritDoc}
      *
-     * @see org.sonar.api.resources.AbstractLanguage#getFileSuffixes()
+     * @see AbstractLanguage#getFileSuffixes()
      */
     @Override
     public String[] getFileSuffixes() {

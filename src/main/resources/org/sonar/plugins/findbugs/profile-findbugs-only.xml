@@ -1355,4 +1355,7 @@
   <Match>
     <Bug pattern='NP_METHOD_RETURN_RELAXING_ANNOTATION' />
   </Match>
+  <Match>
+    <Bug pattern="NULL_POINTER_DETECTED_BY_JLINT"/>
+  </Match>
 </FindBugsFilter>

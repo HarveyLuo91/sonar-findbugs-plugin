@@ -11,20 +11,21 @@ import java.io.Reader;
 
 public class FindbugsJlintProfile extends ProfileDefinition {
 
-    private static final String FB_JLINT_PROFILE_NAME = "FindBugs + Jlint";
-    private final FindbugsProfileImporter importer;
+  private static final String FB_CONTRIB_PROFILE_NAME = "FindBugs + Jlint";
+  private final FindbugsProfileImporter importer;
 
-    public FindbugsJlintProfile(FindbugsProfileImporter importer) {
-        this.importer = importer;
-    }
+  public FindbugsJlintProfile(FindbugsProfileImporter importer) {
+    this.importer = importer;
+  }
 
-    @Override
-    public RulesProfile createProfile(ValidationMessages messages) {
-        Reader findbugsProfile = new InputStreamReader(this.getClass().getResourceAsStream(
-                "/org/sonar/plugins/findbugs/profile-findbugs-and-fb-contrib.xml"));
-        RulesProfile profile = importer.importProfile(findbugsProfile, messages);
-        profile.setLanguage(Java.KEY);
-        profile.setName(FB_JLINT_PROFILE_NAME);
-        return profile;
-    }
+  @Override
+  public RulesProfile createProfile(ValidationMessages messages) {
+    Reader findbugsProfile = new InputStreamReader(this.getClass().getResourceAsStream(
+            "/org/sonar/plugins/findbugs/profile-findbugs-and-fb-contrib.xml"));
+    RulesProfile profile = importer.importProfile(findbugsProfile, messages);
+    profile.setLanguage(Java.KEY);
+    profile.setName(FB_CONTRIB_PROFILE_NAME);
+    return profile;
+  }
+
 }

@@ -16,7 +16,7 @@ public class jlintReportParser {
 
         try{
             // create a Buffered Reader object instance with a FileReader, remeber to change the way the file is read as a resource
-            BufferedReader br = new BufferedReader(new FileReader("/Users/aminuibrahim/Documents/GitHub/sonar-findbugs-plugin/src/main/resources/edu.bit.cs.jlint/jlint_npe_reporter.txt"));
+            BufferedReader br = new BufferedReader(new InputStreamReader(jlintReportParser.class.getClassLoader().getResourceAsStream("file/jlint_npe_repoter.txt")));
             // read the first line from the text file
             String fileRead = br.readLine();
             // loop until all lines are read
@@ -29,6 +29,8 @@ public class jlintReportParser {
 
                 //class path starts from the begining to just before the line number that a bug was reported
                 String classPath = fileRead.substring(0,index);
+                int start_index = classPath.lastIndexOf("\\java");
+                classPath = classPath.substring(start_index+1,index);
                 System.out.println("ClassPath: " + classPath);
 
                 //starts after the class path, they are separated by the index containing :

@@ -67,11 +67,9 @@ public class FindbugsPlugin implements Plugin {
             FindbugsSecurityAuditProfile.class,
             FindbugsSecurityMinimalProfile.class,
             FindbugsSecurityJspProfile.class,
-            FindbugsJlintProfile.class,
 
             FindbugsRulesDefinition.class,
             FbContribRulesDefinition.class,
-            FbJlintRulesDefinition.class,
             FindSecurityBugsRulesDefinition.class,
             FindSecurityBugsJspRulesDefinition.class,
             ByteCodeResourceLocator.class));

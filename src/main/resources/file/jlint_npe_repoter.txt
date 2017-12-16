@@ -1,0 +1,243 @@
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\BranchOrStatement.java:9: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\BranchOrStatement.java:17: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\BranchOrStatement.java:24: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\CallToPanic.java:10: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\Color.java:19: Value of referenced variable 'components' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\Color.java:22: Value of referenced variable 'components' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\ComparisonWithThis.java:12: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\CorrectlyLocalizeWarning.java:20: Value of referenced variable 's' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\CoupledNullness.java:10: Value of referenced variable 'y' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\CoupledNullness.java:20: Value of referenced variable 'y' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\CoupledNullness.java:30: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\CoupledNullness.java:30: Value of referenced variable 'y' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\CoupledNullness.java:40: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\CoupledNullness.java:40: Value of referenced variable 'y' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\DereferenceOrThrow.java:14: Inequality comparison can be replaced with equality comparison.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\DereferenceOrThrow.java:16: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\DetectThrowers.java:12: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\DoomedNullDereference.java:10: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\DoomedNullDereference.java:18: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\DoomedNullDereference.java:26: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4012: Comparison always produces the same result.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4066: Inequality comparison can be replaced with equality comparison.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4385: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:5092: Comparison always produces the same result.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:5096: Comparison always produces the same result.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:5096: Comparison always produces the same result.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:5096: Comparison always produces the same result.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:547: Comparison always produces the same result.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1334: Comparison always produces the same result.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1538: Value of referenced variable 'o1' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1539: Value of referenced variable 'o2' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:2361: Comparison always produces the same result.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:2382: Comparison always produces the same result.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:3858: Comparison always produces the same result.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:26: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:2630: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:2735: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:2736: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:2738: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:2753: Value of referenced variable 'o2' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:2754: Value of referenced variable 'o2' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:2756: Value of referenced variable 'o2' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:3359: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:3482: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:3560: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:3616: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:3640: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:3667: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:3679: Value of referenced variable '???' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:3679: Index [-2147483648,-1] is out of array bounds.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:3691: Value of referenced variable 'i' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:3745: Value of referenced variable 'flag' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:3772: Value of referenced variable 'flag' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4106: Value of referenced variable 'b' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4107: Value of referenced variable 'b' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4186: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4205: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4331: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4335: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4339: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4343: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4347: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4351: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4362: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4373: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4396: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:377: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4407: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:404: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4587: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4593: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4767: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4783: Method java/npe/EclipseNullReferenceTestCases$Report175$X.foo(java.npe.EclipseNullReferenceTestCases$Report175$X) can be invoked with NULL as 1 parameter and this parameter is used without check for NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4834: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4834: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:415: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:426: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:448: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:461: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:500: Value of referenced variable 'i' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:511: Value of referenced variable 'i' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:536: Value of referenced variable 'i' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:572: Value of referenced variable 'args' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:572: Index [0,0] is out of array bounds.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:50: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:682: NULL reference can be used.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:781: Value of referenced variable 'i1' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:790: Value of referenced variable 'i1' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:790: Value of referenced variable 'i2' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:61: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:910: Value of referenced variable 's1' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:999: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1050: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1064: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1108: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1126: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1142: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1143: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1145: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1172: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1211: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1224: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1355: Comparison always produces the same result.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1356: Comparison always produces the same result.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1362: Value of referenced variable 's' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1375: Value of referenced variable 's1' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1390: Value of referenced variable 's2' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1405: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1418: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1474: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1487: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1489: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1502: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:97: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1516: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1518: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1590: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1607: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1624: Value of referenced variable 'o1' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1637: Value of referenced variable 'o1' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1649: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1705: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:110: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1915: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:2197: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:2198: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:2345: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:2404: Comparison always produces the same result.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4259: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4260: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4273: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4279: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4285: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4290: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4303: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4307: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4313: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4318: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\FalsePositive.java:7: Value of referenced variable 's' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\FalsePositive.java:9: Value of referenced variable 's' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\FieldDereference.java:22: Value of referenced variable 'list' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\FieldDereference.java:19: Local variable 'list' shadows component of class 'java/npe/FieldDereference'.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereference.java:11: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereference.java:22: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereference.java:24: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereference.java:42: Value of referenced variable 'xAsString' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereference.java:54: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereference.java:59: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereference.java:66: Value of referenced variable 'y' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereference.java:74: Value of referenced variable 'y' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereference.java:81: Value of referenced variable 'y' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereference.java:102: Value of referenced variable 'y' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereference.java:123: Value of referenced variable 'y' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereference.java:141: Value of referenced variable 'y' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereference.java:153: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereferenceAndAssertionMethod.java:12: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereferenceInLoop.java:15: Value of referenced variable 'accumulator' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereferenceInLoop2.java:14: Value of referenced variable 'accumulator' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereferenceInteractionWithAssertionMethods.java:24: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereferenceInteractionWithAssertionMethods.java:22: Local variable 'x' shadows component of class 'java/npe/GuaranteedDereferenceInteractionWithAssertionMethods'.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereferenceInteractionWithAssertionMethods.java:46: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereferenceInteractionWithAssertionMethods.java:41: Local variable 'x' shadows component of class 'java/npe/GuaranteedDereferenceInteractionWithAssertionMethods'.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereferenceInteractionWithAssertionMethods.java:55: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereferenceInteractionWithAssertionMethods.java:50: Local variable 'x' shadows component of class 'java/npe/GuaranteedDereferenceInteractionWithAssertionMethods'.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereferenceLocationReporting.java:22: Zero operand for + operation.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereferenceLocationReporting.java:24: Zero operand for - operation.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereferenceLocationReporting.java:25: Value of referenced variable 'y' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereferenceLocationReporting.java:41: Zero operand for + operation.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereferenceLocationReporting.java:43: Zero operand for - operation.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereferenceLocationReporting.java:44: Value of referenced variable 'y' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereferencesShouldBeReducedByPostDominatorAnalysis.java:13: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereferencesShouldBeReducedByPostDominatorAnalysis.java:15: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedDereferencesShouldBeReducedByPostDominatorAnalysis.java:16: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedFieldDereference.java:55: Value of referenced variable 'xAsString' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedFieldDereference.java:79: Value of referenced variable 'y' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedFieldDereference.java:87: Value of referenced variable 'y' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedFieldDereference.java:94: Value of referenced variable 'y' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedFieldDereference.java:115: Value of referenced variable 'y' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedFieldDereference.java:136: Value of referenced variable 'y' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedFieldDereference.java:154: Value of referenced variable 'y' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\HandleAssert.java:14: Value of referenced variable 'y' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\IdentifyCorrectBranchPlease.java:12: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\IdentifyCorrectBranchPlease.java:24: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\IgnoreBranchesWhereValueIsKnownNonNull.java:12: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\InstanceOf.java:19: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\InstanceOf.java:42: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\InstanceOf.java:44: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\InstanceOfInteraction.java:12: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\InSwitchStatement.java:20: Value of referenced variable 's' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\InterfaceAddress.java:19: Zero operand for ^ operation.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\InterfaceAddress2.java:19: Zero operand for ^ operation.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\InternalServerError.java:10: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\InterproceduralAnalysisOfNonnullReturnValues.java:12: Value of referenced variable 's' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\JunitFailFalsePositive.java:9: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\JXPathMetaModuleExample.java:21: Value of referenced variable 'values' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\JXPathMetaModuleExample.java:23: Value of referenced variable 'values' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\JXPathMetaModuleExample.java:37: Value of referenced variable 'values' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\JXPathMetaModuleExample.java:39: Value of referenced variable 'values' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\JXPathMetaModuleExample.java:54: Inequality comparison can be replaced with equality comparison.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\JXPathMetaModuleExample.java:58: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\Logging.java:12: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NP.java:16: Value of referenced variable 'n' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NP.java:22: Value of referenced variable 'n' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NP.java:24: Value of referenced variable 'n' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullComplexPath.java:15: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullDeref.java:18: Value of referenced variable 'n' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullDeref.java:25: Value of referenced variable 's' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullDeref.java:34: Value of referenced variable 's' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullDeref.java:53: Value of referenced variable 's' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullDeref10.java:7: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullDeref11.java:6: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullDeref12.java:6: Comparison always produces the same result.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullDeref2.java:39: Value of referenced variable 'thisIsNull' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullDeref3.java:24: Value of referenced variable 'a' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullDeref3.java:33: Value of referenced variable 'a' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullDeref4.java:9: Value of referenced variable 'n' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullDeref6.java:22: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullDeref6.java:33: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullDeref7.java:17: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullDeref7.java:23: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullDeref8.java:19: Value of referenced variable 'in' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullDeref9.java:20: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullDeref9.java:26: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullDeref9.java:32: Value of referenced variable 'o' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullPointerCategories.java:10: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullPointerCategories.java:17: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullPointerCategories.java:24: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullPointerCategories.java:33: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullPointerCategories.java:42: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullPointerCategories.java:79: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NullPointerCategories.java:90: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\ShortCirtcuitEvaluation.java:6: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\TrickyLoop.java:14: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\UnconditionalThrower.java:21: Value of referenced variable 'x' may be NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\NonterminatingAnalysisBug.java:6: Method java/lang/Object.clone() is not overridden by method with the same name of derived class 'java/npe/NonterminatingAnalysisBug$Field'.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:1: Component 'this$0' in class 'java/npe/EclipseNullReferenceTestCases$Report121$X$SubException' shadows one in base class 'java/npe/EclipseNullReferenceTestCases$Report121$X$LocalException'.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:2: Component 'serialVersionUID' in class 'java/npe/EclipseNullReferenceTestCases$Report121$X$SubException' shadows one in base class 'java/npe/EclipseNullReferenceTestCases$Report121$X$LocalException'.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\CoupledNullness.java:23: Method java/lang/Object.equals(java.lang.Object) is not overridden by method with the same name of derived class 'java/npe/CoupledNullness'.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\CoupledNullness.java:23: equals() was overridden but not hashCode().
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\ParameterNumberingTest.java:5: Method java/npe/ParameterNumberingTest.f(java.lang.Object) can be invoked with NULL as 1 parameter and this parameter is used without check for NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\GuaranteedUseRequiringNonNullValue.java:11: Method java/npe/GuaranteedUseRequiringNonNullValue.ff(java.lang.Object) can be invoked with NULL as 0 parameter and this parameter is used without check for NULL.
+C:\Users\Luo\program\KillBugTestCases\test-case-src\target\classes\java\java\npe\EclipseNullReferenceTestCases.java:4583: Method java/npe/EclipseNullReferenceTestCases$Report170$X.foo(java.npe.EclipseNullReferenceTestCases$Report170$X) can be invoked with NULL as 1 parameter and this parameter is used without check for NULL.
+Verification completed: 242 reported messages.

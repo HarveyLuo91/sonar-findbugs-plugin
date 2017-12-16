@@ -51,7 +51,7 @@ public class FakeRuleFinder {
 
   private static RuleFinder create(boolean findbugs, boolean fbContrib, boolean findSecBug, boolean findSecBugJsp) {
     RuleFinder ruleFinder = mock(RuleFinder.class);
-    RulesDefinition.Context context = new RulesDefinition.Context();
+    Context context = new Context();
 
     if (findbugs) {
       RulesDefinition rulesDefinition = new FindbugsRulesDefinition();
