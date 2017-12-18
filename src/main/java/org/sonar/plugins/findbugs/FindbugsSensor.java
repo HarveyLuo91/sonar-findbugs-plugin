@@ -28,7 +28,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import edu.bit.cs.jlint.jlintReportParser;
+import edu.bit.cs.jlint.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.fs.FileSystem;
@@ -215,7 +215,7 @@ public class FindbugsSensor implements Sensor {
                 System.out.println("-----------------rule is null!");
                 return;
             }
-            for (jlintReportParser.BugInstance bugInstance : jlintReportParser.parseReportBugsFile()) {
+            for (jlintReportedBug bugInstance : jlintReportParser.get_Reported_jlint_Bugs()) {
 //                String className = bugInstance.getClassName();
                 String sourceFile = bugInstance.getSourcePath();
                 String longMessage = bugInstance.getMessage();

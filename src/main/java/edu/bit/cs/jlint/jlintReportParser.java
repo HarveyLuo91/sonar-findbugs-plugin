@@ -1,18 +1,26 @@
 package edu.bit.cs.jlint;
 
 
-
 import java.util.ArrayList;
 import java.io.*;
 
 public class jlintReportParser {
 
+
+    //this is for testing
+    public static void main(String[] args) {
+        ArrayList<jlintReportedBug> reportedBugs = jlintReportParser.get_Reported_jlint_Bugs();
+        for (jlintReportedBug bug: reportedBugs) {
+            System.out.println(bug.toString());
+        }
+    }
+
     private static String ReportFilePath;
 
-    public static ArrayList<BugInstance> ReportedBugs = new ArrayList();
+    public static ArrayList<jlintReportedBug> ReportedBugs = new ArrayList();
 
 
-    public static ArrayList<BugInstance> parseReportBugsFile(){
+    public static ArrayList<jlintReportedBug> get_Reported_jlint_Bugs(){
 
         try{
             // create a Buffered Reader object instance with a FileReader, remeber to change the way the file is read as a resource
@@ -56,7 +64,7 @@ public class jlintReportParser {
                     String sourcePath = classPath;
                     String classFile = classPath;
                 System.out.println("--------------------------------------");
-                BugInstance bugInstance = new BugInstance(bugType, errorMessage, className,  Integer.valueOf(bugLineNumber),  sourcePath);
+                jlintReportedBug bugInstance = new jlintReportedBug(bugType, errorMessage, className,  Integer.valueOf(bugLineNumber),  sourcePath);
                 ReportedBugs.add(bugInstance);
 
             }
@@ -96,56 +104,7 @@ public class jlintReportParser {
         return bugType.toString();
     }
 
-    public static class BugInstance{
-        private final  String type;
-        private final  String message;
-        private final  String className;
-        private final  int bugLineNumber;
-        private  final String sourcePath;
 
-
-        private BugInstance(String type, String message, String className, int bugLineNumber, String sourcePath) {
-            this.type = type;
-            this.message = message;
-            this.className = className;
-            this.bugLineNumber = bugLineNumber;
-            this.sourcePath = sourcePath;
-
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public String getClassName() {
-            return className;
-        }
-
-        public int getBugLineNumber() {
-            return bugLineNumber;
-        }
-
-        public String getSourcePath() {
-            return sourcePath;
-        }
-
-        @Override
-        public String toString() {
-            StringBuilder string = new StringBuilder();
-            string.append("Bug Type: " + getType() + "\n");
-            string.append("Error Message: " + getMessage() + "\n");
-            string.append("ClassName: " + getClassName() + "\n");
-            string.append("Bug_LineNumber: " + getBugLineNumber() + "\n");
-            string.append("Source Path: " + getSourcePath() + "\n");
-
-
-            return string.toString();
-        }
-    }
 
 }
 
