@@ -1,6 +1,8 @@
 package edu.bit.cs.infer;
 
-public class inferReportedBug {
+import edu.bit.cs.ReportedBugInfo;
+
+public class InferReportedBug implements ReportedBugInfo{
 
     private  final String infer_Bug_Class;
     private  final String infer_Bug_Kind;
@@ -21,7 +23,7 @@ public class inferReportedBug {
 
 
 
-   public inferReportedBug(String infer_Bug_Class, String infer_Bug_Kind, String infer_Bug_Type,
+   public InferReportedBug(String infer_Bug_Class, String infer_Bug_Kind, String infer_Bug_Type,
                            String infer_Bug_Qualifier, String infer_Bug_Severety, String infer_Bug_Line, String infer_Bug_Procedure,
                            String infer_Bug_Procedure_Id, String infer_Bug_File, String infer_Bug_Trace, String infer_Bug_Key, String infer_Bug_Qualifier_Tag,
                            String    infer_Bug_Qualifier_Hash, String  infer_Bug_Id, String infer_Bug_Always_Report, String infer_Bug_advice) {
@@ -79,7 +81,8 @@ public class inferReportedBug {
     }
 
     public String getInfer_Bug_File() {
-        return infer_Bug_File;
+       int start_index = infer_Bug_File.lastIndexOf("/main");
+        return infer_Bug_File.substring(start_index+1);
     }
 
     public String getInfer_Bug_Trace() {
@@ -127,5 +130,35 @@ public class inferReportedBug {
 
 
         return string.toString();
+    }
+
+    @Override
+    public String getBugType() {
+        return infer_Bug_Type;
+    }
+
+    @Override
+    public String getBugMessage() {
+        return infer_Bug_Qualifier;
+    }
+
+    @Override
+    public String getClassName() {
+        return getInfer_Bug_Class_Name();
+    }
+
+    @Override
+    public int getBugLineNumber() {
+        return Integer.parseInt(infer_Bug_Line);
+    }
+
+    @Override
+    public String getSourcePath() {
+        return infer_Bug_File;
+    }
+
+    @Override
+    public String getToolName() {
+        return "[Infer] ";
     }
 }

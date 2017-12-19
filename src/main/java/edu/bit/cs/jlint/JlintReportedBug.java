@@ -1,11 +1,10 @@
 package edu.bit.cs.jlint;
 
 
-import com.sun.org.apache.xpath.internal.SourceTree;
+import edu.bit.cs.ReportedBugInfo;
 
-import java.util.ArrayList;
 
-public class jlintReportedBug{
+public class JlintReportedBug implements ReportedBugInfo{
     private final  String type;
     private final  String message;
     private final  String className;
@@ -13,7 +12,7 @@ public class jlintReportedBug{
     private  final String sourcePath;
 
 
-    public jlintReportedBug(String type, String message, String className, int bugLineNumber, String sourcePath) {
+    public JlintReportedBug(String type, String message, String className, int bugLineNumber, String sourcePath) {
         this.type = type;
         this.message = message;
         this.className = className;
@@ -22,11 +21,14 @@ public class jlintReportedBug{
 
     }
 
-    public String getType() {
+
+    @Override
+    public String getBugType() {
         return type;
     }
 
-    public String getMessage() {
+    @Override
+    public String getBugMessage() {
         return message;
     }
 
@@ -43,10 +45,15 @@ public class jlintReportedBug{
     }
 
     @Override
+    public String getToolName() {
+        return "[Jlint] ";
+    }
+
+    @Override
     public String toString() {
         StringBuilder string = new StringBuilder();
-        string.append("Bug Type: " + getType() + "\n");
-        string.append("Error Message: " + getMessage() + "\n");
+        string.append("Bug Type: " + getBugType() + "\n");
+        string.append("Error Message: " + getBugMessage() + "\n");
         string.append("ClassName: " + getClassName() + "\n");
         string.append("Bug_LineNumber: " + getBugLineNumber() + "\n");
         string.append("Source Path: " + getSourcePath() + "\n");

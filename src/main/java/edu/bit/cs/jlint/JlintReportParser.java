@@ -4,27 +4,27 @@ package edu.bit.cs.jlint;
 import java.util.ArrayList;
 import java.io.*;
 
-public class jlintReportParser {
+public class JlintReportParser {
 
 
     //this is for testing
     public static void main(String[] args) {
-        ArrayList<jlintReportedBug> reportedBugs = jlintReportParser.get_Reported_jlint_Bugs();
-        for (jlintReportedBug bug: reportedBugs) {
+        ArrayList<JlintReportedBug> reportedBugs = JlintReportParser.get_Reported_jlint_Bugs();
+        for (JlintReportedBug bug: reportedBugs) {
             System.out.println(bug.toString());
         }
     }
 
     private static String ReportFilePath;
 
-    public static ArrayList<jlintReportedBug> ReportedBugs = new ArrayList();
+    public static ArrayList<JlintReportedBug> ReportedBugs = new ArrayList();
 
 
-    public static ArrayList<jlintReportedBug> get_Reported_jlint_Bugs(){
+    public static ArrayList<JlintReportedBug> get_Reported_jlint_Bugs(){
 
         try{
             // create a Buffered Reader object instance with a FileReader, remeber to change the way the file is read as a resource
-            BufferedReader br = new BufferedReader(new InputStreamReader(jlintReportParser.class.getClassLoader().getResourceAsStream("file/jlint_npe_repoter.txt")));
+            BufferedReader br = new BufferedReader(new InputStreamReader(JlintReportParser.class.getClassLoader().getResourceAsStream("file/jlint_npe_repoter.txt")));
             // read the first line from the text file
             String fileRead = br.readLine();
             // loop until all lines are read
@@ -38,7 +38,7 @@ public class jlintReportParser {
                 //class path starts from the begining to just before the line number that a bug was reported
                 String classPath = fileRead.substring(0,index);
                 int start_index = classPath.lastIndexOf("\\java");
-                classPath = classPath.substring(start_index+1,index);
+                classPath = classPath.substring(start_index+1,index).replace("\\","/");
                 System.out.println("ClassPath: " + classPath);
 
                 //starts after the class path, they are separated by the index containing :
@@ -64,7 +64,7 @@ public class jlintReportParser {
                     String sourcePath = classPath;
                     String classFile = classPath;
                 System.out.println("--------------------------------------");
-                jlintReportedBug bugInstance = new jlintReportedBug(bugType, errorMessage, className,  Integer.valueOf(bugLineNumber),  sourcePath);
+                JlintReportedBug bugInstance = new JlintReportedBug(bugType, errorMessage, className,  Integer.valueOf(bugLineNumber),  sourcePath);
                 ReportedBugs.add(bugInstance);
 
             }
@@ -85,7 +85,7 @@ public class jlintReportParser {
 
     private static String getClassName(String classPath){
         // the first \ is an escape sequence character for the char to look for is '\'
-        int start_index = classPath.lastIndexOf('\\');
+        int start_index = classPath.lastIndexOf('/');
         String className = classPath.substring(start_index + 1, classPath.length()).trim();
 
         return className;
