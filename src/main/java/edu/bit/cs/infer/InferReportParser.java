@@ -28,7 +28,7 @@ public class InferReportParser {
         final String COMMA_DELIMITER = ",";
         try {
             //Reading the csv file
-            BufferedReader br = new BufferedReader(new InputStreamReader(InferReportParser.class.getClassLoader().getResourceAsStream("file/infer_report.csv")));
+            BufferedReader br = new BufferedReader(new InputStreamReader(InferReportParser.class.getClassLoader().getResourceAsStream("file/report.csv")));
 
             br.readLine(); //first line header(i.e the header) is here now
             //Read to skip the header
@@ -40,7 +40,12 @@ public class InferReportParser {
                 //System.out.println(line);
                 String[] current_bug_details = line.split(COMMA_DELIMITER);
 
+
                if(current_bug_details.length > 0){
+                   //handle the source path
+                   int start_index = current_bug_details[8].lastIndexOf("/java");
+                   current_bug_details[8] = current_bug_details[8].substring(start_index+1);
+
                    InferReportedBug bugInstance = new InferReportedBug(current_bug_details[0],current_bug_details[1],current_bug_details[2],
                             current_bug_details[3],current_bug_details[4],current_bug_details[5],current_bug_details[6],
                             current_bug_details[7],current_bug_details[8],current_bug_details[9],current_bug_details[10],current_bug_details[11],

@@ -11,6 +11,8 @@ public class JlintReportedBug implements ReportedBugInfo{
     private final  int bugLineNumber;
     private  final String sourcePath;
 
+    public static final String JLINT = "[Jlint] ";
+
 
     public JlintReportedBug(String type, String message, String className, int bugLineNumber, String sourcePath) {
         this.type = type;
@@ -46,7 +48,7 @@ public class JlintReportedBug implements ReportedBugInfo{
 
     @Override
     public String getToolName() {
-        return "[Jlint] ";
+        return JLINT;
     }
 
     @Override

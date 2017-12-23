@@ -21,6 +21,8 @@ public class InferReportedBug implements ReportedBugInfo{
     private  final String infer_Bug_Always_Report;
     private  final String infer_Bug_advice;
 
+    public static final String INFER = "[Infer] ";
+
 
 
    public InferReportedBug(String infer_Bug_Class, String infer_Bug_Kind, String infer_Bug_Type,
@@ -159,6 +161,6 @@ public class InferReportedBug implements ReportedBugInfo{
 
     @Override
     public String getToolName() {
-        return "[Infer] ";
+        return INFER;
     }
 }
