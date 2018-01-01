@@ -4,15 +4,14 @@ package edu.bit.cs.jlint;
 import edu.bit.cs.ReportedBugInfo;
 
 
-public class JlintReportedBug implements ReportedBugInfo{
-    private final  String type;
-    private final  String message;
-    private final  String className;
-    private final  int bugLineNumber;
-    private  final String sourcePath;
+public class JlintReportedBug implements ReportedBugInfo {
+    private final String type;
+    private final String message;
+    private final String className;
+    private final int bugLineNumber;
+    private final String sourcePath;
 
     public static final String JLINT = "[Jlint] ";
-
 
     public JlintReportedBug(String type, String message, String className, int bugLineNumber, String sourcePath) {
         this.type = type;
@@ -20,9 +19,7 @@ public class JlintReportedBug implements ReportedBugInfo{
         this.className = className;
         this.bugLineNumber = bugLineNumber;
         this.sourcePath = sourcePath;
-
     }
-
 
     @Override
     public String getBugType() {
@@ -59,7 +56,6 @@ public class JlintReportedBug implements ReportedBugInfo{
         string.append("ClassName: " + getClassName() + "\n");
         string.append("Bug_LineNumber: " + getBugLineNumber() + "\n");
         string.append("Source Path: " + getSourcePath() + "\n");
-
 
         return string.toString();
     }
