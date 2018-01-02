@@ -1,75 +1,93 @@
 package edu.bit.cs.jlint;
 
 
+import edu.bit.cs.ReportedBugInfo;
+import edu.bit.cs.ReportedInfoProcessor;
+
 import java.util.ArrayList;
 import java.io.*;
+import java.util.Collection;
 
-public class JlintReportParser {
+public class JlintReportParser implements ReportedInfoProcessor {
 
 
-    //this is for testing
-    public static void main(String[] args) {
-        ArrayList<JlintReportedBug> reportedBugs = JlintReportParser.get_Reported_jlint_Bugs();
-        for (JlintReportedBug bug: reportedBugs) {
-            System.out.println(bug.toString());
-        }
-    }
+//    //this is for testing
+//    public static void main(String[] args) {
+//        ArrayList<JlintReportedBug> reportedBugs = JlintReportParser.get_Reported_jlint_Bugs();
+//        for (JlintReportedBug bug: reportedBugs) {
+//            System.out.println(bug.toString());
+//        }
+//    }
 
     private static String ReportFilePath;
 
     public static ArrayList<JlintReportedBug> ReportedBugs = new ArrayList();
 
+    @Override
+    public Collection<? extends ReportedBugInfo> getReportedBugs(BufferedReader br) {
 
-    public static ArrayList<JlintReportedBug> get_Reported_jlint_Bugs(){
-
-        try{
+        try {
             // create a Buffered Reader object instance with a FileReader, remeber to change the way the file is read as a resource
-            BufferedReader br = new BufferedReader(new InputStreamReader(JlintReportParser.class.getClassLoader().getResourceAsStream("file/jlint_npe_repoter.txt")));
+//            BufferedReader br = new BufferedReader(new InputStreamReader(JlintReportParser.class.getClassLoader().getResourceAsStream("file/jlint_npe_repoter.txt")));
             // read the first line from the text file
             String fileRead = br.readLine();
             // loop until all lines are read
-            while (fileRead != null)
-            {
+            while (fileRead != null) {
 
-                //find second occurence of :, the number after that is the line number of the reported bug
-                int index = fileRead.indexOf(":", fileRead.indexOf(":") + 1);
-                if(index > -1){
+                if(fileRead.contains("Verification completed")){
+                    fileRead = br.readLine();
+                    continue;
+                }
 
-                //class path starts from the begining to just before the line number that a bug was reported
-                String classPath = fileRead.substring(0,index);
-                int start_index = classPath.lastIndexOf("\\java");
-                classPath = classPath.substring(start_index+1,index).replace("\\","/");
-                System.out.println("ClassPath: " + classPath);
+                System.out.println("jlint report bug:" + fileRead);
 
-                //starts after the class path, they are separated by the index containing :
-                int startIndex_bugLineNumber = index + 1;
-                int endIndex_bugLineNumber = fileRead.indexOf(':',startIndex_bugLineNumber);
-                String bugLineNumber = fileRead.substring(startIndex_bugLineNumber,endIndex_bugLineNumber);
+                int index;
+                if(fileRead.charAt(1) == ':'){
+                    //find second occurence of :, the number after that is the line number of the reported bug
+                    index = fileRead.indexOf(":", fileRead.indexOf(":") + 1);
+                }else{
+                    index = fileRead.indexOf(":");
+                }
+//                //find second occurence of :, the number after that is the line number of the reported bug
+//                int index = fileRead.indexOf(":", fileRead.indexOf(":") + 1);
+                if (index > -1) {
 
-                System.out.println("errorLineNumber: " + bugLineNumber);
+                    //class path starts from the begining to just before the line number that a bug was reported
+                    String classPath = fileRead.substring(0, index);
+                    int start_index = classPath.lastIndexOf("\\java");
+                    classPath = classPath.substring(start_index + 1, index).replace("\\", "/");
+                    System.out.println("ClassPath: " + classPath);
 
-                //message starts immediately after the line number
-                String errorMessage = fileRead.substring(endIndex_bugLineNumber+ 1,fileRead.length()).trim();
-                System.out.println("Error Message: " + errorMessage);
+                    //starts after the class path, they are separated by the index containing :
+                    int startIndex_bugLineNumber = index + 1;
+                    int endIndex_bugLineNumber = fileRead.indexOf(':', startIndex_bugLineNumber);
+                    System.out.println("startIndex:" + startIndex_bugLineNumber + " endIndex:" + endIndex_bugLineNumber);
+                    String bugLineNumber = fileRead.substring(startIndex_bugLineNumber, endIndex_bugLineNumber);
 
-                //Bug Type
-                String bugType = getBugType(errorMessage);
-                System.out.println("Bug Type: " + getClassName(bugType));
+                    System.out.println("errorLineNumber: " + bugLineNumber);
 
-                //Class Name
-                System.out.println("className: " + getClassName(classPath));
-                String className = getClassName(classPath);
+                    //message starts immediately after the line number
+                    String errorMessage = fileRead.substring(endIndex_bugLineNumber + 1, fileRead.length()).trim();
+                    System.out.println("Error Message: " + errorMessage);
 
-                //sourceFile and ClassFile
+                    //Bug Type
+                    String bugType = getBugType(errorMessage);
+                    System.out.println("Bug Type: " + getClassName(bugType));
+
+                    //Class Name
+                    System.out.println("className: " + getClassName(classPath));
+                    String className = getClassName(classPath);
+
+                    //sourceFile and ClassFile
                     String sourcePath = classPath;
                     String classFile = classPath;
-                System.out.println("--------------------------------------");
-                JlintReportedBug bugInstance = new JlintReportedBug(bugType, errorMessage, className,  Integer.valueOf(bugLineNumber),  sourcePath);
-                ReportedBugs.add(bugInstance);
+                    System.out.println("--------------------------------------");
+                    JlintReportedBug bugInstance = new JlintReportedBug(bugType, errorMessage, className, Integer.valueOf(bugLineNumber), sourcePath);
+                    ReportedBugs.add(bugInstance);
 
-            }
+                }
 
-            fileRead = br.readLine();
+                fileRead = br.readLine();
             }
 
             // close file stream
@@ -83,7 +101,7 @@ public class JlintReportParser {
         return ReportedBugs;
     }
 
-    private static String getClassName(String classPath){
+    private static String getClassName(String classPath) {
         // the first \ is an escape sequence character for the char to look for is '\'
         int start_index = classPath.lastIndexOf('/');
         String className = classPath.substring(start_index + 1, classPath.length()).trim();
@@ -91,19 +109,18 @@ public class JlintReportParser {
         return className;
 
     }
-    private static String getBugType(String errorMessage){
+
+    private static String getBugType(String errorMessage) {
 
         //Exeption Type
         BUG_TYPE bugType;
-        if(errorMessage.contains("NULL") || errorMessage.contains("null")){
+        if (errorMessage.contains("NULL") || errorMessage.contains("null")) {
             bugType = BUG_TYPE.NULL_POINTER_EXEPTION;
-        }else
-        {
+        } else {
             bugType = BUG_TYPE.ANOTHER_TYPE;
         }
         return bugType.toString();
     }
-
 
 
 }

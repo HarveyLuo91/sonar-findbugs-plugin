@@ -28,9 +28,11 @@ import java.util.*;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import edu.bit.cs.ReportedBugInfo;
+import edu.bit.cs.ReportedInfoProcessor;
 import edu.bit.cs.infer.InferReportParser;
 import edu.bit.cs.infer.InferReportedBug;
 import edu.bit.cs.jlint.*;
+import edu.bit.cs.util.CmdExecutor;
 import edu.umd.cs.findbugs.BugInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -128,10 +130,19 @@ public class FindbugsSensor implements Sensor {
 
             Map<String, List<ReportedBugInfo>> bugs = Maps.newHashMap();
 
+//            context.fileSystem().workDir().getAbsolutePath()
+//            String absolutePath = context.fileSystem().workDir().getAbsolutePath();
+            String absolutePath = context.fileSystem().baseDir().getAbsolutePath();
+//            System.out.println("workDir_absolutePath:" + absolutePath);
+//            System.out.println("baseDir_absolutePath:" + absolutePath2);
             //Jlint
-            List<JlintReportedBug> jlintReportedBugs = JlintReportParser.get_Reported_jlint_Bugs();
+            File binaries = new File(absolutePath, context.settings().getString("sonar.binaries"));
+            System.out.println("binaries:" + binaries);
+            String cmd = CmdExecutor.genCmdStr("JLINT", binaries.getAbsolutePath());
+            Collection<? extends ReportedBugInfo> jlintReportedBugs = CmdExecutor.exeCmd(cmd, new JlintReportParser());
+//            List<JlintReportedBug> jlintReportedBugs = JlintReportParser.get_Reported_jlint_Bugs();
             System.out.println("******************************Jlint size:" + jlintReportedBugs.size());
-            for (JlintReportedBug bugInstance : jlintReportedBugs) {
+            for (ReportedBugInfo bugInstance : jlintReportedBugs) {
                 if (bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE.toString())) {
                     continue;
                 }
