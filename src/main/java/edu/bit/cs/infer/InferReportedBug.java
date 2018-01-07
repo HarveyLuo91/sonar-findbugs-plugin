@@ -1,6 +1,7 @@
 package edu.bit.cs.infer;
 
 import edu.bit.cs.ReportedBugInfo;
+import edu.bit.cs.util.ToolCollection;
 
 public class InferReportedBug implements ReportedBugInfo{
 
@@ -21,7 +22,7 @@ public class InferReportedBug implements ReportedBugInfo{
     private  final String infer_Bug_Always_Report;
     private  final String infer_Bug_advice;
 
-    public static final String INFER = "[Infer] ";
+    public static final ToolCollection INFER = ToolCollection.INFER;
 
 
 
@@ -160,7 +161,7 @@ public class InferReportedBug implements ReportedBugInfo{
     }
 
     @Override
-    public String getToolName() {
+    public ToolCollection getToolName() {
         return INFER;
     }
 }

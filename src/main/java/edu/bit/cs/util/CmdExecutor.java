@@ -19,14 +19,6 @@ public class CmdExecutor {
             Process p = Runtime.getRuntime().exec(commandStr);
             br = new BufferedReader(new InputStreamReader(p.getInputStream(), "GBK"));
             return processor.getReportedBugs(br);
-//            String line;
-//            StringBuilder sb = new StringBuilder();
-//            while ((line = br.readLine()) != null) {
-//
-//                sb.append(line + "\n");
-//
-//            }
-//            System.out.println(sb.toString());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -63,8 +55,8 @@ public class CmdExecutor {
 //
 //        cmdExecutor.exeCmd(commandStr, jlintReportParser);
 
-        String cmd = CmdExecutor.genCmdStr("JLINT", "target");
-        Collection<? extends ReportedBugInfo> jlintReportedBugs = CmdExecutor.exeCmd(cmd, new JlintReportParser());
+        String cmd = CmdExecutor.genCmdStr("JLINT", "C:\\Users\\Luo\\program\\testcases-for-npe\\killbugs-testcases-src\\target");
+        Collection<? extends ReportedBugInfo> jlintReportedBugs = CmdExecutor.exeCmd(cmd, new JlintReportParser("killbugs-testcases-src"));
 //            List<JlintReportedBug> jlintReportedBugs = JlintReportParser.get_Reported_jlint_Bugs();
 
         System.out.println("******************************Jlint size:" + jlintReportedBugs.size());
