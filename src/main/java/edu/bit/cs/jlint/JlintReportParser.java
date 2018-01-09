@@ -4,29 +4,15 @@ package edu.bit.cs.jlint;
 import edu.bit.cs.ReportedBugInfo;
 import edu.bit.cs.ReportedInfoProcessor;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.io.*;
 import java.util.Collection;
 
 public class JlintReportParser implements ReportedInfoProcessor {
 
     private ArrayList ReportedBugs = new ArrayList();
-    private String root;
-
-    public JlintReportParser(String root) {
-        this.root = root;
-    }
-
-//    //this is for testing
-//    public static void main(String[] args) {
-//        JlintReportParser jlintReportParser = new JlintReportParser("killbugs-testcases-src");
-//        Collection<? extends ReportedBugInfo> reportedBugs = jlintReportParser.getReportedBugs(new BufferedReader(new InputStreamReader(JlintReportParser.class.getClassLoader().getResourceAsStream("file/jlint_npe_repoter.txt"))));
-//        for (ReportedBugInfo bug : reportedBugs) {
-//            System.out.println(bug.toString());
-//        }
-//    }
-
-//    private static String ReportFilePath;
 
     @Override
     public Collection<? extends ReportedBugInfo> getReportedBugs(BufferedReader br) {
@@ -59,9 +45,8 @@ public class JlintReportParser implements ReportedInfoProcessor {
 
                     //class path starts from the begining to just before the line number that a bug was reported
                     String classPath = fileRead.substring(0, index);
-//                    int start_index = classPath.lastIndexOf("\\java");
-                    int start_index = classPath.lastIndexOf(root);
-                    classPath = classPath.substring(start_index + root.length() + 1, index).replace("\\", "/");
+//                    int start_index = classPath.lastIndexOf(root);
+//                    classPath = classPath.substring(start_index + root.length() + 1, index).replace("\\", "/");
                     System.out.println("ClassPath: " + classPath);
 
                     //starts after the class path, they are separated by the index containing :

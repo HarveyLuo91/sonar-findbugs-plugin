@@ -19,23 +19,14 @@
  */
 package org.sonar.plugins.findbugs;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
-import java.util.*;
-
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.sun.org.apache.xpath.internal.SourceTree;
 import edu.bit.cs.ReportedBugInfo;
-import edu.bit.cs.ReportedInfoProcessor;
 import edu.bit.cs.infer.InferReportParser;
-import edu.bit.cs.infer.InferReportedBug;
-import edu.bit.cs.jlint.*;
+import edu.bit.cs.jlint.BUG_TYPE;
+import edu.bit.cs.jlint.JlintReportParser;
 import edu.bit.cs.util.CmdExecutor;
 import edu.bit.cs.util.ToolCollection;
-import edu.umd.cs.findbugs.BugInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.fs.FileSystem;
@@ -51,11 +42,17 @@ import org.sonar.api.profiles.RulesProfile;
 import org.sonar.plugins.findbugs.resource.ByteCodeResourceLocator;
 import org.sonar.plugins.findbugs.resource.ClassMetadataLoadingException;
 import org.sonar.plugins.findbugs.resource.SmapParser;
-import org.sonar.plugins.findbugs.rules.*;
+import org.sonar.plugins.findbugs.rules.FbContribRulesDefinition;
+import org.sonar.plugins.findbugs.rules.FindSecurityBugsJspRulesDefinition;
+import org.sonar.plugins.findbugs.rules.FindSecurityBugsRulesDefinition;
+import org.sonar.plugins.findbugs.rules.FindbugsRulesDefinition;
 import org.sonar.plugins.java.api.JavaResourceLocator;
 
-import javax.tools.Tool;
-import javax.xml.bind.SchemaOutputResolver;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.util.*;
 
 public class FindbugsSensor implements Sensor {
 
@@ -134,18 +131,17 @@ public class FindbugsSensor implements Sensor {
 
             String absolutePath = context.fileSystem().baseDir().getAbsolutePath();
 
-            //Jlint
             String root = context.settings().getString("sonar.root");
+            //Jlint
             File binaries = new File(absolutePath, context.settings().getString("sonar.binaries"));
             System.out.println("binaries:" + binaries);
-            String cmd = CmdExecutor.genCmdStr("JLINT", binaries.getAbsolutePath());
-            Collection<? extends ReportedBugInfo> jlintReportedBugs = CmdExecutor.exeCmd(cmd, new JlintReportParser(root));
+            Collection<? extends ReportedBugInfo> jlintReportedBugs = CmdExecutor.exeCmd(binaries.getAbsolutePath(), new JlintReportParser());
             System.out.println("******************************Jlint size:" + jlintReportedBugs.size());
             for (ReportedBugInfo bugInstance : jlintReportedBugs) {
                 if (bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE.toString())) {
                     continue;
                 }
-                String sourceFile = bugInstance.getSourcePath();
+                String sourceFile = normalizeFilePath(bugInstance.getSourcePath(), root);
                 int line = bugInstance.getBugLineNumber();
                 System.out.println("-------------------jlint sourceFile+line:" + sourceFile + line);
                 List bugInstances;
@@ -160,16 +156,18 @@ public class FindbugsSensor implements Sensor {
             System.out.println("**********************jlint map size:" + bugs.size());
 
             //Infer
-            List<InferReportedBug> list = InferReportParser.get_Reported_Infer_Bugs();
-            System.out.println("***********************Infer size:" + list.size());
+            System.out.println("Infer dir:" + absolutePath);
+            Collection<? extends ReportedBugInfo> inferReportedBugs = CmdExecutor.exeCmd(absolutePath, new InferReportParser());
+
+
+            System.out.println("***********************Infer size:" + inferReportedBugs.size());
             int jlint_infer_intersection = 0;
-            for (InferReportedBug bugInstance : list) {
-                if (!bugInstance.getInfer_Bug_Type().equals("NULL_DEREFERENCE")) {
+            for (ReportedBugInfo bugInstance : inferReportedBugs) {
+                if (!bugInstance.getBugType().equals("NULL_DEREFERENCE")) {
                     continue;
                 }
-//                String className = bugInstance.getClassName();
-                String sourceFile = bugInstance.getSourcePath();
-//                String longMessage = bugInstance.getMessage();
+                System.out.println(bugInstance);
+                String sourceFile = normalizeFilePath(bugInstance.getSourcePath(), root);
                 int line = bugInstance.getBugLineNumber();
                 System.out.println("-------------------Infer sourceFile+line:" + sourceFile + line);
                 List bugInstances;
@@ -369,6 +367,16 @@ public class FindbugsSensor implements Sensor {
         insertIssue(rule, resource, line, message);
 
         writeDebugMappingToFile(bugInstance.getClassName(), bugInstance.getStartLine(), resource.relativePath(), line);
+    }
+
+    private String normalizeFilePath(String filePath, String root) {
+        String localRoot = root;
+        if (filePath.contains("main/java")) {
+            localRoot = "main/java";
+        }
+        int start_index = filePath.lastIndexOf(localRoot);
+        return filePath.substring(start_index + localRoot.length() + 1).replace("\\", "/");
+
     }
 
     private void writeDebugMappingToFile(String classFile, int classFileLine, String sourceFile, int sourceFileLine) {

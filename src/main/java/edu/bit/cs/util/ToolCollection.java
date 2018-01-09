@@ -1,7 +1,5 @@
 package edu.bit.cs.util;
 
-import org.sonar.plugins.findbugs.FindbugsExecutor;
-
 public enum ToolCollection {
     FINDBUGS(1, "[FindBugs] "),
     JLINT(2, "[Jlint] "),
@@ -16,7 +14,7 @@ public enum ToolCollection {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return this.name;
     }
 
@@ -27,10 +25,6 @@ public enum ToolCollection {
     public String getName() {
         return name;
     }
-
-    //    private static final String FINDBUGS = "[FindBugs] ";
-//    private static final String JLINT = "[Jlint] ";
-//    private static final String Infer = "[Infer] ";
 
     private static String[] tools = new String[]{
             "",
