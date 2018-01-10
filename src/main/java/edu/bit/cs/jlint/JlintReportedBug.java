@@ -2,6 +2,7 @@ package edu.bit.cs.jlint;
 
 
 import edu.bit.cs.ReportedBugInfo;
+import edu.bit.cs.util.ToolCollection;
 
 
 public class JlintReportedBug implements ReportedBugInfo {
@@ -11,7 +12,7 @@ public class JlintReportedBug implements ReportedBugInfo {
     private final int bugLineNumber;
     private final String sourcePath;
 
-    public static final String JLINT = "[Jlint] ";
+    public static final ToolCollection JLINT = ToolCollection.JLINT;
 
     public JlintReportedBug(String type, String message, String className, int bugLineNumber, String sourcePath) {
         this.type = type;
@@ -44,7 +45,7 @@ public class JlintReportedBug implements ReportedBugInfo {
     }
 
     @Override
-    public String getToolName() {
+    public ToolCollection getToolName() {
         return JLINT;
     }
 

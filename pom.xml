@@ -113,6 +113,11 @@
       <version>2.5</version>
     </dependency>
 
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.6.2</version>
+    </dependency>
 
     <dependency>
       <!-- For some reasons was not deployed with FindBugs 2.0.3 and not transitive dependency anymore -->
@@ -172,6 +177,12 @@
       <artifactId>sonar-java-plugin</artifactId>
       <version>${sonar-java.version}</version>
       <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>gson</artifactId>
+          <groupId>com.google.code.gson</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <!-- unit tests -->
@@ -198,6 +209,16 @@
       <artifactId>sonar-testing-harness</artifactId>
       <version>${sonar.version}</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>gson</artifactId>
+          <groupId>com.google.code.gson</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>gson</artifactId>
+          <groupId>com.google.code.gson</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>xmlunit</groupId>
@@ -221,11 +242,7 @@
       <version>1.22</version>
     </dependency>
 
-    <dependency>
-      <groupId>com.google.code.gson</groupId>
-      <artifactId>gson</artifactId>
-      <version>2.6.2</version>
-    </dependency>
+
   </dependencies>
 
   <build>

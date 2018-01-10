@@ -4,24 +4,15 @@ package edu.bit.cs.jlint;
 import edu.bit.cs.ReportedBugInfo;
 import edu.bit.cs.ReportedInfoProcessor;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.io.*;
 import java.util.Collection;
 
 public class JlintReportParser implements ReportedInfoProcessor {
 
-
-//    //this is for testing
-//    public static void main(String[] args) {
-//        ArrayList<JlintReportedBug> reportedBugs = JlintReportParser.get_Reported_jlint_Bugs();
-//        for (JlintReportedBug bug: reportedBugs) {
-//            System.out.println(bug.toString());
-//        }
-//    }
-
-    private static String ReportFilePath;
-
-    public static ArrayList<JlintReportedBug> ReportedBugs = new ArrayList();
+    private ArrayList ReportedBugs = new ArrayList();
 
     @Override
     public Collection<? extends ReportedBugInfo> getReportedBugs(BufferedReader br) {
@@ -34,7 +25,7 @@ public class JlintReportParser implements ReportedInfoProcessor {
             // loop until all lines are read
             while (fileRead != null) {
 
-                if(fileRead.contains("Verification completed")){
+                if (fileRead.contains("Verification completed")) {
                     fileRead = br.readLine();
                     continue;
                 }
@@ -42,10 +33,10 @@ public class JlintReportParser implements ReportedInfoProcessor {
                 System.out.println("jlint report bug:" + fileRead);
 
                 int index;
-                if(fileRead.charAt(1) == ':'){
+                if (fileRead.charAt(1) == ':') {
                     //find second occurence of :, the number after that is the line number of the reported bug
                     index = fileRead.indexOf(":", fileRead.indexOf(":") + 1);
-                }else{
+                } else {
                     index = fileRead.indexOf(":");
                 }
 //                //find second occurence of :, the number after that is the line number of the reported bug
@@ -54,8 +45,8 @@ public class JlintReportParser implements ReportedInfoProcessor {
 
                     //class path starts from the begining to just before the line number that a bug was reported
                     String classPath = fileRead.substring(0, index);
-                    int start_index = classPath.lastIndexOf("\\java");
-                    classPath = classPath.substring(start_index + 1, index).replace("\\", "/");
+//                    int start_index = classPath.lastIndexOf(root);
+//                    classPath = classPath.substring(start_index + root.length() + 1, index).replace("\\", "/");
                     System.out.println("ClassPath: " + classPath);
 
                     //starts after the class path, they are separated by the index containing :
