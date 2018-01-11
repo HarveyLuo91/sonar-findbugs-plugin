@@ -1,6 +1,7 @@
 package edu.bit.cs.jlint;
 
 
+import edu.bit.cs.BUG_TYPE;
 import edu.bit.cs.ReportedBugInfo;
 import edu.bit.cs.ReportedInfoProcessor;
 

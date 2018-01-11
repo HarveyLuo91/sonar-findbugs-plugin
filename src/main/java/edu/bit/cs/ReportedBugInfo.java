@@ -3,7 +3,7 @@ package edu.bit.cs;
 import edu.bit.cs.util.ToolCollection;
 
 public interface ReportedBugInfo {
-    String getBugType();
+    BUG_TYPE getBugType();
 
     String getBugMessage();
 

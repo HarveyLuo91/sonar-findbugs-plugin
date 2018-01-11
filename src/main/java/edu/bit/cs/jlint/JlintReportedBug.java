@@ -1,6 +1,7 @@
 package edu.bit.cs.jlint;
 
 
+import edu.bit.cs.BUG_TYPE;
 import edu.bit.cs.ReportedBugInfo;
 import edu.bit.cs.util.ToolCollection;
 
@@ -23,8 +24,15 @@ public class JlintReportedBug implements ReportedBugInfo {
     }
 
     @Override
-    public String getBugType() {
-        return type;
+    public BUG_TYPE getBugType() {
+        if(type.contains("NULL")){
+            return BUG_TYPE.NULL_POINTER_EXEPTION;
+        }else if(type.contains("RESOURCE")){
+            return BUG_TYPE.RESOURCE_LEAK;
+        }else{
+            return BUG_TYPE.ANOTHER_TYPE;
+        }
+
     }
 
     @Override

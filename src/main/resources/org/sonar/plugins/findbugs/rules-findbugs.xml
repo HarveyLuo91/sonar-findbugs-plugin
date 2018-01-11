@@ -6222,9 +6222,22 @@
         </description>
         <tag>style</tag>
     </rule>
-    <rule key='NULL_POINTER_DETECTED_BY_JLINT' priority='MAJOR'>
+    <rule key='NULL_POINTER_DETECTED_BY_KILLBUGS' priority='MAJOR'>
         <name>Correctness - null value</name>
         <configKey>NULL_POINTER_DETECTED_BY_JLINT</configKey>
+        <description>&lt;p&gt; The variable referenced at this point is known to be null due to an earlier
+            check against null. Although this is valid, it might be a mistake (perhaps you
+            intended to refer to a different variable, or perhaps the earlier check to see if the
+            variable is null should have been a check to see if it was non-null).
+            &lt;/p&gt;
+        </description>
+        <tag>correctness</tag>
+        <tag>bug</tag>
+    </rule>
+
+    <rule key='RESOURCE_LEAK_BY_KILLBUGS' priority='MAJOR'>
+        <name>Correctness - resource leak</name>
+        <configKey>RESOURCE_LEAK_BY_INFER</configKey>
         <description>&lt;p&gt; The variable referenced at this point is known to be null due to an earlier
             check against null. Although this is valid, it might be a mistake (perhaps you
             intended to refer to a different variable, or perhaps the earlier check to see if the

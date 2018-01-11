@@ -1,5 +1,6 @@
 package edu.bit.cs.infer;
 
+import edu.bit.cs.BUG_TYPE;
 import edu.bit.cs.ReportedBugInfo;
 import edu.bit.cs.util.ToolCollection;
 
@@ -311,8 +312,16 @@ public class InferReportedBugFromJson implements ReportedBugInfo {
     }
 
     @Override
-    public String getBugType() {
-        return bug_type;
+    public BUG_TYPE getBugType() {
+        if(bug_type.equals("NULL_DEREFERENCE")){
+            return BUG_TYPE.NULL_POINTER_EXEPTION;
+        }else if(bug_type.equals("RESOURCE_LEAK")){
+            return BUG_TYPE.RESOURCE_LEAK;
+        }else{
+            return BUG_TYPE.ANOTHER_TYPE;
+        }
+
+
     }
 
     @Override

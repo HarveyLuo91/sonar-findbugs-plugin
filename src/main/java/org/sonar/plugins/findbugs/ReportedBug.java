@@ -19,12 +19,15 @@
  */
 package org.sonar.plugins.findbugs;
 
+import edu.bit.cs.BUG_TYPE;
+import edu.bit.cs.ReportedBugInfo;
+import edu.bit.cs.util.ToolCollection;
 import edu.umd.cs.findbugs.BugInstance;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ReportedBug {
+public class ReportedBug implements ReportedBugInfo{
 
   private final String type;
   private final String message;
@@ -58,8 +61,40 @@ public class ReportedBug {
     return message;
   }
 
+  @Override
+  public BUG_TYPE getBugType() {
+    if(type.contains("NULL")){
+      return BUG_TYPE.NULL_POINTER_EXEPTION;
+    }else if(message.contains("resource")){
+      return BUG_TYPE.RESOURCE_LEAK;
+    }else {
+      return BUG_TYPE.ANOTHER_TYPE;
+    }
+
+  }
+
+  @Override
+  public String getBugMessage() {
+    return message;
+  }
+
   public String getClassName() {
     return className;
+  }
+
+  @Override
+  public int getBugLineNumber() {
+    return startLine;
+  }
+
+  @Override
+  public String getSourcePath() {
+    return sourceFile;
+  }
+
+  @Override
+  public ToolCollection getToolName() {
+    return ToolCollection.FINDBUGS;
   }
 
   public int getStartLine() {

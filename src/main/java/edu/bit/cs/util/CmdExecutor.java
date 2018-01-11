@@ -3,7 +3,7 @@ package edu.bit.cs.util;
 import edu.bit.cs.ReportedBugInfo;
 import edu.bit.cs.ReportedInfoProcessor;
 import edu.bit.cs.infer.InferReportParser;
-import edu.bit.cs.jlint.BUG_TYPE;
+import edu.bit.cs.BUG_TYPE;
 import edu.bit.cs.jlint.JlintReportParser;
 
 import java.io.*;
@@ -64,7 +64,7 @@ public class CmdExecutor {
         }
     }
 
-    public static void main(String[] args) {
+   // public static void main(String[] args) {
 //        String commandStr = "ping www.taobao.com";
 //        CmdExecutor cmdExecutor = new CmdExecutor();
 //        JlintReportParser jlintReportParser = new JlintReportParser();
@@ -72,24 +72,24 @@ public class CmdExecutor {
 //
 //        cmdExecutor.exeCmd(commandStr, jlintReportParser);
 
-        String cmd = CmdExecutor.genCmdStr("JLINT", "C:\\Users\\Luo\\program\\testcases-for-npe\\killbugs-testcases-src\\target");
-        Collection<? extends ReportedBugInfo> jlintReportedBugs = CmdExecutor.exeCmd(cmd, new JlintReportParser());
+        //String cmd = CmdExecutor.genCmdStr("JLINT", "C:\\Users\\Luo\\program\\testcases-for-npe\\killbugs-testcases-src\\target");
+        //Collection<? extends ReportedBugInfo> jlintReportedBugs = CmdExecutor.exeCmd(cmd, new JlintReportParser());
 //            List<JlintReportedBug> jlintReportedBugs = JlintReportParser.get_Reported_jlint_Bugs();
 
-        System.out.println("******************************Jlint size:" + jlintReportedBugs.size());
-        for (ReportedBugInfo bugInstance : jlintReportedBugs) {
-            if (bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE.toString())) {
-                continue;
-            }
+        //System.out.println("******************************Jlint size:" + jlintReportedBugs.size());
+        //for (ReportedBugInfo bugInstance : jlintReportedBugs) {
+          //  if (bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE.toString())) {
+            //    continue;
+            //}
 //                String className = bugInstance.getClassName();
-            String sourceFile = bugInstance.getSourcePath();
+            //String sourceFile = bugInstance.getSourcePath();
 //                String longMessage = bugInstance.getMessage();
-            int line = bugInstance.getBugLineNumber();
-            System.out.println("-------------------jlint sourceFile+line:" + sourceFile + line);
-            List bugInstances;
+            //int line = bugInstance.getBugLineNumber();
+            //System.out.println("-------------------jlint sourceFile+line:" + sourceFile + line);
+            //List bugInstances;
 
-        }
+        //}
 //        System.out.println("**********************jlint map size:" + bugs.size());
 
-    }
+//    }
 }
