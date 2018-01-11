@@ -362,13 +362,25 @@ public class FindbugsSensor implements Sensor {
     }
 
     public void findBugs_BugType_Count(){
+
         Collection<ReportedBug> collection = executor.execute(hasActiveFbContribRules(), hasActiveFindSecBugsRules());
-
+        Map<String, Integer> bugTypes_Count = Maps.newHashMap();
         for (ReportedBug bugInstance : collection) {
+            String curr_Type = bugInstance.getType();
 
-
+            if(bugTypes_Count.containsKey(curr_Type)){
+                int curr_count = bugTypes_Count.get(curr_Type);
+                bugTypes_Count.replace(curr_Type,curr_count+1);
+            }else{
+                bugTypes_Count.replace(curr_Type,1);
+            }
         }
 
+        Set<String> keys = bugTypes_Count.keySet();
+        for(String key : keys){
+            int value = bugTypes_Count.get(key);
+            System.out.println(key + "----------------" + value);
+        }
 
     }
 
@@ -472,5 +484,6 @@ public class FindbugsSensor implements Sensor {
         descriptor.onlyOnLanguages(FindbugsPlugin.SUPPORTED_JVM_LANGUAGES);
         descriptor.name("FindBugs Sensor");
     }
+
 
 }
