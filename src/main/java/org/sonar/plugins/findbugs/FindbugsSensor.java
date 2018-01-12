@@ -134,6 +134,7 @@ public class FindbugsSensor implements Sensor {
             String root = context.settings().getString("sonar.root");
 
             //Jlint
+            /*
             File binaries = new File(absolutePath, context.settings().getString("sonar.binaries"));
             System.out.println("binaries:" + binaries);
            //execute Jlint and get reported bugs
@@ -163,6 +164,7 @@ public class FindbugsSensor implements Sensor {
                 bugs.put(sourceFile + "-" + line + "-" + bugInstance.getBugType().name(), bugInstances);
             }
             System.out.println("**********************jlint map size:" + bugs.size());
+         */
 
             //Infer
             System.out.println("Infer dir:" + absolutePath);
@@ -195,6 +197,28 @@ public class FindbugsSensor implements Sensor {
             for (int index = 0; index < ToolCollection.getSize(); index++) {
                 interSection.put(ToolCollection.getTools(index), 0);
             }
+
+            //print bug types
+            Map<String, Integer> bugTypes_Count = Maps.newHashMap();
+
+            for (ReportedBug bugInstance : collection) {
+                String curr_Type = bugInstance.getType();
+
+                if(bugTypes_Count.containsKey(curr_Type)){
+                    int curr_count = bugTypes_Count.get(curr_Type);
+                    bugTypes_Count.replace(curr_Type,curr_count+1);
+                }else{
+                    bugTypes_Count.put(curr_Type,1);
+                }
+            }
+
+            Set<String> keys = bugTypes_Count.keySet();
+            for(String key : keys){
+                int value = bugTypes_Count.get(key);
+                System.out.println("##################################" + key + "----------------" + value);
+            }
+
+
 
             //findbugs
             for (ReportedBug bugInstance : collection) {
@@ -359,6 +383,7 @@ public class FindbugsSensor implements Sensor {
             classMappingWriter.flush();
             classMappingWriter.close();
         }
+
     }
 
     public void findBugs_BugType_Count(){
@@ -379,7 +404,7 @@ public class FindbugsSensor implements Sensor {
         Set<String> keys = bugTypes_Count.keySet();
         for(String key : keys){
             int value = bugTypes_Count.get(key);
-            System.out.println(key + "----------------" + value);
+            System.out.println("##################################" + key + "----------------" + value);
         }
 
     }
