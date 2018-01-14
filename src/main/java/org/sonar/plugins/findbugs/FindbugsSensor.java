@@ -198,43 +198,22 @@ public class FindbugsSensor implements Sensor {
                 interSection.put(ToolCollection.getTools(index), 0);
             }
 
-            //print bug types
-            Map<String, Integer> bugTypes_Count = Maps.newHashMap();
-
-            for (ReportedBug bugInstance : collection) {
-                String curr_Type = bugInstance.getType();
-
-                if(bugTypes_Count.containsKey(curr_Type)){
-                    int curr_count = bugTypes_Count.get(curr_Type);
-                    bugTypes_Count.replace(curr_Type,curr_count+1);
-                }else{
-                    bugTypes_Count.put(curr_Type,1);
-                }
-            }
-
-            Set<String> keys = bugTypes_Count.keySet();
-            for(String key : keys){
-                int value = bugTypes_Count.get(key);
-                System.out.println("##################################" + key + "----------------" + value);
-            }
-
-
 
             //findbugs
             for (ReportedBug bugInstance : collection) {
                 try {
                     ActiveRule rule = null;
                     for (String repoKey : getRepositories()) {
-                        System.out.println("---------------------type:" + bugInstance.getType() + "message:" + bugInstance.getMessage());
-                        rule = ruleFinder.findByInternalKey(repoKey, bugInstance.getType());
+                        System.out.println("---------------------type:" + bugInstance.getBugType().name() + "message:" + bugInstance.getMessage());
+                        rule = ruleFinder.findByInternalKey(repoKey, bugInstance.getBugType().name());
                         if (rule != null) {
                             break;
                         }
                     }
                     if (rule == null) {
                         // ignore violations from report, if npe_killbugs_rule not activated in Sonar
-                        System.out.println("----------------Findbugs npe_killbugs_rule '{}' is not active in Sonar." + bugInstance.getType());
-                        LOG.warn("Findbugs npe_killbugs_rule '{}' is not active in Sonar.", bugInstance.getType());
+                        System.out.println("----------------Findbugs npe_killbugs_rule '{}' is not active in Sonar." + bugInstance.getBugType().name());
+                        LOG.warn("Findbugs npe_killbugs_rule '{}' is not active in Sonar.", bugInstance.getBugType().name());
                         continue;
                     }
 
@@ -247,6 +226,7 @@ public class FindbugsSensor implements Sensor {
                     //Regular Java class mapped to their original .java
                     InputFile resource = byteCodeResourceLocator.findSourceFile(sourceFile, this.fs);
                     if (resource != null) {
+
                         String tools = processBugs(bugs, interSection, sourceFile + "-" + line + "-" + bugInstance.getBugType().name());
                         longMessage.insert(0, tools + "- ");
                         insertIssue(rule, resource, line, longMessage.toString(), bugInstance);
@@ -303,7 +283,7 @@ public class FindbugsSensor implements Sensor {
 
                     LOG.warn("The class '" + className + "' could not be matched to its original source file. It might be a dynamically generated class.");
                 } catch (Exception e) {
-                    String bugInstanceDebug = String.format("[BugInstance type=%s, class=%s, line=%s]", bugInstance.getType(), bugInstance.getClassName(), bugInstance.getStartLine());
+                    String bugInstanceDebug = String.format("[BugInstance type=%s, class=%s, line=%s]", bugInstance.getBugType().name(), bugInstance.getClassName(), bugInstance.getStartLine());
                     LOG.warn("An error occurs while processing the bug instance " + bugInstanceDebug, e);
                     //Continue to the bug without aborting the report
                 }
@@ -386,6 +366,7 @@ public class FindbugsSensor implements Sensor {
 
     }
 
+/*
     public void findBugs_BugType_Count(){
 
         Collection<ReportedBug> collection = executor.execute(hasActiveFbContribRules(), hasActiveFindSecBugsRules());
@@ -408,6 +389,7 @@ public class FindbugsSensor implements Sensor {
         }
 
     }
+ */
 
     private void createIssue(ActiveRule rule, Map<String, List<ReportedBugInfo>> bugs, String bugInstanceKey, Map<String, Integer> interSection, String root) {
         String sourceFile = "";

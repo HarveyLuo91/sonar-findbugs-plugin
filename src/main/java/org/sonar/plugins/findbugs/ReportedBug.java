@@ -53,7 +53,7 @@ public class ReportedBug implements ReportedBugInfo{
     }
   }
 
-  public String getType() {
+  private String getType() {
     return type;
   }
 
@@ -63,8 +63,14 @@ public class ReportedBug implements ReportedBugInfo{
 
   @Override
   public BUG_TYPE getBugType() {
-    if(type.contains("NULL")){
+    if(type.equals("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS") || type.equals("NP_NULL_PARAM_DEREF_NONVIRTUAL") || type.equals("NP_NONNULL_RETURN_VIOLATION")
+            || type.equals("NP_DEREFERENCE_OF_READLINE_VALUE")|| type.equals("NP_GUARANTEED_DEREF")|| type.equals("NP_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD")
+            || type.equals("NP_IMMEDIATE_DEREFERENCE_OF_READLINE")|| type.equals("NP_NULL_ON_SOME_PATH_EXCEPTION")|| type.equals("RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE")
+            || type.equals("NP_NULL_ON_SOME_PATH_MIGHT_BE_INFEASIBLE")|| type.equals("NP_NULL_PARAM_DEREF")|| type.equals("NP_NULL_ON_SOME_PATH")|| type.equals("NP_LOAD_OF_KNOWN_NULL_VALUE")
+            || type.equals("NP_ALWAYS_NULL")|| type.equals("NP_ALWAYS_NULL_EXCEPTION")|| type.equals("NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE")){
+
       return BUG_TYPE.NULL_POINTER_EXEPTION;
+
     }else if(message.contains("resource")){
       return BUG_TYPE.RESOURCE_LEAK;
     }else {
