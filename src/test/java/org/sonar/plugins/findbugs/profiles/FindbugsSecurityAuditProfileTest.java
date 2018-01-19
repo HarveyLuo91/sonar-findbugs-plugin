@@ -23,7 +23,6 @@ import org.junit.Test;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.plugins.findbugs.FindbugsProfileImporter;
-import org.sonar.plugins.findbugs.profiles.FindbugsSecurityAuditProfile;
 import org.sonar.plugins.findbugs.rule.FakeRuleFinder;
 import org.sonar.plugins.findbugs.rules.FindSecurityBugsRulesDefinition;
 import org.sonar.plugins.findbugs.rules.FindbugsRulesDefinition;

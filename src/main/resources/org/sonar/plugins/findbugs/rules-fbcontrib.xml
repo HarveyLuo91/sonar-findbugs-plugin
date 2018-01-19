@@ -5,7 +5,7 @@
     <description>&lt;p&gt;This method uses &lt;code&gt;StringBuffer&lt;/code&gt; or &lt;code&gt;StringBuilder&lt;/code&gt;'s append method to concatenate strings. However, it passes the result
 			of doing a simple String concatenation to one of these append calls, thus removing any performance gains
 			of using the &lt;code&gt;StringBuffer&lt;/code&gt; or &lt;code&gt;StringBuilder&lt;/code&gt; class.&lt;/p&gt;
-			
+
 			&lt;p&gt;
 			Java will implicitly use StringBuilders, which can make this hard to detect or fix.  For example, &lt;br/&gt;
 &lt;pre&gt;&lt;code&gt;
@@ -14,7 +14,7 @@ for (Map.Entry&lt;Integer, String&gt; e : map.entrySet()) {
     sb.append(e.getKey() + e.getValue());		//bug detected here
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
-			
+
 			gets automatically turned into something like: &lt;br/&gt;
 &lt;pre&gt;&lt;code&gt;
 StringBuilder sb = new StringBuilder();
@@ -25,9 +25,9 @@ for (Map.Entry&lt;Integer, String&gt; e : map.entrySet()) {
     &lt;b&gt;sb.append(tempBuilder.toString());&lt;/b&gt;		//this isn't too efficient
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
-			
+
 			which involves a temporary &lt;code&gt;StringBuilder&lt;/code&gt;, which is completely unnecessary.  To prevent this from happening, simply do:&lt;br/&gt;
-			
+
 &lt;pre&gt;&lt;code&gt;
 StringBuilder sb = new StringBuilder();
 for (Map.Entry&lt;Integer, String&gt; e : map.entrySet()) {
@@ -55,12 +55,12 @@ for (Map.Entry&lt;Integer, String&gt; e : map.entrySet()) {
     <description>&lt;p&gt;This method concatenates the output of a &lt;code&gt;toString()&lt;/code&gt; call into a &lt;code&gt;StringBuffer&lt;/code&gt; or &lt;code&gt;StringBuilder&lt;/code&gt;.
 			It is simpler just to pass the object you want to append to the append call, as that form
 			does not suffer the potential for &lt;code&gt;NullPointerException&lt;/code&gt;s, and is easier to read.&lt;/p&gt;
-			
+
 			&lt;p&gt;
-			Keep in mind that Java compiles simple &lt;code&gt;String&lt;/code&gt; concatenation to use &lt;code&gt;StringBuilder&lt;/code&gt;s, 
+			Keep in mind that Java compiles simple &lt;code&gt;String&lt;/code&gt; concatenation to use &lt;code&gt;StringBuilder&lt;/code&gt;s,
 			so you may see this bug even when you don't use &lt;code&gt;StringBuilder&lt;/code&gt;s explicitly.
 			&lt;/p&gt;
-			
+
 			&lt;p&gt;
 			Instead of: &lt;br/&gt;
 &lt;pre&gt;&lt;code&gt;
@@ -116,7 +116,7 @@ private void appendToList(ArrayList&amp;lt;String&amp;gt; list) {
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-				The parameter list is currently defined as an &lt;code&gt;ArrayList&lt;/code&gt;, which is a concrete implementation of the &lt;code&gt;List&lt;/code&gt; interface.  
+				The parameter list is currently defined as an &lt;code&gt;ArrayList&lt;/code&gt;, which is a concrete implementation of the &lt;code&gt;List&lt;/code&gt; interface.
 				Specifying &lt;code&gt;ArrayList&lt;/code&gt; is unnecessary here, because we aren't using any &lt;code&gt;ArrayList&lt;/code&gt;-specific methods (like &lt;code&gt;ensureCapacity()&lt;/code&gt; or &lt;code&gt;trimToSize()&lt;/code&gt;).
 				Instead of using the concrete definition, it is better to do something like:&lt;br/&gt;
 &lt;pre&gt;&lt;code&gt;
@@ -180,8 +180,8 @@ str.compareTo("someOtherString");&lt;/code&gt;&lt;/pre&gt;
 "someOtherString".equals(str);
 //or
 "someOtherString".compareTo(str);&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
-			that is, call &lt;code&gt;equals()&lt;/code&gt; or &lt;code&gt;compareTo()&lt;/code&gt; on the string literal, passing the 
-			variable as an argument, this exception could never happen as both &lt;code&gt;equals()&lt;/code&gt; and 
+			that is, call &lt;code&gt;equals()&lt;/code&gt; or &lt;code&gt;compareTo()&lt;/code&gt; on the string literal, passing the
+			variable as an argument, this exception could never happen as both &lt;code&gt;equals()&lt;/code&gt; and
 			&lt;code&gt;compareTo()&lt;/code&gt; check for &lt;code&gt;null&lt;/code&gt;.&lt;/p&gt;</description>
     <tag>style</tag>
   </rule>
@@ -226,7 +226,7 @@ List&amp;lt;WordAndCount&amp;gt; wordsAndCounts = new ArrayList&amp;lt;WordAndCo
 //or, for just two elements
 Map&lt;String,Integer&gt; wordCounts = new HashMap&lt;String,Integer&gt;();
 &lt;/code&gt;&lt;/pre&gt;
-			
+
 			&lt;/p&gt;</description>
     <tag>style</tag>
   </rule>
@@ -236,10 +236,10 @@ Map&lt;String,Integer&gt; wordCounts = new HashMap&lt;String,Integer&gt;();
     <description>&lt;p&gt;This method does not write to a parameter. To help document this, and to perhaps
 			help the JVM optimize the invocation of this method, you should consider defining these parameters
 			as final.&lt;/p&gt;
-			
-			&lt;p&gt;Performance gains are debatable as "the final keyword does not appear in the class file for 
-			local variables and parameters, thus it cannot impact the runtime performance. Its only use 
-			is to clarify the coders intent that the variable not be changed (which many consider dubious 
+
+			&lt;p&gt;Performance gains are debatable as "the final keyword does not appear in the class file for
+			local variables and parameters, thus it cannot impact the runtime performance. Its only use
+			is to clarify the coders intent that the variable not be changed (which many consider dubious
 			reason for its usage), and dealing with anonymous inner classes." - http://stackoverflow.com/a/266981/1447621 &lt;/p&gt;</description>
     <tag>style</tag>
   </rule>
@@ -370,7 +370,7 @@ Float f = Float.valueOf("1.234");
 			the boxedValue() method to convert to a primitive. When it is desired to convert from a String
 			to a primitive value, it is simpler to use the BoxedPrimitive.parseBoxedPrimitive(String)
 			method. &lt;/p&gt;
-			
+
 			&lt;p&gt;Instead of something like:&lt;br/&gt;
 &lt;pre&gt;&lt;code&gt;
 public int someMethod(String data) {
@@ -397,7 +397,7 @@ public int someMethod(String data) {
     <description>&lt;p&gt;This method passes a String to a wrapped primitive object's parse method, which in turn calls
 			the valueOf() method to convert to a boxed primitive. When it is desired to convert from a String
 			to a boxed primitive object, it is simpler to use the BoxedPrimitive.valueOf(String) method.&lt;/p&gt;
-			
+
 			&lt;p&gt;Instead of something like:&lt;br/&gt;
 &lt;pre&gt;&lt;code&gt;
 Boolean bo = Boolean.valueOf(Boolean.parseBoolean("true"));
@@ -471,7 +471,7 @@ Boolean b = Boolean.TRUE;
 Boolean b = Boolean.FALSE;
 &lt;/code&gt;&lt;/pre&gt;
 			&lt;/p&gt;
-			
+
 			&lt;p&gt;Be aware that this boxing happens automatically when you might not expect it.  For example, &lt;br/&gt;
 &lt;pre&gt;&lt;code&gt;
 Map&lt;String, Boolean&gt; statusMap = ...
@@ -481,9 +481,9 @@ public Boolean someMethod() {
     return false;  //the "false" here is boxed
 }
 &lt;/code&gt;&lt;/pre&gt;
-			has two cases of this needless autoboxing.  This can be made more efficient by simply substituting 
+			has two cases of this needless autoboxing.  This can be made more efficient by simply substituting
 			in the constant values: &lt;br/&gt;
-			
+
 &lt;pre&gt;&lt;code&gt;
 Map&lt;String, Boolean&gt; statusMap = ...
 
@@ -705,9 +705,9 @@ if (!date1.equals( date2 ))
 			{&lt;code&gt;add()&lt;/code&gt;, &lt;code&gt;append()&lt;/code&gt;, &lt;code&gt;offer()&lt;/code&gt;, &lt;code&gt;put()&lt;/code&gt;, ...} &lt;br/&gt;
 			with no method calls to removal methods like&lt;br/&gt;
 			{&lt;code&gt;clear()&lt;/code&gt;, &lt;code&gt;delete()&lt;/code&gt;, &lt;code&gt;pop()&lt;/code&gt;, &lt;code&gt;remove()&lt;/code&gt;, ...}&lt;br/&gt;
-			This means that the collection in question can only ever increase in size, which is 
+			This means that the collection in question can only ever increase in size, which is
 			a potential cause of memory bloat.&lt;/p&gt;
-			
+
 			&lt;p&gt;
 			If this collection is a list, set or otherwise of static things (e.g. a List&amp;gt;String&amp;gt; for month names), consider
 			adding all of the elements in a static initializer, which can only be called once:&lt;br/&gt;
@@ -727,10 +727,10 @@ static {
   <rule key='PMB_INSTANCE_BASED_THREAD_LOCAL' priority='MAJOR'>
     <name>Correctness - Field is an instance based ThreadLocal variable</name>
     <configKey>PMB_INSTANCE_BASED_THREAD_LOCAL</configKey>
-    <description>&lt;p&gt;This ThreadLocal field is defined as being instance based (not static). As all 
+    <description>&lt;p&gt;This ThreadLocal field is defined as being instance based (not static). As all
 	       ThreadLocal variables describe permanent reachability roots so far as the garbage
 	       collector is concerned, these variables will never be reclaimed (so long as the Thread lives).
-	       Since this ThreadLocal is instanced, you potentially will be creating many non reclaimable 
+	       Since this ThreadLocal is instanced, you potentially will be creating many non reclaimable
 	       variables, even after the owning instance has been reclaimed. It is almost a certainty that
 	       you want to use static based ThreadLocal variables.&lt;/p&gt;</description>
     <tag>correctness</tag>
@@ -938,7 +938,7 @@ catch (IOException e) {
     <description>&lt;p&gt;This method passes a constant literal &lt;code&gt;String&lt;/code&gt; of length 1 as a parameter to a method, that
 			exposes a similar method that takes a &lt;code&gt;char&lt;/code&gt;. It is simpler and more expedient to handle one
 			character, rather than a &lt;code&gt;String&lt;/code&gt;.&lt;/p&gt;
-			
+
 			&lt;p&gt;
 			Instead of making calls like: &lt;br/&gt;
 &lt;pre&gt;&lt;code&gt;
@@ -951,7 +951,7 @@ if (myString.indexOf("e") != -1) {
 }
 &lt;/code&gt;&lt;/pre&gt;
 			Replace the single letter &lt;code&gt;String&lt;/code&gt;s with their &lt;code&gt;char&lt;/code&gt; equivalents like so:&lt;br/&gt;
-			
+
 &lt;pre&gt;&lt;code&gt;
 String myString = ...
 if (myString.indexOf('e') != -1) {
@@ -1017,7 +1017,7 @@ if (myString.indexOf('e') != -1) {
     <name>Correctness - Comparator method doesn't seem to return all ordering values</name>
     <configKey>SCRV_SUSPICIOUS_COMPARATOR_RETURN_VALUES</configKey>
     <description>&lt;p&gt;This compareTo or compare method returns constant values to represent less than,
-			equals, and greater than. However, it does not return each type, or it unconditionally returns a non zero value. 
+			equals, and greater than. However, it does not return each type, or it unconditionally returns a non zero value.
 			Given that comparators are transitive, this seems incorrect.&lt;/p&gt;</description>
     <tag>correctness</tag>
     <tag>bug</tag>
@@ -1149,16 +1149,16 @@ if ({{FLAWED_TEST_LOGIC}}) {
     // String b falls into this branch.
 }
 &lt;/code&gt;&lt;/pre&gt;
-			
+
 			This might be perfectly valid, but normally, null strings and empty strings are logically handled the same way,
 			and so this test may be flawed.&lt;/p&gt;
 			&lt;p&gt;Pattern found is one of the following:
 			&lt;ul&gt;
 				&lt;li&gt;&lt;code&gt;if ((s == null) || (s.length() &amp;gt; 0))&lt;/code&gt; --- did you mean
 				&lt;code&gt;((s == null) || (s.length() == 0))&lt;/code&gt;?&lt;/li&gt;
-				&lt;li&gt;&lt;code&gt;if ((s == null) || (s.length() != 0))&lt;/code&gt; -- did you mean 
+				&lt;li&gt;&lt;code&gt;if ((s == null) || (s.length() != 0))&lt;/code&gt; -- did you mean
 				&lt;code&gt;((s == null) || (s.length() == 0))&lt;/code&gt;? &lt;/li&gt;
-				&lt;li&gt;&lt;code&gt;if ((s != null) &amp;&amp; (s.length() == 0))&lt;/code&gt; -- did you mean 
+				&lt;li&gt;&lt;code&gt;if ((s != null) &amp;&amp; (s.length() == 0))&lt;/code&gt; -- did you mean
 				&lt;code&gt;((s != null) &amp;&amp; (s.length() &amp;gt; 0))&lt;/code&gt; or perhaps
 				&lt;code&gt;((s == null) || (s.length() == 0))&lt;/code&gt;? &lt;/li&gt;
 			&lt;/ul&gt;
@@ -1273,7 +1273,7 @@ if ({{FLAWED_TEST_LOGIC}}) {
   <rule key='SPP_DOUBLE_APPENDED_LITERALS' priority='MAJOR'>
     <name>Performance - Method appends two literal strings back to back to a StringBuilder</name>
     <configKey>SPP_DOUBLE_APPENDED_LITERALS</configKey>
-    <description>&lt;p&gt;This method appends two literal strings to a &lt;code&gt;StringBuilder&lt;/code&gt; back to back. 
+    <description>&lt;p&gt;This method appends two literal strings to a &lt;code&gt;StringBuilder&lt;/code&gt; back to back.
 			Modern compilers will optimize something like:&lt;br/&gt;
 &lt;pre&gt;&lt;code&gt;
 public static final string CONST_VAL = "there";
@@ -1295,7 +1295,7 @@ String str = sb.toString();
 &lt;/code&gt;&lt;/pre&gt;
 			which is harder to read and will result in more complex bytecode.
 			&lt;/p&gt;
-			
+
 			&lt;p&gt;
 			Simply append your constants with the "+" symbol, don't append them with &lt;code&gt;StringBuilder.append()&lt;/code&gt;.
 			&lt;/p&gt;</description>
@@ -1330,7 +1330,7 @@ String str = sb.toString();
     <configKey>SPP_CONVERSION_OF_STRING_LITERAL</configKey>
     <description>&lt;p&gt;This method calls a converting method like &lt;code&gt;toLowerCase()&lt;/code&gt; or &lt;code&gt;trim&lt;/code&gt;
 		   on a &lt;code&gt;String&lt;/code&gt; literal. You should make the transformation yourself and use the transformed literal.&lt;/p&gt;
-		   
+
 		   &lt;p&gt;
 		   For example, instead of :&lt;br/&gt;
 &lt;pre&gt;&lt;code&gt;
@@ -1370,7 +1370,7 @@ return "thisisaconstantstring";
     <name>Correctness - Method checks an Optional reference for null or non nullness</name>
     <configKey>SPP_NULL_CHECK_ON_OPTIONAL</configKey>
     <description>This method uses an Optional variable, and checks the reference value for whether it is null or not null.
-			Since the point of the Optional class is to avoid 'the null reference problem', having code that needs to 
+			Since the point of the Optional class is to avoid 'the null reference problem', having code that needs to
 			check the reference itself is self defeating, and therefore makes the use of the Optional variable useless.
 			You should never use a variable of type Optional that has a value of null, and so there should be no need to
 			check for it.</description>
@@ -1622,7 +1622,7 @@ return new String[0];&lt;br/&gt;
     <configKey>UTAO_JUNIT_ASSERTION_ODDITIES_NO_ASSERT</configKey>
     <description>&lt;p&gt;This JUnit test method has no assertions. While a unit test could still be valid if it relies on whether
 			or not an exception is thrown, it is usually a sign of a weak test if there are no assertions. It is also
-			possible that assertions occur in a called method that is not seen by this detector, but this makes the logic of 
+			possible that assertions occur in a called method that is not seen by this detector, but this makes the logic of
 			this test more difficult to reason about.&lt;/p&gt;</description>
     <tag>correctness</tag>
     <tag>bug</tag>
@@ -1714,7 +1714,7 @@ return new String[0];&lt;br/&gt;
     <configKey>UTAO_TESTNG_ASSERTION_ODDITIES_NO_ASSERT</configKey>
     <description>&lt;p&gt;This TestNG test method has no assertions. While a unit test could still be valid if it relies on whether
 			or not an exception is thrown, it is usually a sign of a weak test if there are no assertions. It is also
-			possible that assertions occur in a called method that is not seen by this detector, but this makes the logic of 
+			possible that assertions occur in a called method that is not seen by this detector, but this makes the logic of
 			this test more difficult to reason about.&lt;/p&gt;</description>
     <tag>correctness</tag>
     <tag>bug</tag>
@@ -1873,9 +1873,9 @@ return new String[0];&lt;br/&gt;
     <name>Correctness - Method explicitly calls toString() on a logger parameter</name>
     <configKey>LO_TOSTRING_PARAMETER</configKey>
     <description>&lt;p&gt;This method uses parameterized logging to avoid the cost of string concatenation in the case that
-			the log level does not meet the needed level. However, one or more of the parameters passed to the logging 
+			the log level does not meet the needed level. However, one or more of the parameters passed to the logging
 			method uses .toString() to present a String representation for the parameter. This is unneeded as the logger
-			will do this for you, and because it is explicitly done, will always be called even if the log statement is 
+			will do this for you, and because it is explicitly done, will always be called even if the log statement is
 			not actually written. Also, by dropping the '.toString()' you may avoid unnecessary NPEs.
 			Just pass the variable as a parameter instead.</description>
     <tag>correctness</tag>
@@ -2123,7 +2123,7 @@ if (name != null) {
   <rule key='MDM_RUNFINALIZATION' priority='MAJOR'>
     <name>Correctness - Method triggers finalization</name>
     <configKey>MDM_RUNFINALIZATION</configKey>
-    <description>&lt;p&gt;Manually triggering finalization can result in serious performance problems and may be masking resource cleanup bugs. 
+    <description>&lt;p&gt;Manually triggering finalization can result in serious performance problems and may be masking resource cleanup bugs.
 			Only the garbage collector, not application code, should be concerned with finalization.&lt;/p&gt;</description>
     <tag>correctness</tag>
     <tag>bug</tag>
@@ -2131,9 +2131,9 @@ if (name != null) {
   <rule key='MDM_BIGDECIMAL_EQUALS' priority='MAJOR'>
     <name>Correctness - Method calls BigDecimal.equals()</name>
     <configKey>MDM_BIGDECIMAL_EQUALS</configKey>
-    <description>&lt;p&gt;This method calls &lt;code&gt;equals()&lt;/code&gt; to compare two &lt;code&gt;java.math.BigDecimal&lt;/code&gt; numbers. 
-			This is normally a mistake, as two &lt;code&gt;BigDecimal&lt;/code&gt; objects are only equal if they are 
-			equal in both value and scale, so that &lt;i&gt;2.0&lt;/i&gt; is not equal to &lt;i&gt;2.00&lt;/i&gt;. 
+    <description>&lt;p&gt;This method calls &lt;code&gt;equals()&lt;/code&gt; to compare two &lt;code&gt;java.math.BigDecimal&lt;/code&gt; numbers.
+			This is normally a mistake, as two &lt;code&gt;BigDecimal&lt;/code&gt; objects are only equal if they are
+			equal in both value and scale, so that &lt;i&gt;2.0&lt;/i&gt; is not equal to &lt;i&gt;2.00&lt;/i&gt;.
 			To compare &lt;code&gt;BigDecimal&lt;/code&gt; objects for mathematical equality, use &lt;code&gt;compareTo()&lt;/code&gt; instead.&lt;/p&gt;</description>
     <tag>correctness</tag>
     <tag>bug</tag>
@@ -2141,9 +2141,9 @@ if (name != null) {
   <rule key='MDM_INETADDRESS_GETLOCALHOST' priority='MAJOR'>
     <name>Correctness - Method calls InetAddress.getLocalHost()</name>
     <configKey>MDM_INETADDRESS_GETLOCALHOST</configKey>
-    <description>&lt;p&gt;Do not call &lt;code&gt;InetAddress.getLocalHost()&lt;/code&gt; on multihomed servers. On a multihomed server, 
-			&lt;code&gt;InetAddress.getLocalHost()&lt;/code&gt; simply returns the IP address associated with the server's internal hostname. 
-			This could be any of the network interfaces, which could expose the machine to security risks. Server applications 
+    <description>&lt;p&gt;Do not call &lt;code&gt;InetAddress.getLocalHost()&lt;/code&gt; on multihomed servers. On a multihomed server,
+			&lt;code&gt;InetAddress.getLocalHost()&lt;/code&gt; simply returns the IP address associated with the server's internal hostname.
+			This could be any of the network interfaces, which could expose the machine to security risks. Server applications
 			that need to listen on sockets should add configurable properties to define which network interfaces the server should bind.&lt;/p&gt;</description>
     <tag>correctness</tag>
     <tag>bug</tag>
@@ -2151,10 +2151,10 @@ if (name != null) {
   <rule key='MDM_PROMISCUOUS_SERVERSOCKET' priority='MAJOR'>
     <name>Correctness - Method creates promiscuous ServerSocket object</name>
     <configKey>MDM_PROMISCUOUS_SERVERSOCKET</configKey>
-    <description>&lt;p&gt;Do not use the &lt;code&gt;ServerSocket&lt;/code&gt; constructor or &lt;code&gt;ServerSocketFactory.createServerSocket()&lt;/code&gt; factory methods that 
-			accept connections on any network interface. By default, an application that listens on a socket will listen for connection attempts 
-			on any network interface, which can be a security risk. Only the long form of the &lt;code&gt;ServerSocket&lt;/code&gt; constructor or 
-			&lt;code&gt;ServerSocketFactory.createServerSocket()&lt;/code&gt; factory methods take a specific local address to define which network interface 
+    <description>&lt;p&gt;Do not use the &lt;code&gt;ServerSocket&lt;/code&gt; constructor or &lt;code&gt;ServerSocketFactory.createServerSocket()&lt;/code&gt; factory methods that
+			accept connections on any network interface. By default, an application that listens on a socket will listen for connection attempts
+			on any network interface, which can be a security risk. Only the long form of the &lt;code&gt;ServerSocket&lt;/code&gt; constructor or
+			&lt;code&gt;ServerSocketFactory.createServerSocket()&lt;/code&gt; factory methods take a specific local address to define which network interface
 			the socket should bind.&lt;/p&gt;</description>
     <tag>correctness</tag>
     <tag>bug</tag>
@@ -2162,8 +2162,8 @@ if (name != null) {
   <rule key='MDM_RANDOM_SEED' priority='MAJOR'>
     <name>Correctness - Method creates insecure Random object</name>
     <configKey>MDM_RANDOM_SEED</configKey>
-    <description>&lt;p&gt;&lt;code&gt;Random()&lt;/code&gt; constructor without a seed is insecure because it defaults to an easily guessable seed: 
-			&lt;code&gt;System.currentTimeMillis()&lt;/code&gt;. Initialize a seed like &lt;code&gt;new Random(SecureRandom.getInstance("SHA1PRNG").nextLong())&lt;/code&gt; 
+    <description>&lt;p&gt;&lt;code&gt;Random()&lt;/code&gt; constructor without a seed is insecure because it defaults to an easily guessable seed:
+			&lt;code&gt;System.currentTimeMillis()&lt;/code&gt;. Initialize a seed like &lt;code&gt;new Random(SecureRandom.getInstance("SHA1PRNG").nextLong())&lt;/code&gt;
 			or replace &lt;code&gt;Random()&lt;/code&gt; with &lt;code&gt;SecureRandom.getInstance("SHA1PRNG")&lt;/code&gt; instead.
 			"SHA1PRNG" is the random algorithm supported on all platforms.
 		&lt;/p&gt;
@@ -2177,7 +2177,7 @@ if (name != null) {
   <rule key='MDM_SECURERANDOM' priority='MAJOR'>
     <name>Correctness - Method calls deprecated SecureRandom method</name>
     <configKey>MDM_SECURERANDOM</configKey>
-    <description>&lt;p&gt;In JDK 1.5 or less, the &lt;code&gt;SecureRandom()&lt;/code&gt; constructors and &lt;code&gt;SecureRandom.getSeed()&lt;/code&gt; method are recommended against using. 
+    <description>&lt;p&gt;In JDK 1.5 or less, the &lt;code&gt;SecureRandom()&lt;/code&gt; constructors and &lt;code&gt;SecureRandom.getSeed()&lt;/code&gt; method are recommended against using.
 			Call &lt;code&gt;SecureRandom.getInstance()&lt;/code&gt; and &lt;code&gt;SecureRandom.getInstance().generateSeed()&lt;/code&gt; instead.&lt;/p&gt;</description>
     <tag>correctness</tag>
     <tag>bug</tag>
@@ -2201,13 +2201,13 @@ if (name != null) {
   <rule key='MDM_WAIT_WITHOUT_TIMEOUT' priority='MAJOR'>
     <name>Multi-threading - Method sleeps without timeout</name>
     <configKey>MDM_WAIT_WITHOUT_TIMEOUT</configKey>
-    <description>&lt;p&gt;Calling one of the following methods without timeout could block forever. Consider using a timeout to detect deadlocks or performance problems. 
-			Methods: 
+    <description>&lt;p&gt;Calling one of the following methods without timeout could block forever. Consider using a timeout to detect deadlocks or performance problems.
+			Methods:
 			&lt;ul&gt;
 			&lt;li&gt;Thread.join()&lt;/li&gt;
 			&lt;li&gt;Object.wait()&lt;/li&gt;
 			&lt;li&gt;Condition.await()&lt;/li&gt;
-			&lt;li&gt;Lock.lock()&lt;/li&gt; 
+			&lt;li&gt;Lock.lock()&lt;/li&gt;
 			&lt;li&gt;Lock.lockInterruptibly()&lt;/li&gt;
 			&lt;li&gt;ReentrantLock.lock()&lt;/li&gt;
 			&lt;li&gt;ReentrantLock.lockInterruptibly()&lt;/li&gt;
@@ -2417,8 +2417,8 @@ if (name != null) {
   <rule key='BRPI_BACKPORT_REUSE_PUBLIC_IDENTIFIERS' priority='MAJOR'>
     <name>Performance - Method uses backported libraries that are now built in</name>
     <configKey>BRPI_BACKPORT_REUSE_PUBLIC_IDENTIFIERS</configKey>
-    <description>&lt;p&gt;This class uses either Backport Utils concurrent classes from Emory, or Time classes from ThreeTen Backport. 
-			Updated/Efficient version of these classes are available in the version of the JDK that this code is compiled against; 
+    <description>&lt;p&gt;This class uses either Backport Utils concurrent classes from Emory, or Time classes from ThreeTen Backport.
+			Updated/Efficient version of these classes are available in the version of the JDK that this code is compiled against;
 			JDK 1.5 for the concurrent classes, and JDK 1.8 for the time classes, and these
 			classes should only be used if you are targeting a JDK lower than this.&lt;/p&gt;</description>
     <tag>performance</tag>
@@ -2570,16 +2570,16 @@ if (name != null) {
   <rule key='HES_EXECUTOR_NEVER_SHUTDOWN' priority='MAJOR'>
     <name>Correctness - ExecutorService field doesn't ever get shutdown</name>
     <configKey>HES_EXECUTOR_NEVER_SHUTDOWN</configKey>
-    <description>&lt;p&gt;Most &lt;code&gt;ExecutorService&lt;/code&gt; objects must be explicitly shutdown, 
+    <description>&lt;p&gt;Most &lt;code&gt;ExecutorService&lt;/code&gt; objects must be explicitly shutdown,
             otherwise, their internal threads can prolong the running of the JVM, even when everything
             else has stopped.&lt;/p&gt;
-            
+
             &lt;p&gt;FindBugs has detected that there are no calls to either the &lt;code&gt;shutdown()&lt;/code&gt; or &lt;code&gt;shutdownNow()&lt;/code&gt;
             method, and thus, the &lt;code&gt;ExecutorService&lt;/code&gt; is not guaranteed to ever terminate.  This is especially
-            problematic for &lt;code&gt;Executors.newFixedThreadPool()&lt;/code&gt; and most of the other convenience methods in 
+            problematic for &lt;code&gt;Executors.newFixedThreadPool()&lt;/code&gt; and most of the other convenience methods in
             the &lt;code&gt;Executors&lt;/code&gt; class.&lt;/p&gt;
-			
-			&lt;p&gt;Even though there are some exceptions to this, particularly when a custom &lt;code&gt;ThreadFactory&lt;/code&gt; is 
+
+			&lt;p&gt;Even though there are some exceptions to this, particularly when a custom &lt;code&gt;ThreadFactory&lt;/code&gt; is
 			provided, or for &lt;code&gt;ThreadPoolExecutor&lt;/code&gt;s with &lt;code&gt;allowsCoreThreadTimeOut()&lt;/code&gt; set to true,
 			it is good practice to explicitly shutdown the &lt;code&gt;ExecutorService&lt;/code&gt; when its utility is done.&lt;/p&gt;</description>
     <tag>correctness</tag>
@@ -2589,9 +2589,9 @@ if (name != null) {
     <name>Correctness - Suspicious Local Executor Service</name>
     <configKey>HES_LOCAL_EXECUTOR_SERVICE</configKey>
     <description>&lt;p&gt;&lt;code&gt;ExecutorService&lt;/code&gt;s are typically instantiated as fields so that many tasks can be executed on a controlled number of &lt;code&gt;Thread&lt;/code&gt;s across many method calls.  Therefore, it is unusual for &lt;code&gt;ExecutorService&lt;/code&gt;s to be a local variable, where tasks will be added only one time, in the enclosing method. &lt;/p&gt;
-			
+
 			&lt;p&gt;Furthermore, when a local &lt;code&gt;ExecutorService&lt;/code&gt; reaches the end of scope and goes up for garbage collection, the internal &lt;code&gt;Thread&lt;/code&gt;s are not necessarily terminated and can prevent the JVM from ever shutting down.&lt;/p&gt;
-			
+
 			&lt;p&gt;Consider making this local variable a field and create a method that will explicitly shutdown the &lt;code&gt;ExecutorService&lt;/code&gt;&lt;/p&gt;</description>
     <tag>correctness</tag>
     <tag>bug</tag>
@@ -2600,7 +2600,7 @@ if (name != null) {
     <name>Correctness - An ExecutorService isn't shutdown before the reference to it is lost</name>
     <configKey>HES_EXECUTOR_OVERWRITTEN_WITHOUT_SHUTDOWN</configKey>
     <description>&lt;p&gt;Most &lt;code&gt;ExecutorService&lt;/code&gt; objects must be explicitly shutdown, otherwise, their internal threads can prevent the JVM from ever shutting down, even when everything else has stopped.&lt;/p&gt;
-            
+
             &lt;p&gt;FindBugs has detected that something like the following is happening:&lt;br/&gt;
 &lt;pre&gt;&lt;code&gt;
 ExecutorService executor = ... //e.g. Executors.newCachedThreadPool();
@@ -2611,7 +2611,7 @@ public void reset() {
 }&lt;br/&gt;
 &lt;/code&gt;&lt;/pre&gt;
             For normal objects, losing the last reference to them like this would trigger the object to be cleaned up
-            in garbage collection.  For &lt;code&gt;ExecutorService&lt;/code&gt;s, this isn't enough to terminate the internal threads in the 
+            in garbage collection.  For &lt;code&gt;ExecutorService&lt;/code&gt;s, this isn't enough to terminate the internal threads in the
             thread pool, and the &lt;code&gt;ExecutorService&lt;/code&gt; isn't guaranteed to shutdown, causing the JVM to never stop. &lt;br/&gt;
             To fix this, simply add a call to &lt;code&gt;shutdown()&lt;/code&gt; like this:&lt;br/&gt;
 &lt;pre&gt;&lt;code&gt;
@@ -2624,12 +2624,12 @@ public void reset() {
 }
 &lt;/code&gt;&lt;/pre&gt;
             &lt;/p&gt;
-            			
-			&lt;p&gt;Even though there are some exceptions to this, particularly when a custom &lt;code&gt;ThreadFactory&lt;/code&gt; is 
+
+			&lt;p&gt;Even though there are some exceptions to this, particularly when a custom &lt;code&gt;ThreadFactory&lt;/code&gt; is
 			provided, or for &lt;code&gt;ThreadPoolExecutor&lt;/code&gt;s with &lt;code&gt;allowsCoreThreadTimeOut()&lt;/code&gt; set to true,
 			it is good practice to explicitly shutdown the &lt;code&gt;ExecutorService&lt;/code&gt; at the end of execution, or
 			when it is being replaced.&lt;/p&gt;
-			
+
 			&lt;p&gt;&lt;b&gt;Note:&lt;/b&gt; &lt;code&gt;ExecutorService&lt;/code&gt;s are generally created once in a program's life cycle.  If you find yourself
 			replacing the &lt;code&gt;ExecutorService&lt;/code&gt;, perhaps you may consider restructuring your code to use calls like
 			&lt;code&gt;awaitTermination()&lt;/code&gt; or &lt;code&gt;Future&lt;/code&gt;s/&lt;code&gt;Callable&lt;/code&gt;s to avoid recreating the &lt;code&gt;ExecutorService&lt;/code&gt;.&lt;/p&gt;</description>
@@ -2656,7 +2656,7 @@ public String requestInfo(URI u) {
 }
 &lt;/code&gt;&lt;/pre&gt;
 				will freeze after a few requests, usually with no indication as to why.  &lt;/p&gt;
-				
+
 			&lt;p&gt;
 				The reason this code freezes is because &lt;code&gt;org.apache.http.HttpRequest&lt;/code&gt;s need to explicitly release their connection
 				with a call to either &lt;code&gt;reset()&lt;/code&gt; or &lt;code&gt;releaseConnection()&lt;/code&gt;.  The above example can be easily fixed:&lt;br/&gt;
@@ -2699,12 +2699,12 @@ public String requestInfo(URI u) {
 }
 &lt;/code&gt;&lt;/pre&gt;
 				will freeze after a few requests, usually with no indication as to why. &lt;/p&gt;
-				
+
 			&lt;p&gt;
 				The reason this code freezes is because &lt;code&gt;org.apache.http.HttpRequest&lt;/code&gt;s need to explicitly release their connection
-				with a call to either &lt;code&gt;reset()&lt;/code&gt; or &lt;code&gt;releaseConnection()&lt;/code&gt;, &lt;b&gt;even if the request is a local&lt;/b&gt;. 
+				with a call to either &lt;code&gt;reset()&lt;/code&gt; or &lt;code&gt;releaseConnection()&lt;/code&gt;, &lt;b&gt;even if the request is a local&lt;/b&gt;.
 				The garbage collector will not release these resources, leading to the frustrating freezing scenario described above.
-				
+
 				&lt;br/&gt;The above example can be easily fixed:&lt;br/&gt;
 &lt;pre&gt;&lt;code&gt;
 public String requestInfo(URI u) {
@@ -2737,8 +2737,8 @@ public String requestInfo(URI u) {
   <rule key='CTU_CONFLICTING_TIME_UNITS' priority='MAJOR'>
     <name>Correctness - This method performs arithmetic operations on time values with different units</name>
     <configKey>CTU_CONFLICTING_TIME_UNITS</configKey>
-    <description>&lt;p&gt;This method takes two values that appear to be representing time, and performs arithmetic operations on these 
-    		two values directly, even though it appears that the two values are representing different time units, such as 
+    <description>&lt;p&gt;This method takes two values that appear to be representing time, and performs arithmetic operations on these
+    		two values directly, even though it appears that the two values are representing different time units, such as
     		adding a millisecond value to a nanosecond value. You should convert the two values to the same time unit before
     		performing this calculation in order for it to be meaningful.&lt;/p&gt;</description>
     <tag>correctness</tag>
@@ -2747,11 +2747,11 @@ public String requestInfo(URI u) {
   <rule key='CSI_CHAR_SET_ISSUES_USE_STANDARD_CHARSET' priority='MAJOR'>
     <name>Correctness - This method needlessly uses a String literal as a Charset encoding</name>
     <configKey>CSI_CHAR_SET_ISSUES_USE_STANDARD_CHARSET</configKey>
-    <description>&lt;p&gt;This method uses a string literal to specify a &lt;code&gt;Charset&lt;/code&gt; encoding. However, the method invoked has an 
+    <description>&lt;p&gt;This method uses a string literal to specify a &lt;code&gt;Charset&lt;/code&gt; encoding. However, the method invoked has an
     		alternative signature that takes a &lt;code&gt;Charset&lt;/code&gt; object. You should use this signature, as this class is compiled
-    		with JDK 7 (or better), and the &lt;code&gt;Charset&lt;/code&gt; in question is available as a constant from the 
+    		with JDK 7 (or better), and the &lt;code&gt;Charset&lt;/code&gt; in question is available as a constant from the
     		&lt;code&gt;java.nio.charset.StandardCharsets&lt;/code&gt; class.&lt;/p&gt;
-    		&lt;p&gt;So instead of specifying "UTF-8", use &lt;code&gt;StandardCharsets.UTF_8&lt;/code&gt;, for instance. An added benefit of this is 
+    		&lt;p&gt;So instead of specifying "UTF-8", use &lt;code&gt;StandardCharsets.UTF_8&lt;/code&gt;, for instance. An added benefit of this is
     		that you will not need to catch &lt;code&gt;UnsupportedEncodingException&lt;/code&gt;.&lt;/p&gt;</description>
     <tag>correctness</tag>
     <tag>bug</tag>
@@ -2760,10 +2760,10 @@ public String requestInfo(URI u) {
     <name>Correctness - This method should use a StandardCharsets.XXX.name() to specify an encoding</name>
     <configKey>CSI_CHAR_SET_ISSUES_USE_STANDARD_CHARSET_NAME</configKey>
     <description>&lt;p&gt;This method uses a hand-typed &lt;code&gt;String&lt;/code&gt; literal to specify a &lt;code&gt;Charset&lt;/code&gt; encoding. As this class is compiled
-    		with JDK 7 (or better), and the charset in question is available as a constant from the 
+    		with JDK 7 (or better), and the charset in question is available as a constant from the
     		&lt;code&gt;java.nio.charset.StandardCharsets&lt;/code&gt; class, it is better to use the .name() method of the appropriate
     		&lt;code&gt;StandardCharsets&lt;/code&gt; constant.&lt;/p&gt;
-    		
+
 			&lt;p&gt;The method in question doesn't directly support a &lt;code&gt;Charset&lt;/code&gt; as a parameter, only a &lt;code&gt;String&lt;/code&gt;.
 				Still, instead of specifying something like "UTF-8" (and potentially mistyping it), use &lt;code&gt;StandardCharsets.UTF_8.name()&lt;/code&gt;.
 			&lt;/p&gt;</description>
@@ -2796,13 +2796,13 @@ public String requestInfo(URI u) {
     <configKey>OPM_OVERLY_PERMISSIVE_METHOD</configKey>
     <description>&lt;p&gt;This method is declared more permissively than the code is using. Having this method be more
 			permissive than is needed limits your ability to make observations about this method, like
-    		parameter usage, refactorability, and derivability. It is possible that this detector will report 
+    		parameter usage, refactorability, and derivability. It is possible that this detector will report
     		erroneously if:
     		&lt;ul&gt;
     			&lt;li&gt;The method is called from code not being scanned, such as unit tests&lt;/li&gt;
 				&lt;li&gt;The method is an API method, expected to be used by unknown client code&lt;/li&gt;
     			&lt;li&gt;The method is called through reflection
-    		&lt;/ul&gt;	
+    		&lt;/ul&gt;
     		&lt;/p&gt;</description>
     <tag>style</tag>
   </rule>
@@ -2820,7 +2820,7 @@ public String requestInfo(URI u) {
     <name>Style - This method parses a String that is a field</name>
     <configKey>STT_STRING_PARSING_A_FIELD</configKey>
     <description>&lt;p&gt;This method calls a parsing method (indexOf, lastIndexOf, startsWith, endsWith, substring, indexOf) on a String
-            that is a field, or comes from a collection that is a field. This implies that the String in question is holding 
+            that is a field, or comes from a collection that is a field. This implies that the String in question is holding
             multiple parts of information inside the string, which would be more maintainable and type safe if that value was a
             true collection or a first class object with fields, rather than a String.
             &lt;/p&gt;</description>
@@ -2836,7 +2836,7 @@ public String requestInfo(URI u) {
     		&lt;/p&gt;
     		&lt;p&gt;
     		Example&lt;br/&gt;
-    			instead of 
+    			instead of
     			&lt;pre&gt;&lt;code&gt;
     				V v = myMap.get(tableName + "-" + columnName);
     			&lt;/code&gt;&lt;/pre&gt;
@@ -2885,7 +2885,7 @@ for (Person p : people) {
     <name>Style - Class does not implement an equals method</name>
     <configKey>IMC_IMMATURE_CLASS_NO_EQUALS</configKey>
     <description>&lt;p&gt;This class which has instance fields has no equals(Object o) method. It is possible that this
-    		class is never used in a context where this is required; it is often assumed, however, from clients 
+    		class is never used in a context where this is required; it is often assumed, however, from clients
     		of this class that it is, so it is good to add such methods when you create them.
     		&lt;/p&gt;</description>
     <tag>style</tag>
@@ -2894,7 +2894,7 @@ for (Person p : people) {
     <name>Style - Class does not implement a hashCode method</name>
     <configKey>IMC_IMMATURE_CLASS_NO_HASHCODE</configKey>
     <description>&lt;p&gt;This class which has instance fields has no hashCode() method. It is possible that this
-    		class is never used in a context where this is required; it is often assumed, however, from clients 
+    		class is never used in a context where this is required; it is often assumed, however, from clients
     		of this class that it is, so it is good to add such methods when you create them.
     		&lt;/p&gt;</description>
     <tag>style</tag>
@@ -2902,8 +2902,8 @@ for (Person p : people) {
   <rule key='IMC_IMMATURE_CLASS_NO_PACKAGE' priority='INFO'>
     <name>Style - Class is defined in the default package</name>
     <configKey>IMC_IMMATURE_CLASS_NO_PACKAGE</configKey>
-    <description>&lt;p&gt;This class has been created in the default package. Classes should be defined in a 
-    		proper package structure, typically defined by the reverse of the domain name of the 
+    <description>&lt;p&gt;This class has been created in the default package. Classes should be defined in a
+    		proper package structure, typically defined by the reverse of the domain name of the
     		owner of the code base. Putting code in the default (no) package limits its usefulness, including:
     		&lt;ol&gt;
     		&lt;li&gt;Not being able to import this class into classes with packages&lt;/li&gt;
@@ -2916,7 +2916,7 @@ for (Person p : people) {
     <name>Style - Class does not implement a toString method</name>
     <configKey>IMC_IMMATURE_CLASS_NO_TOSTRING</configKey>
     <description>&lt;p&gt;This class, which has instance fields, has no toString() method which will make debugging with this
-    		class more difficult than it could be. Consider adding a toString() method. Using libraries like commons-lang3 
+    		class more difficult than it could be. Consider adding a toString() method. Using libraries like commons-lang3
     		ToStringBuilder makes this process easy.
     		&lt;/p&gt;</description>
     <tag>style</tag>
@@ -2933,16 +2933,16 @@ for (Person p : people) {
   <rule key='IMC_IMMATURE_CLASS_PRINTSTACKTRACE' priority='INFO'>
     <name>Style - Method prints the stack trace to the console</name>
     <configKey>IMC_IMMATURE_CLASS_PRINTSTACKTRACE</configKey>
-    <description>&lt;p&gt;This method prints a stack trace to the console. This is non configurable, and causes an 
-    		application to look unprofessional. Switch to using loggers so that users can control what 
+    <description>&lt;p&gt;This method prints a stack trace to the console. This is non configurable, and causes an
+    		application to look unprofessional. Switch to using loggers so that users can control what
     		is logged and where.&lt;/p&gt;</description>
     <tag>style</tag>
   </rule>
   <rule key='IMC_IMMATURE_CLASS_WRONG_FIELD_ORDER' priority='INFO'>
     <name>Style - Class orders instance fields before static fields</name>
     <configKey>IMC_IMMATURE_CLASS_WRONG_FIELD_ORDER</configKey>
-    <description>&lt;p&gt;This class adds fields to the class in an order that is confusing, and not expected by 
-    		other developers. The standard is for static fields to be listed first, followed by instance 
+    <description>&lt;p&gt;This class adds fields to the class in an order that is confusing, and not expected by
+    		other developers. The standard is for static fields to be listed first, followed by instance
     		fields. when fields are listed out of order, developers may make assumptions about their
     		behaviour that is incorrect and lead to bugs.&lt;/p&gt;</description>
     <tag>style</tag>
@@ -3052,7 +3052,7 @@ for (Person p : people) {
   <rule key='JPAI_IGNORED_MERGE_RESULT' priority='MAJOR'>
     <name>Correctness - Method ignores the return value of EntityManager.merge</name>
     <configKey>JPAI_IGNORED_MERGE_RESULT</configKey>
-    <description>&lt;p&gt;This method calls EntityManager.merge, and throws away the resultant value. This result is the 
+    <description>&lt;p&gt;This method calls EntityManager.merge, and throws away the resultant value. This result is the
     		managed entity version of the potentially unmanaged object that was passed to merge. You should use
     		the returned managed entity for any further use.&lt;/p&gt;</description>
     <tag>correctness</tag>
@@ -3063,7 +3063,7 @@ for (Person p : people) {
     <configKey>JPAI_NON_SPECIFIED_TRANSACTION_EXCEPTION_HANDLING</configKey>
     <description>&lt;p&gt;This method declares that it throws one or more non-runtime exceptions. It also is annotated with a
     		@Transactional annotation but fails to describe whether to rollback the transaction or not based on this
-    		thrown exception. Use 'rollbackFor' or 'noRollbackFor' attributes of the Transactional annotation to 
+    		thrown exception. Use 'rollbackFor' or 'noRollbackFor' attributes of the Transactional annotation to
     		document this.&lt;/p&gt;</description>
     <tag>correctness</tag>
     <tag>bug</tag>
@@ -3103,8 +3103,8 @@ if (shouldCalcHalting &amp;&amp; (calculateHaltingProbability() &amp;gt; 0) { }
   <rule key='IOI_DOUBLE_BUFFER_COPY' priority='MAJOR'>
     <name>Performance - Method passes a Buffered Stream/Reader/Writer to a already buffering copy method</name>
     <configKey>IOI_DOUBLE_BUFFER_COPY</configKey>
-    <description>&lt;p&gt;This method copies data from input to output using streams or reader/writers using a well known copy method, from java.nio, commons-io, 
-    		springframework, guava or poi. These methods are efficient in that they copy these files using buffers. However, this method is also 
+    <description>&lt;p&gt;This method copies data from input to output using streams or reader/writers using a well known copy method, from java.nio, commons-io,
+    		springframework, guava or poi. These methods are efficient in that they copy these files using buffers. However, this method is also
     		buffering the streams, causing a double buffering to occur. So data first goes to one buffer, then is copied to another buffer, before
     		making it to the destination (or vice-versa). This just causes the copy operation to be inefficient both from a time perspective, as well
     		as a memory allocation one. When using these copy methods, do not pass buffered streams/readers/writers.&lt;/p&gt;</description>
@@ -3125,7 +3125,7 @@ if (shouldCalcHalting &amp;&amp; (calculateHaltingProbability() &amp;gt; 0) { }
     <name>Performance - Method uses a FileInputStream or FileOutputStream constructor</name>
     <configKey>IOI_USE_OF_FILE_STREAM_CONSTRUCTORS</configKey>
     <description>&lt;p&gt;This method creates and uses a java.io.FileInputStream or java.io.FileOutputStream object. Unfortunately both
-    		of these classes implement a finalize method, which means that objects created will likely hang around until a 
+    		of these classes implement a finalize method, which means that objects created will likely hang around until a
     		full garbage collection occurs, which will leave excessive garbage on the heap for longer, and potentially much
     		longer than expected. Java 7 introduced two ways to create streams for reading and writing files that do not have this concern.
     		You should consider switching from these above classes to
@@ -3151,9 +3151,9 @@ if (shouldCalcHalting &amp;&amp; (calculateHaltingProbability() &amp;gt; 0) { }
   <rule key='BL_BURYING_LOGIC' priority='INFO'>
     <name>Style - Method buries logic to the right (indented) more than it needs to be</name>
     <configKey>BL_BURYING_LOGIC</configKey>
-    <description>&lt;p&gt;Looks for relatively large if blocks of code, where you unconditionally return from them, and then follow that with an unconditional 
-    		return of a small block. This places the bulk of the logic to the right indentation-wise, making it more difficult to read than needed. 
-    		It would be better to invert the logic of the if block, and immediately return, allowing the bulk of the logic to be move to the left 
+    <description>&lt;p&gt;Looks for relatively large if blocks of code, where you unconditionally return from them, and then follow that with an unconditional
+    		return of a small block. This places the bulk of the logic to the right indentation-wise, making it more difficult to read than needed.
+    		It would be better to invert the logic of the if block, and immediately return, allowing the bulk of the logic to be move to the left
     		for easier reading.&lt;/p&gt;</description>
     <tag>style</tag>
   </rule>
@@ -3161,7 +3161,7 @@ if (shouldCalcHalting &amp;&amp; (calculateHaltingProbability() &amp;gt; 0) { }
     <name>Correctness - Class auto wires the same object into two separate fields in a class hierarchy</name>
     <configKey>WI_DUPLICATE_WIRED_TYPES</configKey>
     <description>&lt;p&gt;this class has two fields in either itself or a parent class which autowire (without specialization), the same object
-    		for both fields. This is likely caused by a developer just not being aware that the field already is available for your use, 
+    		for both fields. This is likely caused by a developer just not being aware that the field already is available for your use,
     		and just causes wasted space, and confusing code access to the same object through two different pathways.&lt;/p&gt;</description>
     <tag>correctness</tag>
     <tag>bug</tag>
@@ -3185,7 +3185,7 @@ if (shouldCalcHalting &amp;&amp; (calculateHaltingProbability() &amp;gt; 0) { }
     <description>[
     		&lt;p&gt;This method allocates and uses an auto closeable resources. However it manually closes the resource in a finally block.
     		While this is correct management, it doesn't rely on the Idiomatic way available to JDK 7 and above, and allows for possible
-    		subtle problems, and complicates the reading of code by developers expecting the use of try-with-resources. 
+    		subtle problems, and complicates the reading of code by developers expecting the use of try-with-resources.
     		&lt;/p&gt;
     		&lt;p&gt;Switch to using try with resources, as:
     		&lt;pre&gt;
@@ -3225,8 +3225,8 @@ if (shouldCalcHalting &amp;&amp; (calculateHaltingProbability() &amp;gt; 0) { }
   <rule key='OI_OPTIONAL_ISSUES_USES_IMMEDIATE_EXECUTION' priority='MAJOR'>
     <name>Correctness - Method uses immediate execution of a block of code that is often not used</name>
     <configKey>OI_OPTIONAL_ISSUES_USES_IMMEDIATE_EXECUTION</configKey>
-    <description>&lt;p&gt;This method uses the Optional.orElse() method passing in some code that will execute immediately, whether 
-    		or not the else case of the Optional is needed. This may cause incorrect side effects to happen, or at the 
+    <description>&lt;p&gt;This method uses the Optional.orElse() method passing in some code that will execute immediately, whether
+    		or not the else case of the Optional is needed. This may cause incorrect side effects to happen, or at the
     		minimum, code to execute for no reason. It would be better to use Optional.orElseGet()</description>
     <tag>correctness</tag>
     <tag>bug</tag>
@@ -3244,7 +3244,7 @@ if (shouldCalcHalting &amp;&amp; (calculateHaltingProbability() &amp;gt; 0) { }
     <name>Correctness - Method checks an Optional reference for null</name>
     <configKey>OI_OPTIONAL_ISSUES_CHECKING_REFERENCE</configKey>
     <description>&lt;p&gt;This method compares an Optional reference variable against null. As the whole point of the
-    		Optional class is to avoid the null pointer exception, this use pattern is highly suspect. 
+    		Optional class is to avoid the null pointer exception, this use pattern is highly suspect.
     		The code should always make sure the Optional reference is valid, and should count on the apis
     		of this class to check for the held reference instead.</description>
     <tag>correctness</tag>
@@ -3291,7 +3291,7 @@ if (shouldCalcHalting &amp;&amp; (calculateHaltingProbability() &amp;gt; 0) { }
   <rule key='RFI_SET_ACCESSIBLE' priority='MAJOR'>
     <name>Correctness - Method uses AccessibleObject.setAccessible to modify accessibility of classes</name>
     <configKey>RFI_SET_ACCESSIBLE</configKey>
-    <description>&lt;p&gt;This method uses the reflective setAccessible method to alter the behavior of methods and fields in classes 
+    <description>&lt;p&gt;This method uses the reflective setAccessible method to alter the behavior of methods and fields in classes
     		in ways that were not expected to be accessed by the author. Doing so circumvents the protections that the author
     		provided through the class definition, and may expose your application to unexpected side effects and problems. This
     		functionality is deprecated in Java 9, and in Java 10 it is expected that this functionality won't work at all.</description>

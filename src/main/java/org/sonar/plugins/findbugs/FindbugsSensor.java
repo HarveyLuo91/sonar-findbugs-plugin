@@ -42,6 +42,9 @@ import org.sonar.api.profiles.RulesProfile;
 import org.sonar.plugins.findbugs.resource.ByteCodeResourceLocator;
 import org.sonar.plugins.findbugs.resource.ClassMetadataLoadingException;
 import org.sonar.plugins.findbugs.resource.SmapParser;
+import org.sonar.plugins.findbugs.rules.FbContribRulesDefinition;
+import org.sonar.plugins.findbugs.rules.FindSecurityBugsJspRulesDefinition;
+import org.sonar.plugins.findbugs.rules.FindSecurityBugsRulesDefinition;
 import org.sonar.plugins.findbugs.rules.FindbugsRulesDefinition;
 import org.sonar.plugins.java.api.JavaResourceLocator;
 
@@ -55,8 +58,8 @@ public class FindbugsSensor implements Sensor {
 
     private static final Logger LOG = LoggerFactory.getLogger(FindbugsSensor.class);
 
-    private static final String[] REPOS = {
-            FindbugsRulesDefinition.REPOSITORY_KEY
+    private static final String[] REPOS = {FindbugsRulesDefinition.REPOSITORY_KEY, FbContribRulesDefinition.REPOSITORY_KEY,
+            FindSecurityBugsRulesDefinition.REPOSITORY_KEY, FindSecurityBugsJspRulesDefinition.REPOSITORY_KEY
     };
 
     private List<String> repositories = new ArrayList<String>();

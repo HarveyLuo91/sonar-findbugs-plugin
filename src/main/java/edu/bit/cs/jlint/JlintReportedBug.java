@@ -25,10 +25,8 @@ public class JlintReportedBug implements ReportedBugInfo {
 
     @Override
     public BUG_TYPE getBugType() {
-        if(type.contains("NULL")){
+        if(message.contains("NULL")){
             return BUG_TYPE.NULL_POINTER_EXEPTION;
-        }else if(type.contains("RESOURCE")){
-            return BUG_TYPE.RESOURCE_LEAK;
         }else{
             return BUG_TYPE.ANOTHER_TYPE;
         }
