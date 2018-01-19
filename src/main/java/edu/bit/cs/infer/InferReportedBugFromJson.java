@@ -323,7 +323,10 @@ public class InferReportedBugFromJson implements ReportedBugInfo {
 
 
     }
-
+   // @Override
+  //  public String getType() {
+     //   return bug_type;
+   // }
     @Override
     public String getBugMessage() {
         return qualifier;

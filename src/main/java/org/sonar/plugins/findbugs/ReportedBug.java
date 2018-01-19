@@ -53,7 +53,7 @@ public class ReportedBug implements ReportedBugInfo{
     }
   }
 
-  private String getType() {
+  public String getType() {
     return type;
   }
 
@@ -71,7 +71,7 @@ public class ReportedBug implements ReportedBugInfo{
 
       return BUG_TYPE.NULL_POINTER_EXEPTION;
 
-    }else if(message.contains("resource")){
+    }else if(message.contains("resource") || type.equals("OS_OPEN_STREAM") || message.contains("leak")){
       return BUG_TYPE.RESOURCE_LEAK;
     }else {
       return BUG_TYPE.ANOTHER_TYPE;
@@ -100,7 +100,7 @@ public class ReportedBug implements ReportedBugInfo{
 
   @Override
   public ToolCollection getToolName() {
-    return ToolCollection.FINDBUGS;
+    return ToolCollection.INFER.FINDBUGS;
   }
 
   public int getStartLine() {

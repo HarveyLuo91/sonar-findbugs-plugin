@@ -34,7 +34,10 @@ public class JlintReportedBug implements ReportedBugInfo {
         }
 
     }
-
+   // @Override
+    //public String getType(){
+      //  return this.type;
+    //}
     @Override
     public String getBugMessage() {
         return message;

@@ -4,6 +4,7 @@ import edu.bit.cs.util.ToolCollection;
 
 public interface ReportedBugInfo {
     BUG_TYPE getBugType();
+   // String getType();
 
     String getBugMessage();
 

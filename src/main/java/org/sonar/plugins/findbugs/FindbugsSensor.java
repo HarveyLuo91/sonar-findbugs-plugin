@@ -42,9 +42,6 @@ import org.sonar.api.profiles.RulesProfile;
 import org.sonar.plugins.findbugs.resource.ByteCodeResourceLocator;
 import org.sonar.plugins.findbugs.resource.ClassMetadataLoadingException;
 import org.sonar.plugins.findbugs.resource.SmapParser;
-import org.sonar.plugins.findbugs.rules.FbContribRulesDefinition;
-import org.sonar.plugins.findbugs.rules.FindSecurityBugsJspRulesDefinition;
-import org.sonar.plugins.findbugs.rules.FindSecurityBugsRulesDefinition;
 import org.sonar.plugins.findbugs.rules.FindbugsRulesDefinition;
 import org.sonar.plugins.java.api.JavaResourceLocator;
 
@@ -58,8 +55,8 @@ public class FindbugsSensor implements Sensor {
 
     private static final Logger LOG = LoggerFactory.getLogger(FindbugsSensor.class);
 
-    private static final String[] REPOS = {FindbugsRulesDefinition.REPOSITORY_KEY, FbContribRulesDefinition.REPOSITORY_KEY,
-            FindSecurityBugsRulesDefinition.REPOSITORY_KEY, FindSecurityBugsJspRulesDefinition.REPOSITORY_KEY
+    private static final String[] REPOS = {
+            FindbugsRulesDefinition.REPOSITORY_KEY
     };
 
     private List<String> repositories = new ArrayList<String>();
@@ -133,11 +130,11 @@ public class FindbugsSensor implements Sensor {
 
             String root = context.settings().getString("sonar.root");
 
-            //Jlint
-            /*
+
             File binaries = new File(absolutePath, context.settings().getString("sonar.binaries"));
             System.out.println("binaries:" + binaries);
-           //execute Jlint and get reported bugs
+
+            //execute Jlint and get reported bugs
             Collection<? extends ReportedBugInfo> jlintReportedBugs = CmdExecutor.exeCmd(binaries.getAbsolutePath(), new JlintReportParser());
             System.out.println("******************************Jlint size:" + jlintReportedBugs.size());
             //loop through the reported bugs
@@ -164,7 +161,7 @@ public class FindbugsSensor implements Sensor {
                 bugs.put(sourceFile + "-" + line + "-" + bugInstance.getBugType().name(), bugInstances);
             }
             System.out.println("**********************jlint map size:" + bugs.size());
-         */
+
 
             //Infer
             System.out.println("Infer dir:" + absolutePath);
@@ -202,6 +199,9 @@ public class FindbugsSensor implements Sensor {
             //findbugs
             for (ReportedBug bugInstance : collection) {
                 try {
+                    if(bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE)){
+                        continue;
+                    }
                     ActiveRule rule = null;
                     for (String repoKey : getRepositories()) {
                         System.out.println("---------------------type:" + bugInstance.getBugType().name() + "message:" + bugInstance.getMessage());
@@ -240,13 +240,6 @@ public class FindbugsSensor implements Sensor {
                         continue;
                     }
 
-                    //        //If the class was an outer class, the source file will not be analog to the class name.
-                    //        //The original source file is available in the class file metadata.
-                    //        resource = byteCodeResourceLocator.findJavaOuterClassFile(className, classFile, this.fs);
-                    //        if (resource != null) {
-                    //          insertIssue(npe_killbugs_rule, resource, line, longMessage);
-                    //          continue;
-                    //        }
 
                     //More advanced mapping if the original source is not Java files
                     if (classFile != null) {
@@ -292,7 +285,8 @@ public class FindbugsSensor implements Sensor {
 
             ActiveRule npe_killbugs_rule = null;
             for (String repoKey : getRepositories()) {
-                npe_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "NULL_POINTER_DETECTED_BY_KILLBUGS");
+
+                npe_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "NULL_POINTER_EXEPTION");
                 if (npe_killbugs_rule != null) {
                     break;
                 }
@@ -303,7 +297,7 @@ public class FindbugsSensor implements Sensor {
             }
             ActiveRule RL_killbugs_rule = null; //Resource Leak
             for (String repoKey : getRepositories()) {
-                npe_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "RESOURCE_LEAK_BY_KILLBUGS");
+                npe_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "RESOURCE_LEAK");
                 if (RL_killbugs_rule != null) {
                     break;
                 }
@@ -312,6 +306,7 @@ public class FindbugsSensor implements Sensor {
                 System.out.println("-----------------RL_killbugs_rule is null!");
                 return;
             }
+
 
             for (String bugInstanceKey : bugs.keySet()) {
                 String[] splitKeyInstance = bugInstanceKey.split("-");
@@ -322,36 +317,6 @@ public class FindbugsSensor implements Sensor {
                     createIssue(RL_killbugs_rule, bugs, bugInstanceKey, interSection, root);
                 } else {
 
-                }
-
-            }
-
-
-            for (List<ReportedBugInfo> restBugs : bugs.values()) {
-                String sourceFile = "";
-                StringBuilder longMessage = new StringBuilder("");
-                int index = 0;
-                int line = 0;
-                for (ReportedBugInfo bug : restBugs) {
-                    System.out.println("-------------------" + bug.getToolName() + " sourcefile:" + bug.getSourcePath());
-                    index = ToolCollection.addTool(index, bug.getToolName());
-                }
-                String tools = ToolCollection.getTools(index);
-                int value = interSection.get(tools);
-                interSection.put(tools, value + 1);
-                longMessage.append(tools);
-                for (ReportedBugInfo bug : restBugs) {
-                    sourceFile = bug.getSourcePath();
-                    line = bug.getBugLineNumber();
-                    longMessage.append("- " + bug.getBugMessage());
-                    break;
-                }
-
-                InputFile resource = byteCodeResourceLocator.findSourceFile(sourceFile, this.fs);
-                if (resource != null) {
-                    insertIssue(npe_killbugs_rule, resource, line, longMessage.toString());
-                } else {
-                    System.out.println("-------------------resource is null");
                 }
             }
 
@@ -366,30 +331,6 @@ public class FindbugsSensor implements Sensor {
 
     }
 
-/*
-    public void findBugs_BugType_Count(){
-
-        Collection<ReportedBug> collection = executor.execute(hasActiveFbContribRules(), hasActiveFindSecBugsRules());
-        Map<String, Integer> bugTypes_Count = Maps.newHashMap();
-        for (ReportedBug bugInstance : collection) {
-            String curr_Type = bugInstance.getType();
-
-            if(bugTypes_Count.containsKey(curr_Type)){
-                int curr_count = bugTypes_Count.get(curr_Type);
-                bugTypes_Count.replace(curr_Type,curr_count+1);
-            }else{
-                bugTypes_Count.replace(curr_Type,1);
-            }
-        }
-
-        Set<String> keys = bugTypes_Count.keySet();
-        for(String key : keys){
-            int value = bugTypes_Count.get(key);
-            System.out.println("##################################" + key + "----------------" + value);
-        }
-
-    }
- */
 
     private void createIssue(ActiveRule rule, Map<String, List<ReportedBugInfo>> bugs, String bugInstanceKey, Map<String, Integer> interSection, String root) {
         String sourceFile = "";
@@ -491,6 +432,5 @@ public class FindbugsSensor implements Sensor {
         descriptor.onlyOnLanguages(FindbugsPlugin.SUPPORTED_JVM_LANGUAGES);
         descriptor.name("FindBugs Sensor");
     }
-
 
 }
