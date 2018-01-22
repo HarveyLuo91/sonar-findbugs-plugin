@@ -71,10 +71,55 @@ public class ReportedBug implements ReportedBugInfo{
 
       return BUG_TYPE.NULL_POINTER_EXEPTION;
 
-    }else if(message.contains("resource") || type.equals("OS_OPEN_STREAM") || message.contains("leak")){
+    }else if(type.equals("OS_OPEN_STREAM")){
+
       return BUG_TYPE.RESOURCE_LEAK;
+
+    }else if(type.equals("SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING ") || type.equals("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE ")|| type.equals("CUSTOM_INJECTION")
+            || type.equals("SQL_INJECTION")|| type.equals("SQL_INJECTION_TURBINE")|| type.equals("SQL_INJECTION_HIBERNATE") || type.equals("SQL_INJECTION_JDO")|| type.equals("SQL_INJECTION_JPA")
+            || type.equals("SQL_INJECTION_SPRING_JDBC")|| type.equals("SQL_INJECTION_JDBC")|| type.equals("SCRIPT_ENGINE_INJECTTION")|| type.equals("AWS_QUERY_INJECTION") || type.equals("BEAN_PROPERTY_INJECTION")){
+
+      return BUG_TYPE.INJECTION;
+
+    }else if(type.equals("URL_REWRITING")){
+
+      return BUG_TYPE.BROKEN_AUTHENTICATION;
+
+    }else if(type.equals("UNSAFE_HASH_EQUALS")){
+
+      return BUG_TYPE.SENSITIVE_DATA_EXPOSURE;
+
+    }else if(type.equals("XXE_XMLSTREAMREADER") || type.equals("XXE_SAXPARSER")|| type.equals("XXE_XMLREADER")|| type.equals("XXE_DOCUMENT")
+            || type.equals("XXE_DTD_TRANSFORM_FACTORY")){
+
+      return BUG_TYPE.XML_EXTERNAL_ENTITIES;
+
+    }else if(type.equals("LDAP_ANONYMOUS") || type.equals("SERVLET_HEADER_REFERER")
+            || type.equals("LDAP_ENTRY_POISONING")|| type.equals("LDAP_INJECTION")
+            || type.equals("")){
+
+      return BUG_TYPE.BROKEN_ACCESS_CONTROL;
+
+    }else if(type.equals("PREDICTABLE_RANDOM") || type.equals("SERVLET_CONTENT_TYPE") || type.equals("SERVERLET_SERVER_NAME") || type.equals("SERVERLET_HEADER_REFERER")
+            || type.equals("SERVERLET_HEADER_USER_AGENT") || type.equals("SERVERLET_HEADER") || type.equals("JAXWS_ENDPOINT") || type.equals("JAXRS_ENDPOINT")
+            || type.equals("WEAK_MESSAGE_DIGEST_MD5") || type.equals("WEAK_MESSAGE_DIGEST_SHA1") || type.equals("SSL_CONTEXT")|| type.equals("FILE_UPLOAD_FILENAME")
+            || type.equals("SPRING_CSRF_PROTECTION_DISABLED")|| type.equals("SPRING_CSRF_UNRESTRICTED_REQUEST_MAPPING")|| type.equals("LDAP_INJECTION")|| type.equals("EL_INJECTION")
+            || type.equals("HARD_CODED_PASSWORD")|| type.equals("HARD_CODED_KEY")|| type.equals("UNSAFE_HASH_EQUALS") || type.equals("HTTP_PARAMETER_POLLUTION")){
+
+      return BUG_TYPE.SAFETY_MISCONFIGURATION;
+
+    } else if(type.equals("XSS_REQUEST_WRAPPER") || type.equals("XSS_JSP_PRINT") || type.equals("XSS_SERVERLET")) {
+
+      return BUG_TYPE.CROSS_SITE_SCRIPTING;
+
+    }else if(type.equals("OBJECT_DESERIALIZATION") || type.equals("JACKSON_UNSAFE_DESERIALIZATION") || type.equals("DESERIALIZATION_GADGET")) {
+
+      return BUG_TYPE.INSECURE_DESERIALIZATION;
+
     }else {
+
       return BUG_TYPE.ANOTHER_TYPE;
+
     }
 
   }

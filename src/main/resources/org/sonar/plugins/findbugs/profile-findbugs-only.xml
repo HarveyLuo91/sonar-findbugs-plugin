@@ -1361,4 +1361,33 @@
   <Match>
     <Bug pattern="RESOURCE_LEAK"/>
   </Match>
+
+  <Match>
+    <Bug pattern="INJECTION"/>
+  </Match>
+  <Match>
+    <Bug pattern="BROKEN_AUTHENTICATION"/>
+  </Match>
+  <Match>
+    <Bug pattern="SENSITIVE_DATA_EXPOSURE"/>
+  </Match>
+  <Match>
+    <Bug pattern="XML_EXTERNAL_ENTITIES"/>
+  </Match>
+  <Match>
+    <Bug pattern="BROKEN_ACCESS_CONTROL"/>
+  </Match>
+  <Match>
+    <Bug pattern="SAFETY_MISCONFIGURATION"/>
+  </Match>
+  <Match>
+    <Bug pattern="CROSS_SITE_SCRIPTING"/>
+  </Match>
+  <Match>
+    <Bug pattern="INSECURE_DESERIALIZATION"/>
+  </Match>
+
+
+
+
 </FindBugsFilter>

@@ -6249,6 +6249,96 @@
         <tag>bug</tag>
     </rule>
 
+    <rule key='BROKEN_AUTHENTICATION' priority='MAJOR'>
+        <name>Correctness - resource leak</name>
+        <configKey>RESOURCE_LEAK</configKey>
+        <description>&lt;p&gt; The variable referenced at this point is known to be null due to an earlier
+            check against null. Although this is valid, it might be a mistake (perhaps you
+            intended to refer to a different variable, or perhaps the earlier check to see if the
+            variable is null should have been a check to see if it was non-null).
+            &lt;/p&gt;
+        </description>
+        <tag>correctness</tag>
+        <tag>bug</tag>
+    </rule>
+
+    <rule key='SENSITIVE_DATA_EXPOSURE' priority='MAJOR'>
+        <name>Correctness - resource leak</name>
+        <configKey>RESOURCE_LEAK</configKey>
+        <description>&lt;p&gt; The variable referenced at this point is known to be null due to an earlier
+            check against null. Although this is valid, it might be a mistake (perhaps you
+            intended to refer to a different variable, or perhaps the earlier check to see if the
+            variable is null should have been a check to see if it was non-null).
+            &lt;/p&gt;
+        </description>
+        <tag>correctness</tag>
+        <tag>bug</tag>
+    </rule>
+
+    <rule key='XML_EXTERNAL_ENTITIES' priority='MAJOR'>
+        <name>Correctness - resource leak</name>
+        <configKey>RESOURCE_LEAK</configKey>
+        <description>&lt;p&gt; The variable referenced at this point is known to be null due to an earlier
+            check against null. Although this is valid, it might be a mistake (perhaps you
+            intended to refer to a different variable, or perhaps the earlier check to see if the
+            variable is null should have been a check to see if it was non-null).
+            &lt;/p&gt;
+        </description>
+        <tag>correctness</tag>
+        <tag>bug</tag>
+    </rule>
+
+    <rule key='BROKEN_ACCESS_CONTROL' priority='MAJOR'>
+        <name>Correctness - resource leak</name>
+        <configKey>RESOURCE_LEAK</configKey>
+        <description>&lt;p&gt; The variable referenced at this point is known to be null due to an earlier
+            check against null. Although this is valid, it might be a mistake (perhaps you
+            intended to refer to a different variable, or perhaps the earlier check to see if the
+            variable is null should have been a check to see if it was non-null).
+            &lt;/p&gt;
+        </description>
+        <tag>correctness</tag>
+        <tag>bug</tag>
+    </rule>
+
+    <rule key='SAFETY_MISCONFIGURATION' priority='MAJOR'>
+        <name>Correctness - resource leak</name>
+        <configKey>RESOURCE_LEAK</configKey>
+        <description>&lt;p&gt; The variable referenced at this point is known to be null due to an earlier
+            check against null. Although this is valid, it might be a mistake (perhaps you
+            intended to refer to a different variable, or perhaps the earlier check to see if the
+            variable is null should have been a check to see if it was non-null).
+            &lt;/p&gt;
+        </description>
+        <tag>correctness</tag>
+        <tag>bug</tag>
+    </rule>
+
+    <rule key='CROSS_SITE_SCRIPTING' priority='MAJOR'>
+        <name>Correctness - resource leak</name>
+        <configKey>RESOURCE_LEAK</configKey>
+        <description>&lt;p&gt; The variable referenced at this point is known to be null due to an earlier
+            check against null. Although this is valid, it might be a mistake (perhaps you
+            intended to refer to a different variable, or perhaps the earlier check to see if the
+            variable is null should have been a check to see if it was non-null).
+            &lt;/p&gt;
+        </description>
+        <tag>correctness</tag>
+        <tag>bug</tag>
+    </rule>
+
+    <rule key='INSECURE_DESERIALIZATION' priority='MAJOR'>
+        <name>Correctness - resource leak</name>
+        <configKey>RESOURCE_LEAK</configKey>
+        <description>&lt;p&gt; The variable referenced at this point is known to be null due to an earlier
+            check against null. Although this is valid, it might be a mistake (perhaps you
+            intended to refer to a different variable, or perhaps the earlier check to see if the
+            variable is null should have been a check to see if it was non-null).
+            &lt;/p&gt;
+        </description>
+        <tag>correctness</tag>
+        <tag>bug</tag>
+    </rule>
 
     <rule key='ANOTHER_TYPE' priority='MAJOR'>
         <name>Correctness - another type</name>
