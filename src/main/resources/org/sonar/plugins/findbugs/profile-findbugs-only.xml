@@ -1355,13 +1355,16 @@
   <Match>
     <Bug pattern='NP_METHOD_RETURN_RELAXING_ANNOTATION' />
   </Match>
+
   <Match>
     <Bug pattern="NULL_POINTER_EXEPTION"/>
   </Match>
   <Match>
     <Bug pattern="RESOURCE_LEAK"/>
   </Match>
-
+  <Match>
+    <Bug pattern="ANOTHER_TYPE"/>
+  </Match>
   <Match>
     <Bug pattern="INJECTION"/>
   </Match>
@@ -1386,8 +1389,4 @@
   <Match>
     <Bug pattern="INSECURE_DESERIALIZATION"/>
   </Match>
-
-
-
-
 </FindBugsFilter>
