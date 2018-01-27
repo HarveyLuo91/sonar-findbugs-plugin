@@ -77,7 +77,7 @@ public class ReportedBug implements ReportedBugInfo{
 
       return BUG_TYPE.RESOURCE_LEAK;
 
-    }else if(type.equals("SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING ") || type.equals("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE ")|| type.equals("CUSTOM_INJECTION")
+    }else if(type.equals("SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING") || type.equals("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")|| type.equals("CUSTOM_INJECTION")
             || type.equals("SQL_INJECTION")|| type.equals("SQL_INJECTION_TURBINE")|| type.equals("SQL_INJECTION_HIBERNATE") || type.equals("SQL_INJECTION_JDO")|| type.equals("SQL_INJECTION_JPA")
             || type.equals("SQL_INJECTION_SPRING_JDBC")|| type.equals("SQL_INJECTION_JDBC")|| type.equals("SCRIPT_ENGINE_INJECTTION")|| type.equals("AWS_QUERY_INJECTION") || type.equals("BEAN_PROPERTY_INJECTION")){
 
