@@ -29,7 +29,6 @@ import java.util.regex.Pattern;
 
 public class ReportedBug implements ReportedBugInfo{
 
-  //private final String bugpattern;
   private final String message;
   private final String className;
   private final int startLine;
@@ -39,7 +38,7 @@ public class ReportedBug implements ReportedBugInfo{
   private static final Pattern SOURCE_FILE_PATTERN = createSourceFilePattern();
 
   public ReportedBug(BugInstance bugInstance) {
-    //this.bugpattern = bugInstance.getBugPattern().getType();
+
     this.type = bugInstance.getType();
     this.message = bugInstance.getMessageWithoutPrefix();
     this.className = bugInstance.getPrimarySourceLineAnnotation().getClassName();
