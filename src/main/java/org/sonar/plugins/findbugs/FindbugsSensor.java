@@ -242,17 +242,6 @@ public class FindbugsSensor implements Sensor {
             return;
         }
 
-        ActiveRule AT_killbugs_rule = null; //AT_killbugs_rule
-        for (String repoKey : getRepositories()) {
-            AT_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "AT_killbugs_rule");
-            if (AT_killbugs_rule != null) {
-                break;
-            }
-        }
-        if (AT_killbugs_rule == null) {
-            System.out.println("-----------------AT_killbugs_rule is null!");
-            return;
-        }
         Collection<ReportedBug> collection = executor.execute(hasActiveFbContribRules(), hasActiveFindSecBugsRules());
 
         try {
@@ -443,8 +432,6 @@ public class FindbugsSensor implements Sensor {
                     createIssue(SDE_killbugs_rule, bugs, bugInstanceKey, interSection, root);
                 } else if (splitKeyInstance[2].equals(BUG_TYPE.XML_EXTERNAL_ENTITIES.name())) {
                     createIssue(XEE_killbugs_rule, bugs, bugInstanceKey, interSection, root);
-                } else if (splitKeyInstance[2].equals(BUG_TYPE.ANOTHER_TYPE.name())) {
-                    createIssue(AT_killbugs_rule, bugs, bugInstanceKey, interSection, root);
                 } else {
 
                 }
