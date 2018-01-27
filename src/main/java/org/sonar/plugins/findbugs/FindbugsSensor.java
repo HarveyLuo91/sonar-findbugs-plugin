@@ -21,9 +21,9 @@ package org.sonar.plugins.findbugs;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import edu.bit.cs.BUG_TYPE;
 import edu.bit.cs.ReportedBugInfo;
 import edu.bit.cs.infer.InferReportParser;
-import edu.bit.cs.BUG_TYPE;
 import edu.bit.cs.jlint.JlintReportParser;
 import edu.bit.cs.util.CmdExecutor;
 import edu.bit.cs.util.ToolCollection;
@@ -137,7 +137,7 @@ public class FindbugsSensor implements Sensor {
         }
         ActiveRule RL_killbugs_rule = null; //Resource Leak
         for (String repoKey : getRepositories()) {
-            npe_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "RESOURCE_LEAK");
+            RL_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "RESOURCE_LEAK");
             if (RL_killbugs_rule != null) {
                 break;
             }
@@ -332,7 +332,7 @@ public class FindbugsSensor implements Sensor {
             //findbugs
             for (ReportedBug bugInstance : collection) {
                 try {
-                    if(bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE)){
+                    if (bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE)) {
                         continue;
                     }
 
@@ -421,7 +421,7 @@ public class FindbugsSensor implements Sensor {
             for (String bugInstanceKey : bugs.keySet()) {
 
                 String[] splitKeyInstance = bugInstanceKey.split("-");
-                System.out.println("FileName:" + splitKeyInstance[0] + "\nLine Number:" + splitKeyInstance[1]+ "\nBugType:" + splitKeyInstance[2]);
+                System.out.println("FileName:" + splitKeyInstance[0] + "\nLine Number:" + splitKeyInstance[1] + "\nBugType:" + splitKeyInstance[2]);
 
                 if (splitKeyInstance[2].equals(BUG_TYPE.NULL_POINTER_EXEPTION.name())) {
                     createIssue(npe_killbugs_rule, bugs, bugInstanceKey, interSection, root);
@@ -429,23 +429,23 @@ public class FindbugsSensor implements Sensor {
                     createIssue(RL_killbugs_rule, bugs, bugInstanceKey, interSection, root);
                 } else if (splitKeyInstance[2].equals(BUG_TYPE.BROKEN_ACCESS_CONTROL.name())) {
                     createIssue(BAC_killbugs_rule, bugs, bugInstanceKey, interSection, root);
-                }else if (splitKeyInstance[2].equals(BUG_TYPE.BROKEN_AUTHENTICATION.name())) {
+                } else if (splitKeyInstance[2].equals(BUG_TYPE.BROKEN_AUTHENTICATION.name())) {
                     createIssue(BA_killbugs_rule, bugs, bugInstanceKey, interSection, root);
-                }else if (splitKeyInstance[2].equals(BUG_TYPE.CROSS_SITE_SCRIPTING.name())) {
+                } else if (splitKeyInstance[2].equals(BUG_TYPE.CROSS_SITE_SCRIPTING.name())) {
                     createIssue(CSS_killbugs_rule, bugs, bugInstanceKey, interSection, root);
-                }else if (splitKeyInstance[2].equals(BUG_TYPE.INJECTION.name())) {
+                } else if (splitKeyInstance[2].equals(BUG_TYPE.INJECTION.name())) {
                     createIssue(Inj_killbugs_rule, bugs, bugInstanceKey, interSection, root);
-                }else if (splitKeyInstance[2].equals(BUG_TYPE.INSECURE_DESERIALIZATION.name())) {
+                } else if (splitKeyInstance[2].equals(BUG_TYPE.INSECURE_DESERIALIZATION.name())) {
                     createIssue(ID_killbugs_rule, bugs, bugInstanceKey, interSection, root);
-                }else if (splitKeyInstance[2].equals(BUG_TYPE.SAFETY_MISCONFIGURATION.name())) {
+                } else if (splitKeyInstance[2].equals(BUG_TYPE.SAFETY_MISCONFIGURATION.name())) {
                     createIssue(SM_killbugs_rule, bugs, bugInstanceKey, interSection, root);
-                }else if (splitKeyInstance[2].equals(BUG_TYPE.SENSITIVE_DATA_EXPOSURE.name())) {
+                } else if (splitKeyInstance[2].equals(BUG_TYPE.SENSITIVE_DATA_EXPOSURE.name())) {
                     createIssue(SDE_killbugs_rule, bugs, bugInstanceKey, interSection, root);
-                }else if (splitKeyInstance[2].equals(BUG_TYPE.XML_EXTERNAL_ENTITIES.name())) {
+                } else if (splitKeyInstance[2].equals(BUG_TYPE.XML_EXTERNAL_ENTITIES.name())) {
                     createIssue(XEE_killbugs_rule, bugs, bugInstanceKey, interSection, root);
-                }else if (splitKeyInstance[2].equals(BUG_TYPE.ANOTHER_TYPE.name())) {
+                } else if (splitKeyInstance[2].equals(BUG_TYPE.ANOTHER_TYPE.name())) {
                     createIssue(AT_killbugs_rule, bugs, bugInstanceKey, interSection, root);
-                }else{
+                } else {
 
                 }
             }

@@ -26,7 +26,10 @@ import org.sonar.plugins.findbugs.language.Jsp;
 import org.sonar.plugins.findbugs.language.JspSyntaxSensor;
 import org.sonar.plugins.findbugs.profiles.*;
 import org.sonar.plugins.findbugs.resource.ByteCodeResourceLocator;
-import org.sonar.plugins.findbugs.rules.*;
+import org.sonar.plugins.findbugs.rules.FbContribRulesDefinition;
+import org.sonar.plugins.findbugs.rules.FindSecurityBugsJspRulesDefinition;
+import org.sonar.plugins.findbugs.rules.FindSecurityBugsRulesDefinition;
+import org.sonar.plugins.findbugs.rules.FindbugsRulesDefinition;
 import org.sonar.plugins.java.Java;
 
 import java.util.Arrays;
@@ -50,28 +53,28 @@ public class FindbugsPlugin implements Plugin {
     }
 
     @Override
-  public void define(Context context) {
-    context.addExtensions(FindbugsConfiguration.getPropertyDefinitions());
-    context.addExtensions(Arrays.asList(
-            Jsp.class,
-            JspSyntaxSensor.class,
+    public void define(Context context) {
+        context.addExtensions(FindbugsConfiguration.getPropertyDefinitions());
+        context.addExtensions(Arrays.asList(
+                Jsp.class,
+                JspSyntaxSensor.class,
 
-            FindbugsSensor.class,
-            FindbugsConfiguration.class,
-            FindbugsExecutor.class,
-            FindbugsProfileExporter.class,
-            FindbugsProfileImporter.class,
+                FindbugsSensor.class,
+                FindbugsConfiguration.class,
+                FindbugsExecutor.class,
+                FindbugsProfileExporter.class,
+                FindbugsProfileImporter.class,
 
-            FindbugsProfile.class,
-            FindbugsContribProfile.class,
-            FindbugsSecurityAuditProfile.class,
-            FindbugsSecurityMinimalProfile.class,
-            FindbugsSecurityJspProfile.class,
+                FindbugsProfile.class,
+                FindbugsContribProfile.class,
+                FindbugsSecurityAuditProfile.class,
+                FindbugsSecurityMinimalProfile.class,
+                FindbugsSecurityJspProfile.class,
 
-            FindbugsRulesDefinition.class,
-            FbContribRulesDefinition.class,
-            FindSecurityBugsRulesDefinition.class,
-            FindSecurityBugsJspRulesDefinition.class,
-            ByteCodeResourceLocator.class));
-  }
+                FindbugsRulesDefinition.class,
+                FbContribRulesDefinition.class,
+                FindSecurityBugsRulesDefinition.class,
+                FindSecurityBugsJspRulesDefinition.class,
+                ByteCodeResourceLocator.class));
+    }
 }
