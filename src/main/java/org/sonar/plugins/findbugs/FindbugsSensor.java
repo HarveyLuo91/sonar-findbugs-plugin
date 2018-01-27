@@ -177,7 +177,7 @@ public class FindbugsSensor implements Sensor {
                 if (bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE)) {
                     continue;
                 }
-                System.out.println(bugInstance);
+                //System.out.println(bugInstance);
                 String sourceFile = normalizeFilePath(bugInstance.getSourcePath(), root);
                 int line = bugInstance.getBugLineNumber();
                 System.out.println("-------------------Infer sourceFile+line:" + sourceFile + line);
@@ -205,9 +205,18 @@ public class FindbugsSensor implements Sensor {
                     if(bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE)){
                         continue;
                     }
+                    ////////////////////
+                    List bugInstances;
+                    if (!bugs.containsKey(bugInstance.getSourceFile() + "-" + bugInstance.getBugLineNumber() + "-" + bugInstance.getBugType().name())) {
+                        bugInstances = Lists.newArrayList();
+                        bugInstances.add(bugInstance);
+                        bugs.put(bugInstance.getSourceFile() + "-" + bugInstance.getBugLineNumber() + "-" + bugInstance.getBugType().name(), bugInstances);
+                    }
+                    ////////////////////
+
                     ActiveRule rule = null;
                     for (String repoKey : getRepositories()) {
-                        System.out.println("---------------------type:" + bugInstance.getBugType().name() + "message:" + bugInstance.getMessage());
+                        System.out.println("\n---------------------type:" + bugInstance.getBugType().name() + "\nmessage:" + bugInstance.getMessage());
                         rule = ruleFinder.findByInternalKey(repoKey, bugInstance.getBugType().name());
                         if (rule != null) {
                             break;
@@ -310,15 +319,142 @@ public class FindbugsSensor implements Sensor {
                 return;
             }
 
+            ActiveRule BAC_killbugs_rule = null; //BROKEN_ACCESS_CONTROL
+            for (String repoKey : getRepositories()) {
+                BAC_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "BROKEN_ACCESS_CONTROL");
+                if (BAC_killbugs_rule != null) {
+                    break;
+                }
+            }
+            if (BAC_killbugs_rule == null) {
+                System.out.println("-----------------BAC_killbugs_rule is null!");
+                return;
+            }
+
+            ActiveRule BA_killbugs_rule = null; //BROKEN_AUTHENTICATION
+            for (String repoKey : getRepositories()) {
+                BA_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "BROKEN_AUTHENTICATION");
+                if (BA_killbugs_rule != null) {
+                    break;
+                }
+            }
+            if (BA_killbugs_rule == null) {
+                System.out.println("-----------------BA_killbugs_rule is null!");
+                return;
+            }
+
+            ActiveRule CSS_killbugs_rule = null; //CROSS_SITE_SCRIPTING
+            for (String repoKey : getRepositories()) {
+                CSS_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "CROSS_SITE_SCRIPTING");
+                if (CSS_killbugs_rule != null) {
+                    break;
+                }
+            }
+            if (CSS_killbugs_rule == null) {
+                System.out.println("-----------------CSS_killbugs_rule is null!");
+                return;
+            }
+
+            ActiveRule Inj_killbugs_rule = null; //INJECTION
+            for (String repoKey : getRepositories()) {
+                Inj_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "INJECTION");
+                if (Inj_killbugs_rule != null) {
+                    break;
+                }
+            }
+            if (Inj_killbugs_rule == null) {
+                System.out.println("-----------------Inj_killbugs_rule is null!");
+                return;
+            }
+
+            ActiveRule ID_killbugs_rule = null; //INSECURE_DESERIALIZATION
+            for (String repoKey : getRepositories()) {
+                ID_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "INSECURE_DESERIALIZATION");
+                if (ID_killbugs_rule != null) {
+                    break;
+                }
+            }
+            if (ID_killbugs_rule == null) {
+                System.out.println("-----------------RL_killbugs_rule is null!");
+                return;
+            }
+
+            ActiveRule SM_killbugs_rule = null; //SAFETY_MISCONFIGURATION
+            for (String repoKey : getRepositories()) {
+                SM_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "SAFETY_MISCONFIGURATION");
+                if (SM_killbugs_rule != null) {
+                    break;
+                }
+            }
+            if (SM_killbugs_rule == null) {
+                System.out.println("-----------------SM_killbugs_rule is null!");
+                return;
+            }
+
+            ActiveRule SDE_killbugs_rule = null; //SENSITIVE_DATA_EXPOSURE
+            for (String repoKey : getRepositories()) {
+                SDE_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "SENSITIVE_DATA_EXPOSURE");
+                if (SDE_killbugs_rule != null) {
+                    break;
+                }
+            }
+            if (SDE_killbugs_rule == null) {
+                System.out.println("-----------------SDE_killbugs_rule is null!");
+                return;
+            }
+
+            ActiveRule XEE_killbugs_rule = null; //XML_EXTERNAL_ENTITIES
+            for (String repoKey : getRepositories()) {
+                XEE_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "XML_EXTERNAL_ENTITIES");
+                if (XEE_killbugs_rule != null) {
+                    break;
+                }
+            }
+            if (XEE_killbugs_rule == null) {
+                System.out.println("-----------------XML_EXTERNAL_ENTITIES is null!");
+                return;
+            }
+
+            ActiveRule AT_killbugs_rule = null; //AT_killbugs_rule
+            for (String repoKey : getRepositories()) {
+                AT_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "AT_killbugs_rule");
+                if (AT_killbugs_rule != null) {
+                    break;
+                }
+            }
+            if (AT_killbugs_rule == null) {
+                System.out.println("-----------------AT_killbugs_rule is null!");
+                return;
+            }
+
+
 
             for (String bugInstanceKey : bugs.keySet()) {
                 String[] splitKeyInstance = bugInstanceKey.split("-");
+                System.out.println(splitKeyInstance[2]);//bugInstance.getBugType().name()
                 if (splitKeyInstance[2].equals(BUG_TYPE.NULL_POINTER_EXEPTION.name())) {
                     createIssue(npe_killbugs_rule, bugs, bugInstanceKey, interSection, root);
-
                 } else if (splitKeyInstance[2].equals(BUG_TYPE.RESOURCE_LEAK.name())) {
                     createIssue(RL_killbugs_rule, bugs, bugInstanceKey, interSection, root);
-                } else {
+                } else if (splitKeyInstance[2].equals(BUG_TYPE.BROKEN_ACCESS_CONTROL.name())) {
+                    createIssue(BAC_killbugs_rule, bugs, bugInstanceKey, interSection, root);
+                }else if (splitKeyInstance[2].equals(BUG_TYPE.BROKEN_AUTHENTICATION.name())) {
+                    createIssue(BA_killbugs_rule, bugs, bugInstanceKey, interSection, root);
+                }else if (splitKeyInstance[2].equals(BUG_TYPE.CROSS_SITE_SCRIPTING.name())) {
+                    createIssue(CSS_killbugs_rule, bugs, bugInstanceKey, interSection, root);
+                }else if (splitKeyInstance[2].equals(BUG_TYPE.INJECTION.name())) {
+                    createIssue(Inj_killbugs_rule, bugs, bugInstanceKey, interSection, root);
+                }else if (splitKeyInstance[2].equals(BUG_TYPE.INSECURE_DESERIALIZATION.name())) {
+                    createIssue(ID_killbugs_rule, bugs, bugInstanceKey, interSection, root);
+                }else if (splitKeyInstance[2].equals(BUG_TYPE.SAFETY_MISCONFIGURATION.name())) {
+                    createIssue(SM_killbugs_rule, bugs, bugInstanceKey, interSection, root);
+                }else if (splitKeyInstance[2].equals(BUG_TYPE.SENSITIVE_DATA_EXPOSURE.name())) {
+                    createIssue(SDE_killbugs_rule, bugs, bugInstanceKey, interSection, root);
+                }else if (splitKeyInstance[2].equals(BUG_TYPE.XML_EXTERNAL_ENTITIES.name())) {
+                    createIssue(XEE_killbugs_rule, bugs, bugInstanceKey, interSection, root);
+                }else if (splitKeyInstance[2].equals(BUG_TYPE.ANOTHER_TYPE.name())) {
+                    createIssue(AT_killbugs_rule, bugs, bugInstanceKey, interSection, root);
+                }else{
 
                 }
             }

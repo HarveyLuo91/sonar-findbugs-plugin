@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
 
 public class ReportedBug implements ReportedBugInfo{
 
-  private final String bugpattern;
+  //private final String bugpattern;
   private final String message;
   private final String className;
   private final int startLine;
@@ -39,7 +39,7 @@ public class ReportedBug implements ReportedBugInfo{
   private static final Pattern SOURCE_FILE_PATTERN = createSourceFilePattern();
 
   public ReportedBug(BugInstance bugInstance) {
-    this.bugpattern = bugInstance.getBugPattern().getType();
+    //this.bugpattern = bugInstance.getBugPattern().getType();
     this.type = bugInstance.getType();
     this.message = bugInstance.getMessageWithoutPrefix();
     this.className = bugInstance.getPrimarySourceLineAnnotation().getClassName();
@@ -55,7 +55,7 @@ public class ReportedBug implements ReportedBugInfo{
   }
 
   public String getType() {
-    return bugpattern;
+    return type;
   }
 
   public String getMessage() {
@@ -65,55 +65,55 @@ public class ReportedBug implements ReportedBugInfo{
   @Override
   public BUG_TYPE getBugType() {
 
-    if(bugpattern.equals("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS") || bugpattern.equals("NP_NULL_PARAM_DEREF_NONVIRTUAL") || bugpattern.equals("NP_NONNULL_RETURN_VIOLATION")
-            || bugpattern.equals("NP_DEREFERENCE_OF_READLINE_VALUE")|| bugpattern.equals("NP_GUARANTEED_DEREF")|| bugpattern.equals("NP_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD")
-            || bugpattern.equals("NP_IMMEDIATE_DEREFERENCE_OF_READLINE")|| bugpattern.equals("NP_NULL_ON_SOME_PATH_EXCEPTION")|| bugpattern.equals("RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE")
-            || bugpattern.equals("NP_NULL_ON_SOME_PATH_MIGHT_BE_INFEASIBLE")|| bugpattern.equals("NP_NULL_PARAM_DEREF")|| bugpattern.equals("NP_NULL_ON_SOME_PATH")|| bugpattern.equals("NP_LOAD_OF_KNOWN_NULL_VALUE")
-            || bugpattern.equals("NP_ALWAYS_NULL")|| bugpattern.equals("NP_ALWAYS_NULL_EXCEPTION")|| bugpattern.equals("NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE")){
+    if(type.equals("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS") || type.equals("NP_NULL_PARAM_DEREF_NONVIRTUAL") || type.equals("NP_NONNULL_RETURN_VIOLATION")
+            || type.equals("NP_DEREFERENCE_OF_READLINE_VALUE")|| type.equals("NP_GUARANTEED_DEREF")|| type.equals("NP_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD")
+            || type.equals("NP_IMMEDIATE_DEREFERENCE_OF_READLINE")|| type.equals("NP_NULL_ON_SOME_PATH_EXCEPTION")|| type.equals("RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE")
+            || type.equals("NP_NULL_ON_SOME_PATH_MIGHT_BE_INFEASIBLE")|| type.equals("NP_NULL_PARAM_DEREF")|| type.equals("NP_NULL_ON_SOME_PATH")|| type.equals("NP_LOAD_OF_KNOWN_NULL_VALUE")
+            || type.equals("NP_ALWAYS_NULL")|| type.equals("NP_ALWAYS_NULL_EXCEPTION")|| type.equals("NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE")){
 
       return BUG_TYPE.NULL_POINTER_EXEPTION;
 
-    }else if(bugpattern.equals("OS_OPEN_STREAM")){
+    }else if(type.equals("OS_OPEN_STREAM")){
 
       return BUG_TYPE.RESOURCE_LEAK;
 
-    }else if(bugpattern.equals("SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING ") || bugpattern.equals("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE ")|| bugpattern.equals("CUSTOM_INJECTION")
-            || bugpattern.equals("SQL_INJECTION")|| bugpattern.equals("SQL_INJECTION_TURBINE")|| bugpattern.equals("SQL_INJECTION_HIBERNATE") || bugpattern.equals("SQL_INJECTION_JDO")|| bugpattern.equals("SQL_INJECTION_JPA")
-            || bugpattern.equals("SQL_INJECTION_SPRING_JDBC")|| bugpattern.equals("SQL_INJECTION_JDBC")|| bugpattern.equals("SCRIPT_ENGINE_INJECTTION")|| bugpattern.equals("AWS_QUERY_INJECTION") || bugpattern.equals("BEAN_PROPERTY_INJECTION")){
+    }else if(type.equals("SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING ") || type.equals("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE ")|| type.equals("CUSTOM_INJECTION")
+            || type.equals("SQL_INJECTION")|| type.equals("SQL_INJECTION_TURBINE")|| type.equals("SQL_INJECTION_HIBERNATE") || type.equals("SQL_INJECTION_JDO")|| type.equals("SQL_INJECTION_JPA")
+            || type.equals("SQL_INJECTION_SPRING_JDBC")|| type.equals("SQL_INJECTION_JDBC")|| type.equals("SCRIPT_ENGINE_INJECTTION")|| type.equals("AWS_QUERY_INJECTION") || type.equals("BEAN_PROPERTY_INJECTION")){
 
       return BUG_TYPE.INJECTION;
 
-    }else if(bugpattern.equals("URL_REWRITING")){
+    }else if(type.equals("URL_REWRITING")){
 
       return BUG_TYPE.BROKEN_AUTHENTICATION;
 
-    }else if(bugpattern.equals("UNSAFE_HASH_EQUALS")){
+    }else if(type.equals("UNSAFE_HASH_EQUALS")){
 
       return BUG_TYPE.SENSITIVE_DATA_EXPOSURE;
 
-    }else if(bugpattern.equals("XXE_XMLSTREAMREADER") || bugpattern.equals("XXE_SAXPARSER")|| bugpattern.equals("XXE_XMLREADER")|| bugpattern.equals("XXE_DOCUMENT")
-            || bugpattern.equals("XXE_DTD_TRANSFORM_FACTORY")){
+    }else if(type.equals("XXE_XMLSTREAMREADER") || type.equals("XXE_SAXPARSER")|| type.equals("XXE_XMLREADER")|| type.equals("XXE_DOCUMENT")
+            || type.equals("XXE_DTD_TRANSFORM_FACTORY")){
 
       return BUG_TYPE.XML_EXTERNAL_ENTITIES;
 
-    }else if(bugpattern.equals("LDAP_ANONYMOUS") || bugpattern.equals("SERVLET_HEADER_REFERER")
-            || bugpattern.equals("LDAP_ENTRY_POISONING")|| bugpattern.equals("LDAP_INJECTION")){
+    }else if(type.equals("LDAP_ANONYMOUS") || type.equals("SERVLET_HEADER_REFERER")
+            || type.equals("LDAP_ENTRY_POISONING")|| type.equals("LDAP_INJECTION")){
 
       return BUG_TYPE.BROKEN_ACCESS_CONTROL;
 
-    }else if(bugpattern.equals("PREDICTABLE_RANDOM") || bugpattern.equals("SERVLET_CONTENT_TYPE") || bugpattern.equals("SERVERLET_SERVER_NAME") || bugpattern.equals("SERVERLET_HEADER_REFERER")
-            || bugpattern.equals("SERVERLET_HEADER_USER_AGENT") || bugpattern.equals("SERVERLET_HEADER") || bugpattern.equals("JAXWS_ENDPOINT") || bugpattern.equals("JAXRS_ENDPOINT")
-            || bugpattern.equals("WEAK_MESSAGE_DIGEST_MD5") || bugpattern.equals("WEAK_MESSAGE_DIGEST_SHA1") || bugpattern.equals("SSL_CONTEXT")|| bugpattern.equals("FILE_UPLOAD_FILENAME")
-            || bugpattern.equals("SPRING_CSRF_PROTECTION_DISABLED")|| bugpattern.equals("SPRING_CSRF_UNRESTRICTED_REQUEST_MAPPING")|| bugpattern.equals("LDAP_INJECTION")|| bugpattern.equals("EL_INJECTION")
-            || bugpattern.equals("HARD_CODED_PASSWORD")|| bugpattern.equals("HARD_CODED_KEY")|| bugpattern.equals("UNSAFE_HASH_EQUALS") || bugpattern.equals("HTTP_PARAMETER_POLLUTION")){
+    }else if(type.equals("PREDICTABLE_RANDOM") || type.equals("SERVLET_CONTENT_TYPE") || type.equals("SERVERLET_SERVER_NAME") || type.equals("SERVERLET_HEADER_REFERER")
+            || type.equals("SERVERLET_HEADER_USER_AGENT") || type.equals("SERVERLET_HEADER") || type.equals("JAXWS_ENDPOINT") || type.equals("JAXRS_ENDPOINT")
+            || type.equals("WEAK_MESSAGE_DIGEST_MD5") || type.equals("WEAK_MESSAGE_DIGEST_SHA1") || type.equals("SSL_CONTEXT")|| type.equals("FILE_UPLOAD_FILENAME")
+            || type.equals("SPRING_CSRF_PROTECTION_DISABLED")|| type.equals("SPRING_CSRF_UNRESTRICTED_REQUEST_MAPPING")|| type.equals("LDAP_INJECTION")|| type.equals("EL_INJECTION")
+            || type.equals("HARD_CODED_PASSWORD")|| type.equals("HARD_CODED_KEY")|| type.equals("UNSAFE_HASH_EQUALS") || type.equals("HTTP_PARAMETER_POLLUTION")){
 
       return BUG_TYPE.SAFETY_MISCONFIGURATION;
 
-    } else if(bugpattern.equals("XSS_REQUEST_WRAPPER") || bugpattern.equals("XSS_JSP_PRINT") || bugpattern.equals("XSS_SERVERLET")) {
+    } else if(type.equals("XSS_REQUEST_WRAPPER") || type.equals("XSS_JSP_PRINT") || type.equals("XSS_SERVERLET")) {
 
       return BUG_TYPE.CROSS_SITE_SCRIPTING;
 
-    }else if(bugpattern.equals("OBJECT_DESERIALIZATION") || bugpattern.equals("JACKSON_UNSAFE_DESERIALIZATION") || bugpattern.equals("DESERIALIZATION_GADGET")) {
+    }else if(type.equals("OBJECT_DESERIALIZATION") || type.equals("JACKSON_UNSAFE_DESERIALIZATION") || type.equals("DESERIALIZATION_GADGET")) {
 
       return BUG_TYPE.INSECURE_DESERIALIZATION;
 
@@ -146,7 +146,7 @@ public class ReportedBug implements ReportedBugInfo{
 
   @Override
   public ToolCollection getToolName() {
-    return ToolCollection.INFER.FINDBUGS;
+    return ToolCollection.FINDBUGS;
   }
 
   public int getStartLine() {
