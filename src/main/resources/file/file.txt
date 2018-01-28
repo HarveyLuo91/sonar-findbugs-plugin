@@ -1,0 +1,71 @@
+npe/abstract_inferface_extends/GuaranteedDerefInterprocImplF.java,L14,o,#interface #abstract #superClass #inter-process
+npe/abstract_inferface_extends/GuaranteedFieldDereferenceF.java,L20,propertyListTail,#nestedClass #field
+npe/abstract_inferface_extends/UnconditionalThrowerF.java,L23,x,#exception #superClass
+npe/assertion/HandleAssertF.java,L16,y,#assert #path-sensitive
+npe/collection/HashMapF.java,L16,n,#collection path-sensitive
+npe/collection/JXPathMetaModuleExampleF.java,L27,values,#path-sensitive #collection #inter-process
+npe/collection/JXPathMetaModuleExampleF.java,L46,x,#path-sensitive #collection #inter-process
+npe/collection/ZeroTripF.java,L12,ret,#collection #local
+npe/exception/NullDerefF.java,L19,x,#exception #local
+npe/exception/NullDerefF.java,L31,x,#exception #local
+npe/exception/NullDerefF.java,L42,x,#exception #local
+npe/exception/NullDerefF.java,L58,x,#exception #local
+npe/exception/NullDerefF.java,L73,x,#exception #local
+npe/field/AtomicFieldUpdaterF.java,L12,x,#field
+npe/field/BadSetterF.java,L19,setter,#field #path-sensitive
+npe/field/FieldDereferenceF.java,L17,list,#field,#path-sensitive#inter-process
+npe/field/FieldDereferenceF.java,L24,list,#field #path-sensitive #inter-process
+npe/field/NullDerefF.java,L10,lck,#field #synchronized
+npe/field/NutchBugF.java,L15,b.x,#field #path-sensitive
+npe/field/StaticFieldsF.java,L12,x,#field
+npe/field/StaticFieldsF.java,L18,y,#field
+npe/local/CorrectlyLocalizeWarningF.java,L22,s,#path-sensitive #Exception
+npe/other/CheckAThrowF.java,L18,t,#path-sensitive #inter-process
+npe/other/CheckAThrowF.java,L26,t(possible),#path-sensitive #inter-process
+npe/other/CheckAThrowF.java,L7,obj(maybe),#path-sensitive #inter-process
+npe/other/ColorF.java,L17,components,#Array #inter-process #path-sensitive
+npe/other/ErrorInFinallyClauseF.java,L27,in,#exception
+npe/other/ErrorInFinallyClauseF.java,L29,out,#exception
+npe/other/FalsePositiveFromEclipseCommentRegionF.java,L22,p,#path-sensitive #flow-sensitive #inter-process
+npe/other/FalsePositiveOnExceptionPathF.java,L62,r,#inter-process #exception #path-sensitive
+npe/other/GuaranteedDereference2F.java,L21,x,#exception #inter-process
+npe/other/GuaranteedDereference2F.java,L34,x,#exception #inter-process
+npe/other/GuaranteedDereferenceF.java,L13,x,#path-sensitive #exception #inter-process
+npe/other/GuaranteedDereferenceF.java,L24,x,#path-sensitive #exception #inter-process
+npe/other/GuaranteedDereferenceF.java,L26,x,#path-sensitive #exception #inter-process
+npe/other/GuaranteedDereferenceF.java,L36,x,#path-sensitive #exception #inter-process
+npe/other/GuaranteedDereferenceF.java,L44,xAsString,#path-sensitive #exception #inter-process
+npe/other/GuaranteedDereferenceF.java,L68,y,#path-sensitive #exception #inter-process
+npe/other/GuaranteedDereferenceF.java,L76,y,#path-sensitive #exception #inter-process
+npe/other/GuaranteedDereferenceF.java,L83,y,#path-sensitive #exception #inter-process
+npe/other/GuaranteedDereferenceF.java,L104,y,#path-sensitive #exception #inter-process
+npe/other/GuaranteedDereferenceF.java,L125,y,#path-sensitive #exception #inter-process
+npe/other/GuaranteedDereferenceF.java,L155,x,#path-sensitive #exception #inter-process
+npe/other/GuaranteedDereferenceInteractionWithAssertionMethodsF.java,L20,x,#field #inter-process #path-sensitive
+npe/other/GuaranteedDereferenceInteractionWithAssertionMethodsF.java,L41,x,#field #inter-process #path-sensitive
+npe/other/GuaranteedDereferenceInteractionWithAssertionMethodsF.java,L50,x,#field #inter-process #path-sensitive
+npe/other/GuaranteedDereferenceLocationReportingF.java,L27,y,#path-sensitive
+npe/other/GuaranteedDereferenceLocationReportingF.java,L46,y,#path-sensitive
+npe/other/IdentifyCorrectBranchPleaseF.java,L14,x,#path-sensitive #flow-sensitive?
+npe/other/IdentifyCorrectBranchPleaseF.java,L26,x,#path-sensitive #flow-sensitive?
+npe/other/InstanceOfF.java,L12,o,#instanceof #path-sensitive
+npe/other/InterproceduralMethodOrderingF.java,L39,x,#inter-process #path-sensitive
+npe/parameter/BranchOrStatementF.java,L10,x,#path-sensitive #inter-process
+npe/parameter/BranchOrStatementF.java,L18,x,#path-sensitive #inter-process
+npe/parameter/BranchOrStatementF.java,L25,x,#path-sensitive #inter-process
+npe/parameter/ComparisonWithThisF.java,L14,x,#inter-process #path-sensitive
+npe/parameter/CoupledNullnessF.java,L12,y,#inter-process #path-context
+npe/parameter/CoupledNullnessF.java,L22,y,#inter-process #path-context
+npe/parameter/NullDerefF.java,L18,a&b,#path-sensitive #inter-process
+npe/parameter/NullDerefF.java,L26,a&b,#path-sensitive #inter-process
+npe/simple/LoadKnownNullF.java,L9,o,#local #exception
+npe/simple/LoadKnownNullF.java,L20,s,#local #exception
+npe/simple/NullDeref1F.java,L35,o,#local #path-sensitive
+npe/simple/NullDerefF.java,L20,n,#local #path-sensitive
+npe/simple/NullDerefF.java,L55,s,#local #path-sensitive
+npe/simple/NullPointerCategoriesF.java,L9,x,#local #path-sensitive
+npe/simple/NullPointerCategoriesF.java,L16,x,#local #path-sensitive
+npe/simple/NullPointerCategoriesF.java,L23,x,#local #path-sensitive
+npe/simple/NullPointerCategoriesF.java,L29,o,#local #path-sensitive
+npe/ternary/Logical_conditionalF.java,L7,o,#operator #path-sensitive
+npe/ternary/Logical_conditionalF.java,L13,o,#operator #path-sensitive

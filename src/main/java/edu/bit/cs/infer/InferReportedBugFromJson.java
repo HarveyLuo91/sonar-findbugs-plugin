@@ -3,6 +3,7 @@ package edu.bit.cs.infer;
 import edu.bit.cs.BUG_TYPE;
 import edu.bit.cs.ReportedBugInfo;
 import edu.bit.cs.util.ToolCollection;
+import org.sonar.plugins.findbugs.FindbugsSensor;
 
 import java.util.List;
 
@@ -311,22 +312,24 @@ public class InferReportedBugFromJson implements ReportedBugInfo {
         }
     }
 
+
     @Override
     public BUG_TYPE getBugType() {
-        if(bug_type.equals("NULL_DEREFERENCE")){
+        if (bug_type.equals("NULL_DEREFERENCE")) {
             return BUG_TYPE.NULL_POINTER_EXEPTION;
-        }else if(bug_type.equals("RESOURCE_LEAK")){
+        } else if (bug_type.equals("RESOURCE_LEAK")) {
             return BUG_TYPE.RESOURCE_LEAK;
-        }else{
+        } else {
             return BUG_TYPE.ANOTHER_TYPE;
         }
 
 
     }
-   // @Override
-  //  public String getType() {
-     //   return bug_type;
-   // }
+
+    // @Override
+    //  public String getType() {
+    //   return bug_type;
+    // }
     @Override
     public String getBugMessage() {
         return qualifier;
@@ -346,7 +349,7 @@ public class InferReportedBugFromJson implements ReportedBugInfo {
 
     @Override
     public String getSourcePath() {
-        return file;
+        return ReportedBugInfo.normalizeFilePath(file, FindbugsSensor.ROOT);
     }
 
     @Override
@@ -365,4 +368,5 @@ public class InferReportedBugFromJson implements ReportedBugInfo {
 
         return string.toString();
     }
+
 }
