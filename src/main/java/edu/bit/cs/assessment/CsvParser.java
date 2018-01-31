@@ -21,7 +21,7 @@ public class CsvParser {
 //    }
 
     public static Set<String> parseFakeBugs() {
-        ArrayList<ReportedBugInfo> fakebugs = Lists.newArrayList();
+
         Set<String> fakebugset = Sets.newHashSet();
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(CsvParser.class.getClassLoader().getResourceAsStream("file/file.txt")));
@@ -47,9 +47,6 @@ public class CsvParser {
                     fakebug.tags.add(tokens[3].trim());
                 }
 
-
-                //fakebug.printdetails();
-//                fakebugs.add(fakebug);
                 fakebugset.add(fakebug.getUID());
                 line = br.readLine();
             }
