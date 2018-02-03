@@ -54,7 +54,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 public class FindbugsSensor implements Sensor {
 
@@ -66,7 +69,7 @@ public class FindbugsSensor implements Sensor {
 
     public static String ROOT = "";
 
-    private List<String> repositories = new ArrayList<String>();
+    private List<String> repositories = Lists.newArrayList();
 
     private RulesProfile profile;
     private ActiveRules ruleFinder;
@@ -419,7 +422,7 @@ public class FindbugsSensor implements Sensor {
             for (String bugInstanceKey : bugs.keySet()) {
 
                 String[] splitKeyInstance = bugInstanceKey.split("-");
-                System.out.println("FileName:" + splitKeyInstance[0] + "\nLine Number:" + splitKeyInstance[1] + "\nBugType:" + splitKeyInstance[2]);
+                System.out.println("FileName:" + splitKeyInstance[0] + "\nLine Number:" + splitKeyInstance[1] + "\nBugTyp   e:" + splitKeyInstance[2]);
 
                 if (splitKeyInstance[2].equals(BUG_TYPE.NULL_POINTER_EXEPTION.name())) {
                     createIssue(npe_killbugs_rule, bugs, bugInstanceKey, interSection);
@@ -450,6 +453,10 @@ public class FindbugsSensor implements Sensor {
             Result findbugs = new Result("FINDBUGS");
             Result jlint = new Result("JLINT");
             Result infer = new Result("INFER");
+            Result findbugs_jlint = new Result("FINDBUGS+JLINT");
+            Result findbugs_infer = new Result("FINDBUGS+INFER");
+            Result jlint_infer = new Result("JLINT+INFER");
+
 
             for (int index = 0; index < ToolCollection.getSize(); index++) {
 
@@ -468,38 +475,12 @@ public class FindbugsSensor implements Sensor {
                     infer.getFp().putAll(result.getFp());
                 }
 
-                System.out.println("\n");
-                System.out.println("Name: " + result.getName());
-                System.out.println("Bug Number: " + (result.getFp().size() + result.getTp().size()));
-                System.out.println("TP: " + result.getTp().size());
-                System.out.println("FP: " + result.getFp().size());
-                System.out.println("precision: " + result.getPrecision());
-                System.out.println("recall: " + result.getRecall());
+                System.out.println(result);
             }
 
-            System.out.println("\n");
-            System.out.println("Name: " + findbugs.getName());
-            System.out.println("Bug Number: " + (findbugs.getFp().size() + findbugs.getTp().size()));
-            System.out.println("TP: " + findbugs.getTp().size());
-            System.out.println("FP: " + findbugs.getFp().size());
-            System.out.println("precision: " + findbugs.getPrecision());
-            System.out.println("recall: " + findbugs.getRecall());
-
-            System.out.println("\n");
-            System.out.println("Name: " + jlint.getName());
-            System.out.println("Bug Number: " + (jlint.getFp().size() + jlint.getTp().size()));
-            System.out.println("TP: " + jlint.getTp().size());
-            System.out.println("FP: " + jlint.getFp().size());
-            System.out.println("precision: " + jlint.getPrecision());
-            System.out.println("recall: " + jlint.getRecall());
-
-            System.out.println("\n");
-            System.out.println("Name: " + infer.getName());
-            System.out.println("Bug Number: " + (infer.getFp().size() + infer.getTp().size()));
-            System.out.println("TP: " + infer.getTp().size());
-            System.out.println("FP: " + infer.getFp().size());
-            System.out.println("precision: " + infer.getPrecision());
-            System.out.println("recall: " + infer.getRecall());
+            System.out.println(findbugs);
+            System.out.println(jlint);
+            System.out.println(infer);
 
         } finally {
             classMappingWriter.flush();
@@ -573,6 +554,7 @@ public class FindbugsSensor implements Sensor {
 
 
     protected void insertIssue(ActiveRule rule, InputFile resource, int line, String message) {
+        System.out.println();
         NewIssue newIssue = sensorContext.newIssue().forRule(rule.ruleKey());
 
         NewIssueLocation location = newIssue.newLocation()
@@ -615,6 +597,6 @@ public class FindbugsSensor implements Sensor {
     public void describe(SensorDescriptor descriptor) {
         descriptor.onlyOnLanguages(FindbugsPlugin.SUPPORTED_JVM_LANGUAGES);
         descriptor.name("FindBugs Sensor");
-    }
+    }// 1 2 3 4 5 6 7
 
 }

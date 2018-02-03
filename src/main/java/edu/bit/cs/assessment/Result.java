@@ -43,6 +43,17 @@ public class Result {
         }
     }
 
+    @Override
+    public String toString() {
+        return "\n" +
+                "Name: " + this.getName() + "\n" +
+                "Bug Number: " + (this.getFp().size() + this.getTp().size()) + "\n" +
+                "TP: " + this.getTp().size() + "\n" +
+                "FP: " + this.getFp().size() + "\n" +
+                "precision: " + this.getPrecision() + "\n" +
+                "recall: " + this.getRecall() + "\n";
+    }
+
 
     public String getName() {
         return name;
