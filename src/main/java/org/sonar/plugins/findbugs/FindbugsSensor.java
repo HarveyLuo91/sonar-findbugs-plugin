@@ -23,6 +23,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import edu.bit.cs.BUG_TYPE;
 import edu.bit.cs.ReportedBugInfo;
+import edu.bit.cs.assessment.CsvParser;
 import edu.bit.cs.assessment.Result;
 import edu.bit.cs.infer.InferReportParser;
 import edu.bit.cs.infer.InferReportedBugFromJson;
@@ -482,6 +483,26 @@ public class FindbugsSensor implements Sensor {
             System.out.println(jlint);
             System.out.println(infer);
 
+            findbugs.countTags();
+//            System.out.println("FindBugs Tag:");
+//            findbugs.printTags();
+//            System.out.println("");
+            jlint.countTags();
+//            System.out.println("Jlint Tag:");
+//            jlint.printTags();
+//            System.out.println("");
+            infer.countTags();
+//            System.out.println("Infer Tag:");
+//            infer.printTags();
+
+            for (String tag : CsvParser.TAGS.keySet()) {
+                System.out.println(tag);
+                System.out.print("total:" + CsvParser.TAGS.get(tag) + " ");
+                System.out.print("findbugs:" + findbugs.getTags().get(tag) + " ");
+                System.out.print("jlint:" + jlint.getTags().get(tag) + " ");
+                System.out.println("infer:" + infer.getTags().get(tag));
+            }
+
         } finally {
             classMappingWriter.flush();
             classMappingWriter.close();
@@ -597,6 +618,6 @@ public class FindbugsSensor implements Sensor {
     public void describe(SensorDescriptor descriptor) {
         descriptor.onlyOnLanguages(FindbugsPlugin.SUPPORTED_JVM_LANGUAGES);
         descriptor.name("FindBugs Sensor");
-    }// 1 2 3 4 5 6 7
+    }
 
 }

@@ -1,0 +1,39 @@
+npe/abstract_inferface_extends/GuaranteedFieldDereferenceT.java,#nestedClass #field
+npe/abstract_inferface_extends/UnconditionalThrowerT.java,#exception #superClass
+npe/assertion/HandleAssertT.java,#assert #path-sensitive
+npe/assertion/JunitFailFalsePositiveT.java,#assert #path-sensitive
+npe/collection/HashMapT.java,#collection #path-sensitive
+npe/collection/JXPathMetaModuleExampleT.java,#path-sensitive #collection #inter-process
+npe/collection/ZeroTripT.java,#collection #local
+npe/exception/InsideCatchBlockT.java,#exception
+npe/exception/NullDerefT.java,#exception #path-sensitive
+npe/field/AtomicFieldUpdaterT.java,#field
+npe/field/BadSetterT.java,#field #path-sensitive
+npe/field/CheckForNullFieldT.java,#field #path-sensitive
+npe/field/CheckForNullUsesT.java,#inter-process
+npe/field/FieldDereferenceT.java,#field #path-sensitive #inter-process
+npe/field/FieldTrackingFalsePositiveT.java,#inter-process #field #path-sensitive
+npe/field/NutchBugT.java,#field #path-sensitive
+npe/local/CorrectlyLocalizeWarningT.java,#path-sensitive #Exception
+npe/other/CheckAThrowT.java,#exception #inter-process #path-sensitive
+npe/other/ColorT.java,#array #inter-process #path-sensitive
+npe/other/DereferenceOrThrowT.java,#inter-process #path-sensitive #exception
+npe/other/DetectThrowersT.java,#inter-process #path-sensitive #exception
+npe/other/ErrorInFinallyClauseT.java,#exception
+npe/other/FalsePositiveFromEclipseCommentRegionT.java,#path-sensitive #flow-sensitive #inter-process
+npe/other/FalsePositiveOnExceptionPathT.java,#inter-process #exception #path-sensitive
+npe/other/GuaranteedDereference2T.java,#exception #inter-process
+npe/other/GuaranteedDereferenceInteractionWithAssertionMethodsT.java,#field #inter-process #path-sensitive
+npe/other/GuaranteedDereferenceLocationReportingT.java,#path-sensitive
+npe/other/IdentifyCorrectBranchPleaseT.java,#path-sensitive #flow-sensitive
+npe/other/InstanceOfT.java,#instanceof #path-sensitive
+npe/parameter/BranchOrStatementT.java,#path-sensitive #inter-process
+npe/parameter/CallToPanicT.java,#native
+npe/parameter/CoupledNullnessT.java,#inter-process #path-context
+npe/simple/LoggerFalsePositiveT.java,#local #inter-process #path-sensitive
+npe/simple/NullDerefT.java,#local
+npe/ternary/Logical_conditionalT.java,#operator #path-sensitive
+npe/ternary/TernaryIfT.java,#path-sensitive #operator
+
+
+

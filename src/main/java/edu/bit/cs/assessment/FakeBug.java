@@ -6,7 +6,7 @@ import edu.bit.cs.util.ToolCollection;
 
 import java.util.ArrayList;
 
-public class FakeBug implements ReportedBugInfo{
+public class FakeBug implements ReportedBugInfo {
 
     String filename;
     String lineNumber;
