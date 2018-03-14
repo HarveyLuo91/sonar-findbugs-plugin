@@ -19,12 +19,15 @@
  */
 package org.sonar.plugins.findbugs;
 
+import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.gson.Gson;
 import edu.bit.cs.BUG_TYPE;
 import edu.bit.cs.ReportedBugInfo;
 import edu.bit.cs.assessment.CsvParser;
 import edu.bit.cs.assessment.Result;
+import edu.bit.cs.assessment.TestCaseModel;
 import edu.bit.cs.infer.InferReportParser;
 import edu.bit.cs.infer.InferReportedBugFromJson;
 import edu.bit.cs.jlint.JlintReportParser;
@@ -483,25 +486,63 @@ public class FindbugsSensor implements Sensor {
             System.out.println(jlint);
             System.out.println(infer);
 
-            findbugs.countTags();
+            for (String uid : findbugs.getTp().keySet()) {
+                TestCaseModel test = CsvParser.F_BUGS.get(uid);
+                test.setFindbugs(1);
+                CsvParser.F_BUGS.put(uid, test);
+            }
+            for (String uid : jlint.getTp().keySet()) {
+                TestCaseModel test = CsvParser.F_BUGS.get(uid);
+                test.setJlint(1);
+                CsvParser.F_BUGS.put(uid, test);
+            }
+            for (String uid : infer.getTp().keySet()) {
+                TestCaseModel test = CsvParser.F_BUGS.get(uid);
+                test.setInfer(1);
+                CsvParser.F_BUGS.put(uid, test);
+            }
+
+            for (String uid : findbugs.getFp().keySet()) {
+                TestCaseModel test = CsvParser.F_BUGS.get(uid);
+                test.setFindbugs(0);
+                CsvParser.T_BUGS.put(uid, test);
+            }
+            for (String uid : jlint.getFp().keySet()) {
+                TestCaseModel test = CsvParser.F_BUGS.get(uid);
+                test.setJlint(0);
+                CsvParser.T_BUGS.put(uid, test);
+            }
+            for (String uid : infer.getFp().keySet()) {
+                TestCaseModel test = CsvParser.F_BUGS.get(uid);
+                test.setInfer(0);
+                CsvParser.T_BUGS.put(uid, test);
+            }
+
+            List<TestCaseModel> testCaseModels = Lists.newArrayList();
+            testCaseModels.addAll(CsvParser.F_BUGS.values());
+            testCaseModels.addAll(CsvParser.T_BUGS.values());
+
+            System.out.println(JSON.toJSONString(testCaseModels));
+
+//            findbugs.countTags();
 //            System.out.println("FindBugs Tag:");
 //            findbugs.printTags();
 //            System.out.println("");
-            jlint.countTags();
+//            jlint.countTags();
 //            System.out.println("Jlint Tag:");
 //            jlint.printTags();
 //            System.out.println("");
-            infer.countTags();
+//            infer.countTags();
 //            System.out.println("Infer Tag:");
 //            infer.printTags();
 
-            for (String tag : CsvParser.TAGS.keySet()) {
-                System.out.println(tag);
-                System.out.print("total:" + CsvParser.TAGS.get(tag) + " ");
-                System.out.print("findbugs:" + findbugs.getTags().get(tag) + " ");
-                System.out.print("jlint:" + jlint.getTags().get(tag) + " ");
-                System.out.println("infer:" + infer.getTags().get(tag));
-            }
+//            for (String tag : CsvParser.TAGS.keySet()) {
+//                System.out.println(tag);
+//                System.out.print("total:" + CsvParser.TAGS.get(tag) + " ");
+//                System.out.print("findbugs:" + findbugs.getTags().get(tag) + " ");
+//                System.out.print("jlint:" + jlint.getTags().get(tag) + " ");
+//                System.out.println("infer:" + infer.getTags().get(tag));
+//            }
 
         } finally {
             classMappingWriter.flush();

@@ -28,7 +28,23 @@ public class Result {
 
     public void judge(ReportedBugInfo bugInfo) {
         Preconditions.checkNotNull(bugInfo);
-        if (CsvParser.FAKEBUGS.containsKey(bugInfo.getUID())) {
+//        if (CsvParser.FAKEBUGS.containsKey(bugInfo.getUID())) {
+//            if (!tp.containsKey(bugInfo.getUID())) {
+//                tp.put(bugInfo.getUID(), Lists.newArrayList());
+//            }
+//            List<ReportedBugInfo> reportedBugInfos = tp.get(bugInfo.getUID());
+//            reportedBugInfos.add(bugInfo);
+////            hitBugTags.put(bugInfo.getUID(), CsvParser.FAKEBUGS.get(bugInfo.getUID()));
+//            //sorting out and counting the times of tag appearance
+//
+//            for (String tag : CsvParser.FAKEBUGS.get(bugInfo.getUID())) {
+//                if (!tags.containsKey(tag)) {
+//                    tags.put(tag, 1);
+//                } else {
+//                    tags.put(tag, tags.get(tag) + 1);
+//                }
+//            }
+        if (CsvParser.F_BUGS.containsKey(bugInfo.getUID())) {
             if (!tp.containsKey(bugInfo.getUID())) {
                 tp.put(bugInfo.getUID(), Lists.newArrayList());
             }
@@ -36,6 +52,7 @@ public class Result {
             reportedBugInfos.add(bugInfo);
 //            hitBugTags.put(bugInfo.getUID(), CsvParser.FAKEBUGS.get(bugInfo.getUID()));
             //sorting out and counting the times of tag appearance
+
             for (String tag : CsvParser.FAKEBUGS.get(bugInfo.getUID())) {
                 if (!tags.containsKey(tag)) {
                     tags.put(tag, 1);
@@ -43,6 +60,7 @@ public class Result {
                     tags.put(tag, tags.get(tag) + 1);
                 }
             }
+
 
         } else {
             if (!fp.containsKey(bugInfo.getUID())) {

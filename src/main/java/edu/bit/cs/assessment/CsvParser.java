@@ -13,6 +13,13 @@ public class CsvParser {
     public static final Map<String, Integer> TAGS = Maps.newHashMap();
     public static final Map<String, List<String>> FAKEBUGS = parseFakeBugs();
 
+    public static Map<String, TestCaseModel> F_BUGS = Maps.newHashMap();
+    public static Map<String, TestCaseModel> T_BUGS = Maps.newHashMap();
+
+    static {
+        getTestCases();
+    }
+
 //    public static void main(String[] args) {
 //
 //        for (FakeBug fakebug : FAKEBUGINSTANCES) {
@@ -29,7 +36,6 @@ public class CsvParser {
             String line = br.readLine();
 
             while (line != null) {
-                System.out.println();
                 String tokens[] = line.split(",");
 
                 FakeBug fakebug = new FakeBug();
@@ -70,12 +76,45 @@ public class CsvParser {
         return bugs;
     }
 
-//    static Set<String> getFakeBugs() {
-//        Set<String> bugSet = Sets.newHashSet();
-//        for (FakeBug bug : FAKEBUGINSTANCES) {
-//            bugSet.add(bug.getUID());
+    static void getTestCases() {
+        List<TestCaseModel> testCases = JsonParser.getTestCases();
+        System.out.println(testCases.size());
+        for (TestCaseModel test : testCases) {
+            String file = test.getError_file();
+            String name = file.substring(0, file.length() - 5);
+            file = name.replaceAll("\\.", "/") + ".java";
+            if (test.getCaseType().equals("T")) {
+//                T_BUGS.put(JsonParser.getUID(file, test.getError_line()), Lists.newArrayList());
+                test.setInfer(1);
+                test.setJlint(1);
+                test.setFindbugs(1);
+                if (T_BUGS.put(JsonParser.getUID(file, test.getError_line()), test) != null) {
+                    System.out.println("T:" + JsonParser.getUID(file, test.getError_line()));
+                }
+            } else {
+//                F_BUGS.put(JsonParser.getUID(file, test.getError_line()), Lists.newArrayList());
+                if (F_BUGS.put(JsonParser.getUID(file, test.getError_line()), test) != null) {
+                    System.out.println("F:" + JsonParser.getUID(file, test.getError_line()));
+                }
+            }
+
+//            if (maps.put(JsonParser.getUID(file, test.getError_line()), Lists.newArrayList()) != null) {
+//                System.out.println(JsonParser.getUID(file, test.getError_line()));
+//            }
+        }
+    }
+
+    public static void main(String[] args) {
+//        for (String key : T_BUGS.keySet()) {
+//            System.out.println(key);
 //        }
-//        return bugSet;
-//    }
+        System.out.println(T_BUGS.size());
+//        for (String key : F_BUGS.keySet()) {
+//            System.out.println(key);
+//        }
+        System.out.println(F_BUGS.size());
+
+    }
+
 }
 
