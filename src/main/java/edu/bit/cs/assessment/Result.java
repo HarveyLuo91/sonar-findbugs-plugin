@@ -53,13 +53,13 @@ public class Result {
 //            hitBugTags.put(bugInfo.getUID(), CsvParser.FAKEBUGS.get(bugInfo.getUID()));
             //sorting out and counting the times of tag appearance
 
-            for (String tag : CsvParser.FAKEBUGS.get(bugInfo.getUID())) {
-                if (!tags.containsKey(tag)) {
-                    tags.put(tag, 1);
-                } else {
-                    tags.put(tag, tags.get(tag) + 1);
-                }
-            }
+//            for (String tag : CsvParser.FAKEBUGS.get(bugInfo.getUID())) {
+//                if (!tags.containsKey(tag)) {
+//                    tags.put(tag, 1);
+//                } else {
+//                    tags.put(tag, tags.get(tag) + 1);
+//                }
+//            }
 
 
         } else {

@@ -104,17 +104,17 @@ public class CsvParser {
         }
     }
 
-    public static void main(String[] args) {
+//    public static void main(String[] args) {
 //        for (String key : T_BUGS.keySet()) {
 //            System.out.println(key);
 //        }
-        System.out.println(T_BUGS.size());
+//        System.out.println(T_BUGS.size());
 //        for (String key : F_BUGS.keySet()) {
 //            System.out.println(key);
 //        }
-        System.out.println(F_BUGS.size());
-
-    }
+//        System.out.println(F_BUGS.size());
+//
+//    }
 
 }
 

@@ -14,7 +14,7 @@ public class JsonParser {
 
     public static List<TestCaseModel> getTestCases() {
         List<TestCaseModel> graphs = Lists.newArrayList();
-        BufferedReader br = new BufferedReader(new InputStreamReader(CsvParser.class.getClassLoader().getResourceAsStream("file/test_cases.txt")));
+        BufferedReader br = new BufferedReader(new InputStreamReader(JsonParser.class.getClassLoader().getResourceAsStream("file/test_cases.txt")));
         try {
             //Reading the json file
             StringBuilder json = new StringBuilder("");

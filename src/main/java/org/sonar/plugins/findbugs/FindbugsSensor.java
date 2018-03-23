@@ -22,7 +22,6 @@ package org.sonar.plugins.findbugs;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.gson.Gson;
 import edu.bit.cs.BUG_TYPE;
 import edu.bit.cs.ReportedBugInfo;
 import edu.bit.cs.assessment.CsvParser;
@@ -320,6 +319,9 @@ public class FindbugsSensor implements Sensor {
 
             for (String str : bugs.keySet()) {
                 System.out.println(str);
+                for (ReportedBugInfo bug : bugs.get(str)) {
+                    System.out.println("tool name: " + bug.getToolName());
+                }
             }
 
             //for assessment
@@ -503,25 +505,32 @@ public class FindbugsSensor implements Sensor {
             }
 
             for (String uid : findbugs.getFp().keySet()) {
-                TestCaseModel test = CsvParser.F_BUGS.get(uid);
-                test.setFindbugs(0);
-                CsvParser.T_BUGS.put(uid, test);
+                TestCaseModel test = CsvParser.T_BUGS.get(uid);
+                if (test != null) {
+                    test.setFindbugs(0);
+                    CsvParser.T_BUGS.put(uid, test);
+                }
             }
             for (String uid : jlint.getFp().keySet()) {
-                TestCaseModel test = CsvParser.F_BUGS.get(uid);
-                test.setJlint(0);
-                CsvParser.T_BUGS.put(uid, test);
+                TestCaseModel test = CsvParser.T_BUGS.get(uid);
+                if (test != null) {
+                    test.setJlint(0);
+                    CsvParser.T_BUGS.put(uid, test);
+                }
             }
             for (String uid : infer.getFp().keySet()) {
-                TestCaseModel test = CsvParser.F_BUGS.get(uid);
-                test.setInfer(0);
-                CsvParser.T_BUGS.put(uid, test);
+                TestCaseModel test = CsvParser.T_BUGS.get(uid);
+                if (test != null) {
+                    test.setInfer(0);
+                    CsvParser.T_BUGS.put(uid, test);
+                }
             }
 
             List<TestCaseModel> testCaseModels = Lists.newArrayList();
             testCaseModels.addAll(CsvParser.F_BUGS.values());
             testCaseModels.addAll(CsvParser.T_BUGS.values());
 
+            System.out.println("-----json-------");
             System.out.println(JSON.toJSONString(testCaseModels));
 
 //            findbugs.countTags();
@@ -592,6 +601,7 @@ public class FindbugsSensor implements Sensor {
 
         if (bugs.containsKey(bug.getUID())) {
             for (ReportedBugInfo bugInfo : bugs.get(bug.getUID())) {
+                System.out.println(bugInfo.getToolName());
                 index = ToolCollection.addTool(index, bugInfo.getToolName());
             }
             index = ToolCollection.addTool(index, ToolCollection.FINDBUGS);
