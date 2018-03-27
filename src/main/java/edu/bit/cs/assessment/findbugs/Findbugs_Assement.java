@@ -24,7 +24,7 @@ public class Findbugs_Assement {
         rules_Findbugs.put("NULL_POINTER_EXCEPTION",this.getRules("src/main/java/edu/bit/cs/assessment/findbugs/NULL_POINTER_EXCEPTION"));
         rules_Findbugs.put("RESOURCE_LEAK",this.getRules("src/main/java/edu/bit/cs/assessment/findbugs/RESOURCE_LEAK"));
         rules_Findbugs.put("SYNCHRONIZATION",this.getRules("src/main/java/edu/bit/cs/assessment/findbugs/SYNCHRONIZATION"));
-        rules_Findbugs.put("SENSITIVE_DATA_EXPOSURE",this.getRules("src/main/java/edu/bit/cs/assessment/findbugs/SENSITIVE_DATA_EXPOSURE"));
+        rules_Findbugs.put("CROSS_SITE_SCRIPTING",this.getRules("src/main/java/edu/bit/cs/assessment/findbugs/CROSS_SITE_SCRIPTING"));
 
     }
 
