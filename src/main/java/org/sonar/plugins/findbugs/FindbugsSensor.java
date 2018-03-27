@@ -285,7 +285,9 @@ public class FindbugsSensor implements Sensor {
             //findbugs
             for (ReportedBug bugInstance : collection) {
                 try {
-
+                    if (bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE)) {
+                        continue;
+                    }
                     if(bugs_analysis.containsKey(bugInstance.getUID())){
                         List<ReportedBugInfo> instances = bugs_analysis.get(bugInstance.getUID());
                         instances.add(bugInstance);
@@ -351,7 +353,6 @@ public class FindbugsSensor implements Sensor {
                                     String tools = processBugs(bugs, interSection, bugInstance);
                                     longMessage.insert(0, tools + "- ");
                                     insertIssue(rule, resource, line, longMessage.toString(), bugInstance);
-
                                     continue;
                                 }
                             } else {
@@ -361,17 +362,12 @@ public class FindbugsSensor implements Sensor {
                                     String tools = processBugs(bugs, interSection, bugInstance);
                                     longMessage.insert(0, tools + "- ");
                                     insertIssue(rule, resource, line, longMessage.toString(), bugInstance);
-
                                     continue;
                                 }
                             }
                         } catch (ClassMetadataLoadingException e) {
                             LOG.warn("Failed to load the class file metadata", e);
                         }
-                    }
-
-                    if (bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE)) {
-                        continue;
                     }
 
                     LOG.warn("The class '" + className + "' could not be matched to its original source file. It might be a dynamically generated class.");
@@ -432,13 +428,7 @@ public class FindbugsSensor implements Sensor {
                     infer.getFp().putAll(result.getFp());
                 }
 
-                System.out.println("\n");
-                System.out.println("Name: " + result.getName());
-                System.out.println("Bug Number: " + (result.getFp().size() + result.getTp().size()));
-                System.out.println("TP: " + result.getTp().size());
-                System.out.println("FP: " + result.getFp().size());
-                System.out.println("precision: " + result.getPrecision());
-                System.out.println("recall: " + result.getRecall());
+                System.out.println(result);
             }
 
             System.out.println("\n");
@@ -465,7 +455,7 @@ public class FindbugsSensor implements Sensor {
             System.out.println("precision: " + infer.getPrecision());
             System.out.println("recall: " + infer.getRecall());
 
-            analyze(bugs);
+            //analyze(bugs);
 
         } finally {
             classMappingWriter.flush();
@@ -477,7 +467,7 @@ public class FindbugsSensor implements Sensor {
         Bug_Type_Pair_Analysis analysis = new Bug_Type_Pair_Analysis();
 
         for (List<ReportedBugInfo> tb_list: bugs.values()) {//here we have a list containing occurences of a unique bug
-            System.out.println(tb_list.size());
+            //System.out.println(tb_list.size());
         }
 
     }
