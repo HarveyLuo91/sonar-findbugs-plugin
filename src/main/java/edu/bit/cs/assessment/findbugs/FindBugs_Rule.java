@@ -46,9 +46,9 @@ public class FindBugs_Rule{
 
     public BUG_TYPE judgetype(){
 
-        if(this.rule_configKey.contains("SYNCHRONIZATION") || this.name.contains("synchronization")   || this.rule_description.contains("synchronization") ){
+        if(this.rule_configKey.contains("INHERITANCE") || this.name.contains("inherits")   || this.rule_description.contains("inherit") || this.rule_description.contains("inheritance") || this.rule_description.contains("super class") ){
 
-            return BUG_TYPE.SYNCHRONIZATION;
+            return BUG_TYPE.INHERITANCE;
         }
 
         return BUG_TYPE.ANOTHER_TYPE;

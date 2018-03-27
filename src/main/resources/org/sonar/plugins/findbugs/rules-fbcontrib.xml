@@ -3301,10 +3301,7 @@ if (shouldCalcHalting &amp;&amp; (calculateHaltingProbability() &amp;gt; 0) { }
     <rule key='NULL_POINTER_EXEPTION' priority='MAJOR'>
         <name>Correctness - null value</name>
         <configKey>NULL_POINTER_EXEPTION</configKey>
-        <description>&lt;p&gt; The variable referenced at this point is known to be null due to an earlier
-            check against null. Although this is valid, it might be a mistake (perhaps you
-            intended to refer to a different variable, or perhaps the earlier check to see if the
-            variable is null should have been a check to see if it was non-null).
+        <description>&lt;p&gt;
             &lt;/p&gt;
         </description>
         <tag>correctness</tag>
@@ -3314,75 +3311,27 @@ if (shouldCalcHalting &amp;&amp; (calculateHaltingProbability() &amp;gt; 0) { }
     <rule key='RESOURCE_LEAK' priority='MAJOR'>
         <name>Correctness - resource leak</name>
         <configKey>RESOURCE_LEAK</configKey>
-        <description>&lt;p&gt; The variable referenced at this point is known to be null due to an earlier
-            check against null. Although this is valid, it might be a mistake (perhaps you
-            intended to refer to a different variable, or perhaps the earlier check to see if the
-            variable is null should have been a check to see if it was non-null).
+        <description>&lt;p&gt;
             &lt;/p&gt;
         </description>
         <tag>correctness</tag>
         <tag>bug</tag>
     </rule>
 
-    <rule key='BROKEN_AUTHENTICATION' priority='MAJOR'>
-        <name>Correctness - broken authentication</name>
-        <configKey>BROKEN_AUTHENTICATION</configKey>
-        <description>&lt;p&gt; The variable referenced at this point is known to be null due to an earlier
-            check against null. Although this is valid, it might be a mistake (perhaps you
-            intended to refer to a different variable, or perhaps the earlier check to see if the
-            variable is null should have been a check to see if it was non-null).
+    <rule key='INJECTION' priority='MAJOR'>
+        <name>Correctness - injection</name>
+        <configKey>INJECTION</configKey>
+        <description>&lt;p&gt;
             &lt;/p&gt;
         </description>
         <tag>correctness</tag>
         <tag>bug</tag>
     </rule>
 
-    <rule key='SENSITIVE_DATA_EXPOSURE' priority='MAJOR'>
-        <name>Correctness - sensitive data exposure</name>
-        <configKey>SENSITIVE_DATA_EXPOSURE</configKey>
-        <description>&lt;p&gt; The variable referenced at this point is known to be null due to an earlier
-            check against null. Although this is valid, it might be a mistake (perhaps you
-            intended to refer to a different variable, or perhaps the earlier check to see if the
-            variable is null should have been a check to see if it was non-null).
-            &lt;/p&gt;
-        </description>
-        <tag>correctness</tag>
-        <tag>bug</tag>
-    </rule>
-
-    <rule key='XML_EXTERNAL_ENTITIES' priority='MAJOR'>
-        <name>Correctness - xml external entities</name>
-        <configKey>XML_EXTERNAL_ENTITIES</configKey>
-        <description>&lt;p&gt; The variable referenced at this point is known to be null due to an earlier
-            check against null. Although this is valid, it might be a mistake (perhaps you
-            intended to refer to a different variable, or perhaps the earlier check to see if the
-            variable is null should have been a check to see if it was non-null).
-            &lt;/p&gt;
-        </description>
-        <tag>correctness</tag>
-        <tag>bug</tag>
-    </rule>
-
-    <rule key='BROKEN_ACCESS_CONTROL' priority='MAJOR'>
-        <name>Correctness - broken access control</name>
-        <configKey>BROKEN_ACCESS_CONTROL</configKey>
-        <description>&lt;p&gt; The variable referenced at this point is known to be null due to an earlier
-            check against null. Although this is valid, it might be a mistake (perhaps you
-            intended to refer to a different variable, or perhaps the earlier check to see if the
-            variable is null should have been a check to see if it was non-null).
-            &lt;/p&gt;
-        </description>
-        <tag>correctness</tag>
-        <tag>bug</tag>
-    </rule>
-
-    <rule key='SAFETY_MISCONFIGURATION' priority='MAJOR'>
-        <name>Correctness - safety misconfiguration</name>
-        <configKey>SAFETY_MISCONFIGURATION</configKey>
-        <description>&lt;p&gt; The variable referenced at this point is known to be null due to an earlier
-            check against null. Although this is valid, it might be a mistake (perhaps you
-            intended to refer to a different variable, or perhaps the earlier check to see if the
-            variable is null should have been a check to see if it was non-null).
+    <rule key='SYNCHRONIZATION' priority='MAJOR'>
+        <name>Correctness - synchronization</name>
+        <configKey>SYNCHRONIZATION</configKey>
+        <description>&lt;p&gt;
             &lt;/p&gt;
         </description>
         <tag>correctness</tag>
@@ -3392,23 +3341,17 @@ if (shouldCalcHalting &amp;&amp; (calculateHaltingProbability() &amp;gt; 0) { }
     <rule key='CROSS_SITE_SCRIPTING' priority='MAJOR'>
         <name>Correctness - cross site scripting</name>
         <configKey>CROSS_SITE_SCRIPTING</configKey>
-        <description>&lt;p&gt; The variable referenced at this point is known to be null due to an earlier
-            check against null. Although this is valid, it might be a mistake (perhaps you
-            intended to refer to a different variable, or perhaps the earlier check to see if the
-            variable is null should have been a check to see if it was non-null).
+        <description>&lt;p&gt;
             &lt;/p&gt;
         </description>
         <tag>correctness</tag>
         <tag>bug</tag>
     </rule>
 
-    <rule key='INSECURE_DESERIALIZATION' priority='MAJOR'>
-        <name>Correctness - insecure deserialization</name>
-        <configKey>INSECURE_DESERIALIZATION</configKey>
-        <description>&lt;p&gt; The variable referenced at this point is known to be null due to an earlier
-            check against null. Although this is valid, it might be a mistake (perhaps you
-            intended to refer to a different variable, or perhaps the earlier check to see if the
-            variable is null should have been a check to see if it was non-null).
+    <rule key='INHERITANCE' priority='MAJOR'>
+        <name>Correctness - inheritance</name>
+        <configKey>INHERITANCE</configKey>
+        <description>&lt;p&gt;
             &lt;/p&gt;
         </description>
         <tag>correctness</tag>
@@ -3418,10 +3361,7 @@ if (shouldCalcHalting &amp;&amp; (calculateHaltingProbability() &amp;gt; 0) { }
     <rule key='ANOTHER_TYPE' priority='MAJOR'>
         <name>Correctness - another type</name>
         <configKey>ANOTHER_TYPE</configKey>
-        <description>&lt;p&gt; The variable referenced at this point is known to be null due to an earlier
-            check against null. Although this is valid, it might be a mistake (perhaps you
-            intended to refer to a different variable, or perhaps the earlier check to see if the
-            variable is null should have been a check to see if it was non-null).
+        <description>&lt;p&gt;
             &lt;/p&gt;
         </description>
         <tag>correctness</tag>

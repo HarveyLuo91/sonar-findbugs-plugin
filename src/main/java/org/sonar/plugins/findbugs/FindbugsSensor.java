@@ -27,6 +27,7 @@ import edu.bit.cs.assessment.Result;
 import edu.bit.cs.infer.InferReportParser;
 import edu.bit.cs.infer.InferReportedBugFromJson;
 import edu.bit.cs.jlint.JlintReportParser;
+import edu.bit.cs.util.Bug_Type_Pair_Analysis;
 import edu.bit.cs.util.CmdExecutor;
 import edu.bit.cs.util.ToolCollection;
 import org.slf4j.Logger;
@@ -76,6 +77,8 @@ public class FindbugsSensor implements Sensor {
     private final FileSystem fs;
     private final SensorContext sensorContext;
     private PrintWriter classMappingWriter;
+
+    public static Map<String, List<ReportedBugInfo>> bugs_analysis = new HashMap<String, List<ReportedBugInfo>>();
 
     public FindbugsSensor(RulesProfile profile, ActiveRules ruleFinder, SensorContext sensorContext,
                           FindbugsExecutor executor, JavaResourceLocator javaResourceLocator, FileSystem fs, ByteCodeResourceLocator byteCodeResourceLocator) {
@@ -132,7 +135,7 @@ public class FindbugsSensor implements Sensor {
         ActiveRule npe_killbugs_rule = null;
         for (String repoKey : getRepositories()) {
 
-            npe_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "NULL_POINTER_EXEPTION");
+            npe_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "NULL_POINTER_EXEPTION");//NPE
             if (npe_killbugs_rule != null) {
                 break;
             }
@@ -152,39 +155,16 @@ public class FindbugsSensor implements Sensor {
             System.out.println("-----------------RL_killbugs_rule is null!");
             return;
         }
-        ActiveRule BAC_killbugs_rule = null; //BROKEN_ACCESS_CONTROL
-        for (String repoKey : getRepositories()) {
-            BAC_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "BROKEN_ACCESS_CONTROL");
-            if (BAC_killbugs_rule != null) {
-                break;
-            }
-        }
-        if (BAC_killbugs_rule == null) {
-            System.out.println("-----------------BAC_killbugs_rule is null!");
-            return;
-        }
 
-        ActiveRule BA_killbugs_rule = null; //BROKEN_AUTHENTICATION
+        ActiveRule XSS_killbugs_rule = null; //CROSS_SITE_SCRIPTING
         for (String repoKey : getRepositories()) {
-            BA_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "BROKEN_AUTHENTICATION");
-            if (BA_killbugs_rule != null) {
+            XSS_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "CROSS_SITE_SCRIPTING");
+            if (XSS_killbugs_rule != null) {
                 break;
             }
         }
-        if (BA_killbugs_rule == null) {
-            System.out.println("-----------------BA_killbugs_rule is null!");
-            return;
-        }
-
-        ActiveRule CSS_killbugs_rule = null; //CROSS_SITE_SCRIPTING
-        for (String repoKey : getRepositories()) {
-            CSS_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "CROSS_SITE_SCRIPTING");
-            if (CSS_killbugs_rule != null) {
-                break;
-            }
-        }
-        if (CSS_killbugs_rule == null) {
-            System.out.println("-----------------CSS_killbugs_rule is null!");
+        if (XSS_killbugs_rule == null) {
+            System.out.println("-----------------XSS_killbugs_rule is null!");
             return;
         }
 
@@ -200,51 +180,28 @@ public class FindbugsSensor implements Sensor {
             return;
         }
 
-        ActiveRule ID_killbugs_rule = null; //INSECURE_DESERIALIZATION
+
+        ActiveRule INHR_killbugs_rule = null; //INHER
         for (String repoKey : getRepositories()) {
-            ID_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "INSECURE_DESERIALIZATION");
-            if (ID_killbugs_rule != null) {
+            INHR_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "INHERITANCE");
+            if (INHR_killbugs_rule != null) {
                 break;
             }
         }
-        if (ID_killbugs_rule == null) {
-            System.out.println("-----------------RL_killbugs_rule is null!");
+        if (INHR_killbugs_rule == null) {
+            System.out.println("-----------------INHR_killbugs_rule is null!");
             return;
         }
 
-        ActiveRule SM_killbugs_rule = null; //SAFETY_MISCONFIGURATION
+        ActiveRule SYNC_killbugs_rule = null; //SYNC
         for (String repoKey : getRepositories()) {
-            SM_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "SAFETY_MISCONFIGURATION");
-            if (SM_killbugs_rule != null) {
+            SYNC_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "CROSS_SITE_SCRIPTING");
+            if (SYNC_killbugs_rule != null) {
                 break;
             }
         }
-        if (SM_killbugs_rule == null) {
-            System.out.println("-----------------SM_killbugs_rule is null!");
-            return;
-        }
-
-        ActiveRule SDE_killbugs_rule = null; //SENSITIVE_DATA_EXPOSURE
-        for (String repoKey : getRepositories()) {
-            SDE_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "SENSITIVE_DATA_EXPOSURE");
-            if (SDE_killbugs_rule != null) {
-                break;
-            }
-        }
-        if (SDE_killbugs_rule == null) {
-            System.out.println("-----------------SDE_killbugs_rule is null!");
-            return;
-        }
-
-        ActiveRule XEE_killbugs_rule = null; //XML_EXTERNAL_ENTITIES
-        for (String repoKey : getRepositories()) {
-            XEE_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "XML_EXTERNAL_ENTITIES");
-            if (XEE_killbugs_rule != null) {
-                break;
-            }
-        }
-        if (XEE_killbugs_rule == null) {
-            System.out.println("-----------------XML_EXTERNAL_ENTITIES is null!");
+        if (SYNC_killbugs_rule == null) {
+            System.out.println("-----------------SYNC_killbugs_rule is null!");
             return;
         }
 
@@ -321,11 +278,22 @@ public class FindbugsSensor implements Sensor {
                 interSection.put(ToolCollection.getTools(index), new Result(ToolCollection.getTools(index)));
             }
 
+            for (String key: bugs.keySet()) {
+                bugs_analysis.put(key,bugs.get(key));
+            }
+
             //findbugs
             for (ReportedBug bugInstance : collection) {
                 try {
-                    if (bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE)) {
-                        continue;
+
+                    if(bugs_analysis.containsKey(bugInstance.getUID())){
+                        List<ReportedBugInfo> instances = bugs_analysis.get(bugInstance.getUID());
+                        instances.add(bugInstance);
+                        bugs_analysis.replace(bugInstance.getUID(),bugs_analysis.get(bugInstance.getUID()), instances);
+                    }else{
+                        List<ReportedBugInfo> instances = new ArrayList<ReportedBugInfo>();
+                        instances.add(bugInstance);
+                        bugs_analysis.put(bugInstance.getUID(),instances);
                     }
 
                     ActiveRule rule = null;
@@ -383,6 +351,7 @@ public class FindbugsSensor implements Sensor {
                                     String tools = processBugs(bugs, interSection, bugInstance);
                                     longMessage.insert(0, tools + "- ");
                                     insertIssue(rule, resource, line, longMessage.toString(), bugInstance);
+
                                     continue;
                                 }
                             } else {
@@ -392,12 +361,17 @@ public class FindbugsSensor implements Sensor {
                                     String tools = processBugs(bugs, interSection, bugInstance);
                                     longMessage.insert(0, tools + "- ");
                                     insertIssue(rule, resource, line, longMessage.toString(), bugInstance);
+
                                     continue;
                                 }
                             }
                         } catch (ClassMetadataLoadingException e) {
                             LOG.warn("Failed to load the class file metadata", e);
                         }
+                    }
+
+                    if (bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE)) {
+                        continue;
                     }
 
                     LOG.warn("The class '" + className + "' could not be matched to its original source file. It might be a dynamically generated class.");
@@ -425,24 +399,14 @@ public class FindbugsSensor implements Sensor {
                     createIssue(npe_killbugs_rule, bugs, bugInstanceKey, interSection);
                 } else if (splitKeyInstance[2].equals(BUG_TYPE.RESOURCE_LEAK.name())) {
                     createIssue(RL_killbugs_rule, bugs, bugInstanceKey, interSection);
-                } else if (splitKeyInstance[2].equals(BUG_TYPE.BROKEN_ACCESS_CONTROL.name())) {
-                    createIssue(BAC_killbugs_rule, bugs, bugInstanceKey, interSection);
-                } else if (splitKeyInstance[2].equals(BUG_TYPE.BROKEN_AUTHENTICATION.name())) {
-                    createIssue(BA_killbugs_rule, bugs, bugInstanceKey, interSection);
-                } else if (splitKeyInstance[2].equals(BUG_TYPE.CROSS_SITE_SCRIPTING.name())) {
-                    createIssue(CSS_killbugs_rule, bugs, bugInstanceKey, interSection);
+                }else if (splitKeyInstance[2].equals(BUG_TYPE.CROSS_SITE_SCRIPTING.name())) {
+                    createIssue(XSS_killbugs_rule, bugs, bugInstanceKey, interSection);
                 } else if (splitKeyInstance[2].equals(BUG_TYPE.INJECTION.name())) {
                     createIssue(Inj_killbugs_rule, bugs, bugInstanceKey, interSection);
-                } else if (splitKeyInstance[2].equals(BUG_TYPE.INSECURE_DESERIALIZATION.name())) {
-                    createIssue(ID_killbugs_rule, bugs, bugInstanceKey, interSection);
-                } else if (splitKeyInstance[2].equals(BUG_TYPE.SAFETY_MISCONFIGURATION.name())) {
-                    createIssue(SM_killbugs_rule, bugs, bugInstanceKey, interSection);
-                } else if (splitKeyInstance[2].equals(BUG_TYPE.SENSITIVE_DATA_EXPOSURE.name())) {
-                    createIssue(SDE_killbugs_rule, bugs, bugInstanceKey, interSection);
-                } else if (splitKeyInstance[2].equals(BUG_TYPE.XML_EXTERNAL_ENTITIES.name())) {
-                    createIssue(XEE_killbugs_rule, bugs, bugInstanceKey, interSection);
-                } else {
-
+                } else if (splitKeyInstance[2].equals(BUG_TYPE.INHERITANCE.name())) {
+                    createIssue(INHR_killbugs_rule, bugs, bugInstanceKey, interSection);
+                } else if (splitKeyInstance[2].equals(BUG_TYPE.SYNCHRONIZATION.name())) {
+                    createIssue(SYNC_killbugs_rule, bugs, bugInstanceKey, interSection);
                 }
             }
 
@@ -501,13 +465,22 @@ public class FindbugsSensor implements Sensor {
             System.out.println("precision: " + infer.getPrecision());
             System.out.println("recall: " + infer.getRecall());
 
+            analyze(bugs);
+
         } finally {
             classMappingWriter.flush();
             classMappingWriter.close();
         }
-
     }
 
+    public static void analyze(Map<String, List<ReportedBugInfo>> bugs){
+        Bug_Type_Pair_Analysis analysis = new Bug_Type_Pair_Analysis();
+
+        for (List<ReportedBugInfo> tb_list: bugs.values()) {//here we have a list containing occurences of a unique bug
+            System.out.println(tb_list.size());
+        }
+
+    }
 
     private void createIssue(ActiveRule rule, Map<String, List<ReportedBugInfo>> bugs, String bugInstanceKey, Map<String, Result> interSection) {
         String sourceFile = "";

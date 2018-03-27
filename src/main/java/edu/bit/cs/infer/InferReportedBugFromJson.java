@@ -319,17 +319,13 @@ public class InferReportedBugFromJson implements ReportedBugInfo {
             return BUG_TYPE.NULL_POINTER_EXEPTION;
         } else if (bug_type.equals("RESOURCE_LEAK")) {
             return BUG_TYPE.RESOURCE_LEAK;
-        } else {
+        } else if(bug_type.equals("UNSAFE_GUARDEDBY_ACCESS")){
+            return BUG_TYPE.SYNCHRONIZATION;
+        }else {
             return BUG_TYPE.ANOTHER_TYPE;
         }
-
-
     }
 
-    // @Override
-    //  public String getType() {
-    //   return bug_type;
-    // }
     @Override
     public String getBugMessage() {
         return qualifier;

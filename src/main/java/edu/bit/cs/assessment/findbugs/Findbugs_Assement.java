@@ -25,14 +25,16 @@ public class Findbugs_Assement {
         rules_Findbugs.put("RESOURCE_LEAK",this.getRules("src/main/java/edu/bit/cs/assessment/findbugs/RESOURCE_LEAK"));
         rules_Findbugs.put("SYNCHRONIZATION",this.getRules("src/main/java/edu/bit/cs/assessment/findbugs/SYNCHRONIZATION"));
         rules_Findbugs.put("CROSS_SITE_SCRIPTING",this.getRules("src/main/java/edu/bit/cs/assessment/findbugs/CROSS_SITE_SCRIPTING"));
-
+        rules_Findbugs.put("INHERITANCE",this.getRules("src/main/java/edu/bit/cs/assessment/findbugs/INHERITANCE"));
     }
 
 
     private static void judgeType() {
         Set<FindBugs_Rule> rules = XmlParser.parseFindBugsRules("src/main/resources/org/sonar/plugins/findbugs/rules-findbugs.xml");
+        rules.addAll(XmlParser.parseFindBugsRules("src/main/resources/org/sonar/plugins/findbugs/rules-fbcontrib.xml"));
+        rules.addAll(XmlParser.parseFindBugsRules("src/main/resources/org/sonar/plugins/findbugs/rules-findsecbugs.xml"));
         for (FindBugs_Rule g: rules) {
-            if(g.judgetype().equals(BUG_TYPE.SYNCHRONIZATION)){
+            if(g.judgetype().equals(BUG_TYPE.INHERITANCE)){
                     System.out.println(g.getRule_configKey());
             }
         }
