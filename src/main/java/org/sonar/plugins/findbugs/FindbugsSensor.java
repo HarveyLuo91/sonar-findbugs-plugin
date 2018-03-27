@@ -222,9 +222,9 @@ public class FindbugsSensor implements Sensor {
             //loop through the reported bugs
             for (ReportedBugInfo bugInstance : jlintReportedBugs) {
                 //if the bug type is a type we havent checked for, continue
-                if (bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE.toString())) {
-                    continue;
-                }
+                //if (bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE.toString())) {
+                  //  continue;
+                //}
                 //Normalize the sourse path to the root folder of project
                 System.out.println("-------------------jlint uid:" + bugInstance.getUID());
                 List bugInstances;
@@ -251,9 +251,9 @@ public class FindbugsSensor implements Sensor {
             System.out.println("***********************Infer size:" + inferReportedBugs.size());
             int jlint_infer_intersection = 0;
             for (ReportedBugInfo bugInstance : inferReportedBugs) {
-                if (bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE)) {
-                    continue;
-                }
+                //if (bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE)) {
+                  //  continue;
+               // }
                 System.out.println("INFER:" + ((InferReportedBugFromJson) bugInstance).toString());
                 System.out.println("-------------------Infer uid:" + bugInstance.getUID());
                 List bugInstances;
@@ -285,9 +285,9 @@ public class FindbugsSensor implements Sensor {
             //findbugs
             for (ReportedBug bugInstance : collection) {
                 try {
-                    if (bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE)) {
-                        continue;
-                    }
+                    //if (bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE)) {
+                      //  continue;
+                    //}
                     if(bugs_analysis.containsKey(bugInstance.getUID())){
                         List<ReportedBugInfo> instances = bugs_analysis.get(bugInstance.getUID());
                         instances.add(bugInstance);
@@ -455,7 +455,7 @@ public class FindbugsSensor implements Sensor {
             System.out.println("precision: " + infer.getPrecision());
             System.out.println("recall: " + infer.getRecall());
 
-            //analyze(bugs);
+
 
         } finally {
             classMappingWriter.flush();
@@ -463,13 +463,195 @@ public class FindbugsSensor implements Sensor {
         }
     }
 
-    public static void analyze(Map<String, List<ReportedBugInfo>> bugs){
+    public void print_analysis(Map<String, List<ReportedBugInfo>> bugs){
+        Bug_Type_Pair_Analysis analysis = analyze(bugs);
+
+        System.out.println("FINDBUGS-------------------F");
+        System.out.println("INFER----------------------I");
+        System.out.println("Jlint----------------------J");
+        System.out.println("\n");
+        System.out.println("NPE------------------------F:");
+        System.out.println("NPE------------------------I:");
+        System.out.println("NPE------------------------J:");
+        System.out.println("NPE------------------------F_J:");
+        System.out.println("NPE------------------------F_I:");
+        System.out.println("NPE------------------------J_I:");
+        System.out.println("NPE------------------------J_I:");
+        System.out.println("NPE------------------------F_J_I:");
+
+        System.out.println("\n");
+        System.out.println("RL-------------------------F:");
+        System.out.println("RL-------------------------I:");
+        System.out.println("RL-------------------------B:");
+        System.out.println("RL-------------------------F_I:");
+        System.out.println("RL-------------------------F_B:");
+
+        System.out.println("\n");
+        System.out.println("SYNC-----------------------F:");
+        System.out.println("SYNC-----------------------J:");
+        System.out.println("SYNC-----------------------I:");
+        System.out.println("SYNC-----------------------J_I:");
+        System.out.println("SYNC-----------------------F_J:");
+        System.out.println("SYNC-----------------------F_I:");
+        System.out.println("SYNC-----------------------F_J_I:");
+
+        System.out.println("\n");
+        System.out.println("INHERIT--------------------F:");
+        System.out.println("INHERIT--------------------J:");
+        System.out.println("INHERIT--------------------F_J:");
+
+        System.out.println("\n");
+        System.out.println("INJC-----------------------F:");
+        System.out.println("INJC-----------------------B:");
+        System.out.println("INJC-----------------------F_B:");
+
+        System.out.println("\n");
+        System.out.println("XSS------------------------F:");
+        System.out.println("XSS------------------------B:");
+        System.out.println("XSS------------------------F_B:");
+
+        System.out.println("\n");
+        System.out.println("OTHERS---------------------F:");
+        System.out.println("OTHERS---------------------I:");
+        System.out.println("OTHERS---------------------J:");
+        System.out.println("OTHERS---------------------F_I:");
+        System.out.println("OTHERS---------------------F_J:");
+        System.out.println("OTHERS---------------------F_I_J:");
+        System.out.println("OTHERS---------------------J_I:");
+    }
+    public static Bug_Type_Pair_Analysis analyze(Map<String, List<ReportedBugInfo>> bugs){
         Bug_Type_Pair_Analysis analysis = new Bug_Type_Pair_Analysis();
 
         for (List<ReportedBugInfo> tb_list: bugs.values()) {//here we have a list containing occurences of a unique bug
             //System.out.println(tb_list.size());
-        }
+            boolean findbugs = false;
+            boolean infer    = false;
+            boolean jlint    = false;
+            boolean bit      = false;
 
+            BUG_TYPE bug_type = null;
+
+            for (ReportedBugInfo bug: tb_list) {
+                bug_type = bug.getBugType();
+                if(bug.getToolName().equals("FINDBUGS")){
+                    findbugs = true;
+                }else if(bug.getToolName().equals("JLINT")){
+                    jlint = true;
+                }else if(bug.getToolName().equals("INFER")){
+                    infer = true;
+                }
+            }
+
+            if(bug_type!= null && bug_type.equals(BUG_TYPE.NULL_POINTER_EXEPTION)){
+                if(findbugs){
+                    analysis.F_npe++;
+                }
+                if(infer){
+                    analysis.I_npe++;
+                }
+                if(jlint){
+                    analysis.J_npe++;
+                }
+                if(findbugs && infer){
+                    analysis.F_I_npe++;
+                }
+                if(findbugs && jlint){
+                    analysis.F_J_npe++;
+                }
+                if(jlint && infer){
+                    analysis.J_I_npe++;
+                }
+                if(findbugs && jlint && infer){
+                    analysis.F_J_I_npe++;
+                }
+            }
+            if(bug_type!= null && bug_type.equals(BUG_TYPE.INHERITANCE)){
+                if(findbugs){
+                    analysis.F_inhrit++;
+                }
+                if(jlint){
+                    analysis.J_inhrit++;
+                }
+                if(findbugs && jlint){
+                    analysis.F_J_inherit++;
+                }
+            }
+            if(bug_type!= null && bug_type.equals(BUG_TYPE.SYNCHRONIZATION)){
+                if(findbugs){
+                    analysis.F_sync++;
+                }
+                if(jlint){
+                    analysis.J_sync++;
+
+                }
+                if(infer){
+                    analysis.I_sync++;
+                }
+                if(jlint && infer){
+                    analysis.J_I_sync++;
+                }
+                if(findbugs && jlint){
+                    analysis.F_J_sync++;
+                }
+                if(findbugs && infer){
+                    analysis.F_I_sync++;
+                }
+                if(findbugs && jlint && infer){
+                    analysis.F_J_I_sync++;
+                }
+            }
+            if(bug_type!= null && bug_type.equals(BUG_TYPE.RESOURCE_LEAK)){
+                if(findbugs){
+                    analysis.F_rl++;
+                }
+                if(infer){
+                    analysis.I_rl++;
+                }
+                //bit
+                if(findbugs && infer){
+                    analysis.F_I_rl++;
+                }
+                //findbugs + bit
+            }
+            if(bug_type!= null && bug_type.equals(BUG_TYPE.INJECTION)){
+                if(findbugs){
+                    analysis.F_injc++;
+                }
+                //bit
+                //findbugs+bit
+            }
+            if(bug_type!= null && bug_type.equals(BUG_TYPE.CROSS_SITE_SCRIPTING)){
+                if(findbugs){
+                    analysis.F_XSS++;
+                }
+                //BIT
+                //Findbugs+BIT
+            }
+            if(bug_type!= null && bug_type.equals(BUG_TYPE.ANOTHER_TYPE)){
+                if(findbugs){
+                    analysis.F_other++;
+                }
+                if(infer){
+                    analysis.I_other++;
+                }
+                if(jlint){
+                    analysis.J_other++;
+                }
+                if(findbugs && jlint){
+                    analysis.F_J_other++;
+                }
+                if(findbugs && infer){
+                    analysis.F_I_other++;
+                }
+                if(infer && jlint){
+                    analysis.J_I_other++;
+                }
+                if(findbugs && infer && jlint){
+                    analysis.F_I_J_other++;
+                }
+            }
+        }
+        return analysis;
     }
 
     private void createIssue(ActiveRule rule, Map<String, List<ReportedBugInfo>> bugs, String bugInstanceKey, Map<String, Result> interSection) {
