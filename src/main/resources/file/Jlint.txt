@@ -1,0 +1,20 @@
+Method name can be invoked with NULL as number parameter and this parameter is used without check for null
+Value of referenced variable name may be NULL
+NULL reference can be used
+Shift count range [min,max] is out of domain
+invocation of synchronized method name can cause deadlock
+invocation of method name forms the loop in class dependency graph
+Lock a is requested while holding lock b, with other thread holding a and requesting lock b
+Method wait() can be invoked with monitor of other object locked
+Call sequence to method name can cause deadlock in wait()
+Synchronized method name is overridden by non-synchronized method of derived class name
+Method name can be called from different threads and is not synchronized
+Field name of class
+Method name implementing ’Runnable’ interface is not  synchronized
+Value of lock name is changed outside synchronization or constructor
+Value of lock name is changed while (potentially) owning it
+Method name.wait() is called without synchronizing on name
+Method name is not overridden by method with the same name of derived class name
+Component name in class name shadows one in base class name
+Local variable name shadows component of class name
+Method finalize() doesn’t call super.finalize()

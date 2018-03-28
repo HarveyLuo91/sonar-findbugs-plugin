@@ -504,14 +504,13 @@ public class FindbugsSensor implements Sensor {
             System.out.println("recall: " + infer.getRecall());
 
 
-            print_analysis(bugs_analysis);
-
+            //analyze(bugs_analysis);
         } finally {
             classMappingWriter.flush();
             classMappingWriter.close();
         }
     }
-
+/*
     public void print_analysis(Map<String, List<ReportedBugInfo>> bugs){
         Bug_Type_Pair_Analysis analysis = analyze(bugs);
         System.out.println("\n");
@@ -571,7 +570,8 @@ public class FindbugsSensor implements Sensor {
         System.out.println("OTHERS---------------------J_B:"+analysis.F_B_other);
         System.out.println("\n");
     }
-    public static Bug_Type_Pair_Analysis analyze(Map<String, List<ReportedBugInfo>> bugs){
+   */
+    public static void analyze(Map<String, List<ReportedBugInfo>> bugs){
         Bug_Type_Pair_Analysis analysis = new Bug_Type_Pair_Analysis();
 
         for (List<ReportedBugInfo> tb_list: bugs.values()) {//here we have a list containing occurences of a unique bug
@@ -725,7 +725,61 @@ public class FindbugsSensor implements Sensor {
                 }
             }
         }
-        return analysis;
+        System.out.println("FINDBUGS-------------------F");
+        System.out.println("INFER----------------------I");
+        System.out.println("Jlint----------------------J");
+        System.out.println("BIT------------------------B");
+        System.out.println("\n");
+        System.out.println("NPE------------------------F:" + analysis.F_npe);
+        System.out.println("NPE------------------------I:"+ analysis.I_npe);
+        System.out.println("NPE------------------------J:"+ analysis.J_npe);
+        System.out.println("NPE------------------------F_J:"+ analysis.F_J_npe);
+        System.out.println("NPE------------------------F_I:"+ analysis.F_I_npe);
+        System.out.println("NPE------------------------J_I:"+ analysis.J_I_npe);
+        System.out.println("NPE------------------------F_J_I:"+ analysis.F_J_I_npe);
+
+        System.out.println("\n");
+        System.out.println("RL-------------------------F:"+ analysis.F_rl);
+        System.out.println("RL-------------------------I:"+ analysis.I_rl);
+        System.out.println("RL-------------------------B:"+ analysis.B_rl);
+        System.out.println("RL-------------------------F_I:"+ analysis.F_I_rl);
+        System.out.println("RL-------------------------F_B:"+ analysis.F_B_rl);
+        System.out.println("RL-------------------------F_B:"+ analysis.F_I_B_rl);
+
+        System.out.println("\n");
+        System.out.println("SYNC-----------------------F:"+analysis.F_sync);
+        System.out.println("SYNC-----------------------J:"+analysis.J_sync);
+        System.out.println("SYNC-----------------------I:"+analysis.I_sync);
+        System.out.println("SYNC-----------------------J_I:"+analysis.J_I_sync);
+        System.out.println("SYNC-----------------------F_J:"+analysis.F_J_sync);
+        System.out.println("SYNC-----------------------F_I:"+analysis.F_I_sync);
+        System.out.println("SYNC-----------------------F_J_I:"+analysis.F_J_I_sync);
+
+        System.out.println("\n");
+        System.out.println("INHERIT--------------------F:"+analysis.F_inhrit);
+        System.out.println("INHERIT--------------------J:"+analysis.J_inhrit);
+        System.out.println("INHERIT--------------------F_J:"+analysis.F_J_inhrit);
+
+        System.out.println("\n");
+        System.out.println("INJC-----------------------F:"+analysis.F_injc);
+        System.out.println("INJC-----------------------B:"+analysis.B_injc);
+        System.out.println("INJC-----------------------F_B:"+analysis.F_B_injc);
+
+        System.out.println("\n");
+        System.out.println("XSS------------------------F:"+analysis.F_xss);
+        System.out.println("XSS------------------------B:"+analysis.B_xss);
+        System.out.println("XSS------------------------F_B:"+analysis.F_B_xss);
+
+        System.out.println("\n");
+        System.out.println("OTHERS---------------------F:"+analysis.F_other);
+        System.out.println("OTHERS---------------------I:"+analysis.I_other);
+        System.out.println("OTHERS---------------------J:"+analysis.J_other);
+        System.out.println("OTHERS---------------------F_I:"+analysis.F_I_other);
+        System.out.println("OTHERS---------------------F_J:"+analysis.F_J_other);
+        System.out.println("OTHERS---------------------F_I_J:"+analysis.F_J_I_other);
+        System.out.println("OTHERS---------------------J_I:"+analysis.F_I_other);
+        System.out.println("OTHERS---------------------J_B:"+analysis.F_B_other);
+        System.out.println("\n");
     }
 
     private void createIssue(ActiveRule rule, Map<String, List<ReportedBugInfo>> bugs, String bugInstanceKey, Map<String, Result> interSection) {
