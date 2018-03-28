@@ -46,7 +46,8 @@ public class Bug_Type_Pair_Analysis {
 
     public int F_J_I_npe = 0;
     public int F_J_I_sync = 0;
-    public  int F_I_J_other = 0;
+    public int F_J_I_other = 0;
+    public int F_I_B_rl   = 0;
 
 
 

@@ -205,6 +205,18 @@ public class FindbugsSensor implements Sensor {
             return;
         }
 
+        ActiveRule OTHER_killbugs_rule = null; //others
+        for (String repoKey : getRepositories()) {
+            OTHER_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "ANOTHER_TYPE");
+            if (OTHER_killbugs_rule != null) {
+                break;
+            }
+        }
+        if (SYNC_killbugs_rule == null) {
+            System.out.println("-----------------OTHER_killbugs_rule is null!");
+            return;
+        }
+
         Collection<ReportedBug> collection = executor.execute(hasActiveFbContribRules(), hasActiveFindSecBugsRules());
 
         try {
@@ -437,6 +449,8 @@ public class FindbugsSensor implements Sensor {
                     createIssue(INHR_killbugs_rule, bugs, bugInstanceKey, interSection);
                 } else if (splitKeyInstance[2].equals(BUG_TYPE.SYNCHRONIZATION.name())) {
                     createIssue(SYNC_killbugs_rule, bugs, bugInstanceKey, interSection);
+                } else if (splitKeyInstance[2].equals(BUG_TYPE.ANOTHER_TYPE.name())) {
+                    createIssue(OTHER_killbugs_rule, bugs, bugInstanceKey, interSection);
                 }
             }
 
@@ -504,6 +518,7 @@ public class FindbugsSensor implements Sensor {
         System.out.println("FINDBUGS-------------------F");
         System.out.println("INFER----------------------I");
         System.out.println("Jlint----------------------J");
+        System.out.println("BIT------------------------B");
         System.out.println("\n");
         System.out.println("NPE------------------------F:" + analysis.F_npe);
         System.out.println("NPE------------------------I:"+ analysis.I_npe);
@@ -519,6 +534,7 @@ public class FindbugsSensor implements Sensor {
         System.out.println("RL-------------------------B:"+ analysis.B_rl);
         System.out.println("RL-------------------------F_I:"+ analysis.F_I_rl);
         System.out.println("RL-------------------------F_B:"+ analysis.F_B_rl);
+        System.out.println("RL-------------------------F_B:"+ analysis.F_I_B_rl);
 
         System.out.println("\n");
         System.out.println("SYNC-----------------------F:"+analysis.F_sync);
@@ -550,7 +566,7 @@ public class FindbugsSensor implements Sensor {
         System.out.println("OTHERS---------------------J:"+analysis.J_other);
         System.out.println("OTHERS---------------------F_I:"+analysis.F_I_other);
         System.out.println("OTHERS---------------------F_J:"+analysis.F_J_other);
-        System.out.println("OTHERS---------------------F_I_J:"+analysis.F_I_J_other);
+        System.out.println("OTHERS---------------------F_I_J:"+analysis.F_J_I_other);
         System.out.println("OTHERS---------------------J_I:"+analysis.F_I_other);
         System.out.println("OTHERS---------------------J_B:"+analysis.F_B_other);
         System.out.println("\n");
@@ -613,7 +629,7 @@ public class FindbugsSensor implements Sensor {
                     analysis.F_J_inhrit++;
                 }
             }
-            if(bug_type!= null && bug_type.equals(BUG_TYPE.SYNCHRONIZATION)){
+            if(bug_type.equals(BUG_TYPE.SYNCHRONIZATION)){
                 if(findbugs){
                     analysis.F_sync++;
                 }
@@ -636,7 +652,7 @@ public class FindbugsSensor implements Sensor {
                     analysis.F_J_I_sync++;
                 }
             }
-            if(bug_type!= null && bug_type.equals(BUG_TYPE.RESOURCE_LEAK)){
+            if(bug_type.equals(BUG_TYPE.RESOURCE_LEAK)){
                 if(findbugs){
                     analysis.F_rl++;
                 }
@@ -652,9 +668,12 @@ public class FindbugsSensor implements Sensor {
                 if(findbugs && bit){
                     analysis.F_B_rl++;
                 }
+                if(findbugs && bit && infer){
+                    analysis.F_I_B_rl++;
+                }
 
             }
-            if(bug_type!= null && bug_type.equals(BUG_TYPE.INJECTION)){
+            if(bug_type.equals(BUG_TYPE.INJECTION)){
                 if(findbugs){
                     analysis.F_injc++;
                 }
@@ -665,7 +684,7 @@ public class FindbugsSensor implements Sensor {
                     analysis.F_B_injc++;
                 }
             }
-            if(bug_type!= null && bug_type.equals(BUG_TYPE.CROSS_SITE_SCRIPTING)){
+            if(bug_type.equals(BUG_TYPE.CROSS_SITE_SCRIPTING)){
                 if(findbugs){
                     analysis.F_xss++;
                 }
@@ -676,7 +695,7 @@ public class FindbugsSensor implements Sensor {
                     analysis.F_B_xss++;
                 }
             }
-            if(bug_type!= null && bug_type.equals(BUG_TYPE.ANOTHER_TYPE)){
+            if(bug_type.equals(BUG_TYPE.ANOTHER_TYPE)){
                 if(findbugs){
                     analysis.F_other++;
                 }
@@ -699,7 +718,7 @@ public class FindbugsSensor implements Sensor {
                     analysis.J_I_other++;
                 }
                 if(findbugs && infer && jlint){
-                    analysis.F_I_J_other++;
+                    analysis.F_J_I_other++;
                 }
                 if(findbugs && bit){
                     analysis.F_B_other++;

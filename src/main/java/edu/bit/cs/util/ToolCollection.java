@@ -5,7 +5,7 @@ public enum ToolCollection {
     FINDBUGS(1, "[FindBugs] "),
     JLINT(2, "[Jlint] "),
     INFER(4, "[Infer] "),
-    BIT(5,"[BIT]");
+    BIT(8,"[BIT]");
 
     private int id;
     private String name;
@@ -30,14 +30,17 @@ public enum ToolCollection {
 
     private static String[] tools = new String[]{
             "",
-            FINDBUGS.getName(),
-            JLINT.getName(),
-            FINDBUGS.getName() + JLINT.getName(),
-            INFER.getName(),
-            FINDBUGS.getName() + INFER.getName(),
-            JLINT.getName() + INFER.getName(),
-            FINDBUGS.getName() + JLINT.getName() + INFER.getName(),
-
+            FINDBUGS.getName(),//0001 //1
+            JLINT.getName(),//0010  //2
+            FINDBUGS.getName() + JLINT.getName(),//0011 //3
+            INFER.getName(),//0100 //4
+            FINDBUGS.getName() + INFER.getName(),//0101 //5
+            JLINT.getName() + INFER.getName(),//0110    //6
+            FINDBUGS.getName() + JLINT.getName() + INFER.getName(),//0111  //7
+            BIT.getName(),//1000 //8
+            FINDBUGS.getName() + BIT.getName(), // 1001 //9
+            INFER.getName() + BIT.getName(), //1100  //12
+            FINDBUGS.getName() + INFER.getName() + BIT.getName(), //1101 //13
     };
 
     public static int addTool(int index, ToolCollection tool) {
@@ -50,6 +53,9 @@ public enum ToolCollection {
             }
             case INFER: {
                 return index | INFER.getId();
+            }
+            case BIT: {
+                return index | BIT.getId();
             }
             default: {
                 return index;
