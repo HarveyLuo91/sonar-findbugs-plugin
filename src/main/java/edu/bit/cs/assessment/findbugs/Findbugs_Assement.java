@@ -2,7 +2,10 @@ package edu.bit.cs.assessment.findbugs;
 
 import com.google.common.collect.Sets;
 import edu.bit.cs.BUG_TYPE;
+import edu.bit.cs.ReportedBugInfo;
+import edu.bit.cs.assessment.CsvParser;
 import edu.bit.cs.assessment.XmlParser;
+import edu.bit.cs.bit.BitReportParser;
 
 import java.io.*;
 import java.util.*;
@@ -25,7 +28,7 @@ public class Findbugs_Assement {
         rules_Findbugs.put("RESOURCE_LEAK",this.getRules("src/main/java/edu/bit/cs/assessment/findbugs/RESOURCE_LEAK"));
         rules_Findbugs.put("SYNCHRONIZATION",this.getRules("src/main/java/edu/bit/cs/assessment/findbugs/SYNCHRONIZATION"));
         rules_Findbugs.put("CROSS_SITE_SCRIPTING",this.getRules("src/main/java/edu/bit/cs/assessment/findbugs/CROSS_SITE_SCRIPTING"));
-        rules_Findbugs.put("INHERITANCE",this.getRules("src/main/java/edu/bit/cs/assessment/findbugs/INHERITANCE"));
+        //rules_Findbugs.put("INHERITANCE",this.getRules("src/main/java/edu/bit/cs/assessment/findbugs/INHERITANCE"));
     }
 
 
@@ -81,7 +84,21 @@ public class Findbugs_Assement {
 
         Findbugs_Assement cs = new Findbugs_Assement();
         //judgeType();
-        cs.generateTypeString();
+
+        //cs.generateTypeString();
+
+        try{
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(Findbugs_Assement.class.getClassLoader().getResourceAsStream("file/BitDetector.txt")));
+
+
+            BitReportParser parser = new BitReportParser();
+            Collection<? extends ReportedBugInfo> BitReportedBugs = parser.getReportedBugs(br);
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
 

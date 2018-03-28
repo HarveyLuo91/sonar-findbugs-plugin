@@ -43,7 +43,7 @@ public class JlintReportedBug implements ReportedBugInfo {
         }
     }
 
-    public  Boolean is_Jlint_NPE(){
+    public static Boolean is_Jlint_NPE(){
         if(message.contains(" can be invoked with NULL as number parameter and this parameter is used without check for null")){
             return true;
         }else if(message.contains("Value of referenced ") && message.contains(" may be NULL")){
@@ -56,7 +56,7 @@ public class JlintReportedBug implements ReportedBugInfo {
         return false;
     }
 
-    public  Boolean is_Jlint_SYNC(){
+    public  static Boolean is_Jlint_SYNC(){
 
         if(message.contains("invocation of synchronized ") && message.contains(" can cause deadlock")){
             return true;
@@ -86,7 +86,7 @@ public class JlintReportedBug implements ReportedBugInfo {
         return false;
     }
 
-    public  Boolean is_Jlint_INHERIT(){
+    public static Boolean is_Jlint_INHERIT(){
        if(message.contains("is not overridden by method with the same name of derived ")){
            return true;
        }else if(message.contains("Component name in class name shadows one in base class name")){
@@ -132,4 +132,31 @@ public class JlintReportedBug implements ReportedBugInfo {
 
         return string.toString();
     }
+/*
+    public static void main(String[] args) {
+        System.out.println("SYNC");
+        System.out.println(is_Jlint_SYNC("invocation of synchronized method name can cause deadlock"));
+        System.out.println(is_Jlint_SYNC("invocation of method name forms the loop in class dependency graph"));
+        System.out.println(is_Jlint_SYNC("Lock a is requested while holding lock b, with other thread holding a and requesting lock b"));
+        System.out.println(is_Jlint_SYNC("Method wait() can be invoked with monitor of other object locked"));
+        System.out.println(is_Jlint_SYNC("Call sequence to method name can cause deadlock in wait()"));
+        System.out.println(is_Jlint_SYNC(" Synchronized method name is overridden by non-synchronized method of derived class name"));
+        System.out.println(is_Jlint_SYNC("Method name can be called from different threads and is not synchronized"));
+        System.out.println(is_Jlint_SYNC("Field name of class"));
+        System.out.println(is_Jlint_SYNC("Method name implementing ’Runnable’ interface is not  synchronized"));
+        System.out.println(is_Jlint_SYNC("Value of lock name is changed outside synchronization or constructor"));
+        System.out.println(is_Jlint_SYNC("Value of lock name is changed while (potentially) owning it"));
+        System.out.println(is_Jlint_SYNC(" Method name.wait() is called without synchronizing on name"));
+        System.out.println("NPE");
+        System.out.println(is_Jlint_NPE("Method name can be invoked with NULL as number parameter and this parameter is used without check for null"));
+        System.out.println(is_Jlint_NPE("Value of referenced variable name may be NULL"));
+        System.out.println(is_Jlint_NPE("NULL reference can be used"));
+        System.out.println(is_Jlint_NPE("Shift count range [min,max] is out of domain"));
+        System.out.println("INHERIT");
+        System.out.println(is_Jlint_INHERIT("Method name is not overridden by method with the same name of derived class name"));
+        System.out.println(is_Jlint_INHERIT("Component name in class name shadows one in base class name"));
+        System.out.println(is_Jlint_INHERIT("Local variable name shadows component of class name"));
+        System.out.println(is_Jlint_INHERIT("Method finalize() doesn’t call super.finalize()"));
+    }
+    */
 }

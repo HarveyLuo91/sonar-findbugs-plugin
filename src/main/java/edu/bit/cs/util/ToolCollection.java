@@ -4,7 +4,8 @@ public enum ToolCollection {
     NONE(0, "none"),
     FINDBUGS(1, "[FindBugs] "),
     JLINT(2, "[Jlint] "),
-    INFER(4, "[Infer] ");
+    INFER(4, "[Infer] "),
+    BIT(5,"[BIT]");
 
     private int id;
     private String name;
@@ -36,6 +37,7 @@ public enum ToolCollection {
             FINDBUGS.getName() + INFER.getName(),
             JLINT.getName() + INFER.getName(),
             FINDBUGS.getName() + JLINT.getName() + INFER.getName(),
+
     };
 
     public static int addTool(int index, ToolCollection tool) {

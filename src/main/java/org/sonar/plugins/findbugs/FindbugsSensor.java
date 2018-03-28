@@ -24,6 +24,9 @@ import com.google.common.collect.Maps;
 import edu.bit.cs.BUG_TYPE;
 import edu.bit.cs.ReportedBugInfo;
 import edu.bit.cs.assessment.Result;
+import edu.bit.cs.assessment.findbugs.Findbugs_Assement;
+import edu.bit.cs.bit.BitReportParser;
+import edu.bit.cs.bit.BitReportedBugInfo;
 import edu.bit.cs.infer.InferReportParser;
 import edu.bit.cs.infer.InferReportedBugFromJson;
 import edu.bit.cs.jlint.JlintReportParser;
@@ -51,10 +54,7 @@ import org.sonar.plugins.findbugs.rules.FindSecurityBugsRulesDefinition;
 import org.sonar.plugins.findbugs.rules.FindbugsRulesDefinition;
 import org.sonar.plugins.java.api.JavaResourceLocator;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.*;
 
 public class FindbugsSensor implements Sensor {
@@ -195,7 +195,7 @@ public class FindbugsSensor implements Sensor {
 
         ActiveRule SYNC_killbugs_rule = null; //SYNC
         for (String repoKey : getRepositories()) {
-            SYNC_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "CROSS_SITE_SCRIPTING");
+            SYNC_killbugs_rule = ruleFinder.findByInternalKey(repoKey, "SYNCHRONIZATION");
             if (SYNC_killbugs_rule != null) {
                 break;
             }
@@ -272,6 +272,9 @@ public class FindbugsSensor implements Sensor {
                 System.out.println(str);
             }
 
+
+
+
             //for assessment
             Map<String, Result> interSection = Maps.newHashMap();
             for (int index = 0; index < ToolCollection.getSize(); index++) {
@@ -280,6 +283,36 @@ public class FindbugsSensor implements Sensor {
 
             for (String key: bugs.keySet()) {
                 bugs_analysis.put(key,bugs.get(key));
+            }
+
+            //BIT Analyzer
+            try{
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(FindbugsSensor.class.getClassLoader().getResourceAsStream("file/BitDetector.txt")));
+                BitReportParser parser = new BitReportParser();
+
+                Collection<? extends ReportedBugInfo> BitReportedBugs = parser.getReportedBugs(br);
+
+                System.out.println("***********************BIT Analyzer size:" + BitReportedBugs.size());
+                for (ReportedBugInfo bugInstance: BitReportedBugs) {
+
+                    System.out.println("BIT:" + ((BitReportedBugInfo) bugInstance).toString());
+                    System.out.println("-------------------BIT uid:" + bugInstance.getUID());
+
+                    if(bugs_analysis.containsKey(bugInstance.getUID())){
+                        List<ReportedBugInfo> instances=bugs_analysis.get(bugInstance.getUID());
+                        instances.add(bugInstance);
+                        bugs_analysis.put(bugInstance.getUID(),instances);
+                        bugs.put(bugInstance.getUID(),instances);
+                    }else{
+                        List<ReportedBugInfo> instances = Arrays.asList();
+                        instances.add(bugInstance);
+                        bugs_analysis.put(bugInstance.getUID(),instances);
+                        bugs.put(bugInstance.getUID(),instances);
+                    }
+                }
+            }catch (Exception e){
+                e.printStackTrace();
             }
 
             //findbugs
@@ -291,7 +324,8 @@ public class FindbugsSensor implements Sensor {
                     if(bugs_analysis.containsKey(bugInstance.getUID())){
                         List<ReportedBugInfo> instances = bugs_analysis.get(bugInstance.getUID());
                         instances.add(bugInstance);
-                        bugs_analysis.replace(bugInstance.getUID(),bugs_analysis.get(bugInstance.getUID()), instances);
+                        bugs_analysis.put(bugInstance.getUID(),instances);
+
                     }else{
                         List<ReportedBugInfo> instances = new ArrayList<ReportedBugInfo>();
                         instances.add(bugInstance);
@@ -456,6 +490,7 @@ public class FindbugsSensor implements Sensor {
             System.out.println("recall: " + infer.getRecall());
 
 
+            print_analysis(bugs_analysis);
 
         } finally {
             classMappingWriter.flush();
@@ -465,59 +500,60 @@ public class FindbugsSensor implements Sensor {
 
     public void print_analysis(Map<String, List<ReportedBugInfo>> bugs){
         Bug_Type_Pair_Analysis analysis = analyze(bugs);
-
+        System.out.println("\n");
         System.out.println("FINDBUGS-------------------F");
         System.out.println("INFER----------------------I");
         System.out.println("Jlint----------------------J");
         System.out.println("\n");
-        System.out.println("NPE------------------------F:");
-        System.out.println("NPE------------------------I:");
-        System.out.println("NPE------------------------J:");
-        System.out.println("NPE------------------------F_J:");
-        System.out.println("NPE------------------------F_I:");
-        System.out.println("NPE------------------------J_I:");
-        System.out.println("NPE------------------------J_I:");
-        System.out.println("NPE------------------------F_J_I:");
+        System.out.println("NPE------------------------F:" + analysis.F_npe);
+        System.out.println("NPE------------------------I:"+ analysis.I_npe);
+        System.out.println("NPE------------------------J:"+ analysis.J_npe);
+        System.out.println("NPE------------------------F_J:"+ analysis.F_J_npe);
+        System.out.println("NPE------------------------F_I:"+ analysis.F_I_npe);
+        System.out.println("NPE------------------------J_I:"+ analysis.J_I_npe);
+        System.out.println("NPE------------------------F_J_I:"+ analysis.F_J_I_npe);
 
         System.out.println("\n");
-        System.out.println("RL-------------------------F:");
-        System.out.println("RL-------------------------I:");
-        System.out.println("RL-------------------------B:");
-        System.out.println("RL-------------------------F_I:");
-        System.out.println("RL-------------------------F_B:");
+        System.out.println("RL-------------------------F:"+ analysis.F_rl);
+        System.out.println("RL-------------------------I:"+ analysis.I_rl);
+        System.out.println("RL-------------------------B:"+ analysis.B_rl);
+        System.out.println("RL-------------------------F_I:"+ analysis.F_I_rl);
+        System.out.println("RL-------------------------F_B:"+ analysis.F_B_rl);
 
         System.out.println("\n");
-        System.out.println("SYNC-----------------------F:");
-        System.out.println("SYNC-----------------------J:");
-        System.out.println("SYNC-----------------------I:");
-        System.out.println("SYNC-----------------------J_I:");
-        System.out.println("SYNC-----------------------F_J:");
-        System.out.println("SYNC-----------------------F_I:");
-        System.out.println("SYNC-----------------------F_J_I:");
+        System.out.println("SYNC-----------------------F:"+analysis.F_sync);
+        System.out.println("SYNC-----------------------J:"+analysis.J_sync);
+        System.out.println("SYNC-----------------------I:"+analysis.I_sync);
+        System.out.println("SYNC-----------------------J_I:"+analysis.J_I_sync);
+        System.out.println("SYNC-----------------------F_J:"+analysis.F_J_sync);
+        System.out.println("SYNC-----------------------F_I:"+analysis.F_I_sync);
+        System.out.println("SYNC-----------------------F_J_I:"+analysis.F_J_I_sync);
 
         System.out.println("\n");
-        System.out.println("INHERIT--------------------F:");
-        System.out.println("INHERIT--------------------J:");
-        System.out.println("INHERIT--------------------F_J:");
+        System.out.println("INHERIT--------------------F:"+analysis.F_inhrit);
+        System.out.println("INHERIT--------------------J:"+analysis.J_inhrit);
+        System.out.println("INHERIT--------------------F_J:"+analysis.F_J_inhrit);
 
         System.out.println("\n");
-        System.out.println("INJC-----------------------F:");
-        System.out.println("INJC-----------------------B:");
-        System.out.println("INJC-----------------------F_B:");
+        System.out.println("INJC-----------------------F:"+analysis.F_injc);
+        System.out.println("INJC-----------------------B:"+analysis.B_injc);
+        System.out.println("INJC-----------------------F_B:"+analysis.F_B_injc);
 
         System.out.println("\n");
-        System.out.println("XSS------------------------F:");
-        System.out.println("XSS------------------------B:");
-        System.out.println("XSS------------------------F_B:");
+        System.out.println("XSS------------------------F:"+analysis.F_xss);
+        System.out.println("XSS------------------------B:"+analysis.B_xss);
+        System.out.println("XSS------------------------F_B:"+analysis.F_B_xss);
 
         System.out.println("\n");
-        System.out.println("OTHERS---------------------F:");
-        System.out.println("OTHERS---------------------I:");
-        System.out.println("OTHERS---------------------J:");
-        System.out.println("OTHERS---------------------F_I:");
-        System.out.println("OTHERS---------------------F_J:");
-        System.out.println("OTHERS---------------------F_I_J:");
-        System.out.println("OTHERS---------------------J_I:");
+        System.out.println("OTHERS---------------------F:"+analysis.F_other);
+        System.out.println("OTHERS---------------------I:"+analysis.I_other);
+        System.out.println("OTHERS---------------------J:"+analysis.J_other);
+        System.out.println("OTHERS---------------------F_I:"+analysis.F_I_other);
+        System.out.println("OTHERS---------------------F_J:"+analysis.F_J_other);
+        System.out.println("OTHERS---------------------F_I_J:"+analysis.F_I_J_other);
+        System.out.println("OTHERS---------------------J_I:"+analysis.F_I_other);
+        System.out.println("OTHERS---------------------J_B:"+analysis.F_B_other);
+        System.out.println("\n");
     }
     public static Bug_Type_Pair_Analysis analyze(Map<String, List<ReportedBugInfo>> bugs){
         Bug_Type_Pair_Analysis analysis = new Bug_Type_Pair_Analysis();
@@ -533,15 +569,16 @@ public class FindbugsSensor implements Sensor {
 
             for (ReportedBugInfo bug: tb_list) {
                 bug_type = bug.getBugType();
-                if(bug.getToolName().equals("FINDBUGS")){
+                if(bug.getToolName() == ToolCollection.FINDBUGS){
                     findbugs = true;
-                }else if(bug.getToolName().equals("JLINT")){
+                }else if(bug.getToolName() == ToolCollection.JLINT ){
                     jlint = true;
-                }else if(bug.getToolName().equals("INFER")){
+                }else if(bug.getToolName() == ToolCollection.INFER){
+                    infer = true;
+                }else if(bug.getToolName() == ToolCollection.BIT){
                     infer = true;
                 }
             }
-
             if(bug_type!= null && bug_type.equals(BUG_TYPE.NULL_POINTER_EXEPTION)){
                 if(findbugs){
                     analysis.F_npe++;
@@ -573,7 +610,7 @@ public class FindbugsSensor implements Sensor {
                     analysis.J_inhrit++;
                 }
                 if(findbugs && jlint){
-                    analysis.F_J_inherit++;
+                    analysis.F_J_inhrit++;
                 }
             }
             if(bug_type!= null && bug_type.equals(BUG_TYPE.SYNCHRONIZATION)){
@@ -582,7 +619,6 @@ public class FindbugsSensor implements Sensor {
                 }
                 if(jlint){
                     analysis.J_sync++;
-
                 }
                 if(infer){
                     analysis.I_sync++;
@@ -607,25 +643,38 @@ public class FindbugsSensor implements Sensor {
                 if(infer){
                     analysis.I_rl++;
                 }
-                //bit
+                if(bit){
+                    analysis.B_rl++;
+                }
                 if(findbugs && infer){
                     analysis.F_I_rl++;
                 }
-                //findbugs + bit
+                if(findbugs && bit){
+                    analysis.F_B_rl++;
+                }
+
             }
             if(bug_type!= null && bug_type.equals(BUG_TYPE.INJECTION)){
                 if(findbugs){
                     analysis.F_injc++;
                 }
-                //bit
-                //findbugs+bit
+                if(bit){
+                    analysis.B_injc++;
+                }
+                if(findbugs && bit) {
+                    analysis.F_B_injc++;
+                }
             }
             if(bug_type!= null && bug_type.equals(BUG_TYPE.CROSS_SITE_SCRIPTING)){
                 if(findbugs){
-                    analysis.F_XSS++;
+                    analysis.F_xss++;
                 }
-                //BIT
-                //Findbugs+BIT
+                if(bit){
+                    analysis.B_xss++;
+                }
+                if(findbugs && bit){
+                    analysis.F_B_xss++;
+                }
             }
             if(bug_type!= null && bug_type.equals(BUG_TYPE.ANOTHER_TYPE)){
                 if(findbugs){
@@ -633,6 +682,9 @@ public class FindbugsSensor implements Sensor {
                 }
                 if(infer){
                     analysis.I_other++;
+                }
+                if(bit){
+                    analysis.B_other++;
                 }
                 if(jlint){
                     analysis.J_other++;
@@ -648,6 +700,9 @@ public class FindbugsSensor implements Sensor {
                 }
                 if(findbugs && infer && jlint){
                     analysis.F_I_J_other++;
+                }
+                if(findbugs && bit){
+                    analysis.F_B_other++;
                 }
             }
         }
