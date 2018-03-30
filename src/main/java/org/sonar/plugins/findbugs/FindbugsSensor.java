@@ -305,19 +305,19 @@ public class FindbugsSensor implements Sensor {
 
                 Collection<? extends ReportedBugInfo> BitReportedBugs = parser.getReportedBugs(br);
 
-                System.out.println("***********************BIT Analyzer size:" + BitReportedBugs.size());
+                System.out.println("\n***********************BIT Analyzer size:" + BitReportedBugs.size());
                 for (ReportedBugInfo bugInstance: BitReportedBugs) {
 
                     System.out.println("BIT:" + ((BitReportedBugInfo) bugInstance).toString());
                     System.out.println("-------------------BIT uid:" + bugInstance.getUID());
 
                     if(bugs_analysis.containsKey(bugInstance.getUID())){
-                        List<ReportedBugInfo> instances=bugs_analysis.get(bugInstance.getUID());
+                        List<ReportedBugInfo> instances= bugs_analysis.get(bugInstance.getUID());
                         instances.add(bugInstance);
                         bugs_analysis.put(bugInstance.getUID(),instances);
                         bugs.put(bugInstance.getUID(),instances);
                     }else{
-                        List<ReportedBugInfo> instances = Arrays.asList();
+                        List<ReportedBugInfo> instances = new ArrayList<ReportedBugInfo>();
                         instances.add(bugInstance);
                         bugs_analysis.put(bugInstance.getUID(),instances);
                         bugs.put(bugInstance.getUID(),instances);
