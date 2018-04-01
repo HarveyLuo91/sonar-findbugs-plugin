@@ -6,19 +6,16 @@ import com.google.gson.reflect.TypeToken;
 import edu.bit.cs.ReportedBugInfo;
 import edu.bit.cs.ReportedInfoProcessor;
 import edu.bit.cs.infer.InferReportedBugFromJson;
+import org.sonar.plugins.findbugs.FindbugsSensor;
 
 import java.io.*;
 import java.util.Collection;
 import java.util.List;
 
-public class BitReportParser implements ReportedInfoProcessor {
+public class BitReportParser {
 
-    public BitReportParser() {
-
-    }
-
-    @Override
-    public Collection<? extends ReportedBugInfo> getReportedBugs(BufferedReader br) {
+    public Collection<? extends ReportedBugInfo> getReportedBugs() {
+        BufferedReader br = new BufferedReader(new InputStreamReader(FindbugsSensor.class.getClassLoader().getResourceAsStream("file/BitDetector.txt")));
         List<BitReportedBugInfo> reportedBugs = Lists.newArrayList();
 
         try{
