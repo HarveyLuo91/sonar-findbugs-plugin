@@ -302,10 +302,8 @@ public class FindbugsSensor implements Sensor {
             //BIT Analyzer
             try{
 
-                BufferedReader br = new BufferedReader(new InputStreamReader(FindbugsSensor.class.getClassLoader().getResourceAsStream("file/BitDetector.txt")));
                 BitReportParser parser = new BitReportParser();
-
-                Collection<? extends ReportedBugInfo> BitReportedBugs = parser.getReportedBugs(br);
+                Collection<? extends ReportedBugInfo> BitReportedBugs = parser.getReportedBugs();
 
                 System.out.println("\n***********************BIT Analyzer size:" + BitReportedBugs.size());
                 for (ReportedBugInfo bugInstance: BitReportedBugs) {
