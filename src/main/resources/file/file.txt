@@ -2,7 +2,7 @@ npe/abstract_inferface_extends/GuaranteedDerefInterprocImplF.java,L14,o,#interfa
 npe/abstract_inferface_extends/GuaranteedFieldDereferenceF.java,L20,propertyListTail,#nestedClass #field
 npe/abstract_inferface_extends/UnconditionalThrowerF.java,L23,x,#exception #superClass
 npe/assertion/HandleAssertF.java,L16,y,#assert #path-sensitive
-npe/collection/HashMapF.java,L16,n,#collection path-sensitive
+npe/collection/HashMapF.java,L16,n,#collection #path-sensitive
 npe/collection/JXPathMetaModuleExampleF.java,L27,values,#path-sensitive #collection #inter-process
 npe/collection/JXPathMetaModuleExampleF.java,L46,x,#path-sensitive #collection #inter-process
 npe/collection/ZeroTripF.java,L12,ret,#collection #local
@@ -19,11 +19,11 @@ npe/field/NullDerefF.java,L10,lck,#field #synchronized
 npe/field/NutchBugF.java,L15,b.x,#field #path-sensitive
 npe/field/StaticFieldsF.java,L12,x,#field
 npe/field/StaticFieldsF.java,L18,y,#field
-npe/local/CorrectlyLocalizeWarningF.java,L22,s,#path-sensitive #Exception
+npe/local/CorrectlyLocalizeWarningF.java,L22,s,#path-sensitive #exception
 npe/other/CheckAThrowF.java,L18,t,#path-sensitive #inter-process
 npe/other/CheckAThrowF.java,L26,t(possible),#path-sensitive #inter-process
 npe/other/CheckAThrowF.java,L7,obj(maybe),#path-sensitive #inter-process
-npe/other/ColorF.java,L17,components,#Array #inter-process #path-sensitive
+npe/other/ColorF.java,L17,components,#array #inter-process #path-sensitive
 npe/other/ErrorInFinallyClauseF.java,L27,in,#exception
 npe/other/ErrorInFinallyClauseF.java,L29,out,#exception
 npe/other/FalsePositiveFromEclipseCommentRegionF.java,L22,p,#path-sensitive #flow-sensitive #inter-process
@@ -54,8 +54,8 @@ npe/parameter/BranchOrStatementF.java,L10,x,#path-sensitive #inter-process
 npe/parameter/BranchOrStatementF.java,L18,x,#path-sensitive #inter-process
 npe/parameter/BranchOrStatementF.java,L25,x,#path-sensitive #inter-process
 npe/parameter/ComparisonWithThisF.java,L14,x,#inter-process #path-sensitive
-npe/parameter/CoupledNullnessF.java,L12,y,#inter-process #path-context
-npe/parameter/CoupledNullnessF.java,L22,y,#inter-process #path-context
+npe/parameter/CoupledNullnessF.java,L12,y,#inter-process #path-sensitive
+npe/parameter/CoupledNullnessF.java,L22,y,#inter-process #path-sensitive
 npe/parameter/NullDerefF.java,L18,a&b,#path-sensitive #inter-process
 npe/parameter/NullDerefF.java,L26,a&b,#path-sensitive #inter-process
 npe/simple/LoadKnownNullF.java,L9,o,#local #exception

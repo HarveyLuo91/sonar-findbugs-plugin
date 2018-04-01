@@ -31,7 +31,7 @@ public class JlintReportParser implements ReportedInfoProcessor {
                     continue;
                 }
 
-                System.out.println("jlint report bug:" + fileRead);
+//                System.out.println("jlint report bug:" + fileRead);
 
                 int index;
                 if (fileRead.charAt(1) == ':') {
@@ -43,37 +43,35 @@ public class JlintReportParser implements ReportedInfoProcessor {
 //                //find second occurence of :, the number after that is the line number of the reported bug
 //                int index = fileRead.indexOf(":", fileRead.indexOf(":") + 1);
                 if (index > -1) {
-
                     //class path starts from the begining to just before the line number that a bug was reported
                     String classPath = fileRead.substring(0, index);
 //                    int start_index = classPath.lastIndexOf(root);
 //                    classPath = classPath.substring(start_index + root.length() + 1, index).replace("\\", "/");
-                    System.out.println("ClassPath: " + classPath);
+//                    System.out.println("ClassPath: " + classPath);
 
                     //starts after the class path, they are separated by the index containing :
                     int startIndex_bugLineNumber = index + 1;
                     int endIndex_bugLineNumber = fileRead.indexOf(':', startIndex_bugLineNumber);
-                    System.out.println("startIndex:" + startIndex_bugLineNumber + " endIndex:" + endIndex_bugLineNumber);
+//                    System.out.println("startIndex:" + startIndex_bugLineNumber + " endIndex:" + endIndex_bugLineNumber);
                     String bugLineNumber = fileRead.substring(startIndex_bugLineNumber, endIndex_bugLineNumber);
 
-                    System.out.println("errorLineNumber: " + bugLineNumber);
+//                    System.out.println("errorLineNumber: " + bugLineNumber);
 
                     //message starts immediately after the line number
                     String errorMessage = fileRead.substring(endIndex_bugLineNumber + 1, fileRead.length()).trim();
-                    System.out.println("Error Message: " + errorMessage);
+//                    System.out.println("Error Message: " + errorMessage);
 
                     //Bug Type
                     String bugType = getBugType(errorMessage);
-                    System.out.println("Bug Type: " + getClassName(bugType));
+//                    System.out.println("Bug Type: " + getClassName(bugType));
 
                     //Class Name
-                    System.out.println("className: " + getClassName(classPath));
+//                    System.out.println("className: " + getClassName(classPath));
                     String className = getClassName(classPath);
 
                     //sourceFile and ClassFile
                     String sourcePath = classPath;
-                    String classFile = classPath;
-                    System.out.println("--------------------------------------");
+//                    System.out.println("--------------------------------------");
                     JlintReportedBug bugInstance = new JlintReportedBug(bugType, errorMessage, className, Integer.valueOf(bugLineNumber), sourcePath);
                     ReportedBugs.add(bugInstance);
 
