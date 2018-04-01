@@ -5,7 +5,8 @@ public enum ToolCollection {
     FINDBUGS(1, "[FindBugs] "),
     JLINT(2, "[Jlint] "),
     INFER(4, "[Infer] "),
-    BIT(8,"[BIT]");
+    BIT(8,"[BIT]"),
+    FORTIFY(16,"[Fortify]");
 
     private int id;
     private String name;
