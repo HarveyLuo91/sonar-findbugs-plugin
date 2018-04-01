@@ -52,20 +52,4 @@ public class FortifyReportParser  {
         return reportedBugs;
     }
 
-    public static void main(String[] args) {
-        FortifyReportParser parser = new FortifyReportParser();
-
-        Collection<ReportedBugInfo> bugs = parser.getReportedBugs();
-        System.out.println(bugs.size());
-        for (ReportedBugInfo bug:bugs) {
-            if(bug.getBugType() !=  BUG_TYPE.ANOTHER_TYPE){
-                System.out.println(bug.getUID());
-                System.out.println(bug.getBugType());
-                System.out.println(bug.getSourcePath());
-                System.out.println(bug.getToolName());
-            }
-
-        }
-    }
-
 }
