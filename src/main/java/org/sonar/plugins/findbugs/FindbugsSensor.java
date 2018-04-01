@@ -68,7 +68,7 @@ public class FindbugsSensor implements Sensor {
 
     public static String ROOT = "";
 
-    private List<String> repositories = new ArrayList<String>();
+    private List<String> repositories = Lists.newArrayList();
 
     private RulesProfile profile;
     private ActiveRules ruleFinder;
