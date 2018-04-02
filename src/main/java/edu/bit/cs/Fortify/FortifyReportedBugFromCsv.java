@@ -19,6 +19,12 @@ public class FortifyReportedBugFromCsv implements ReportedBugInfo {
             return BUG_TYPE.INJECTION;
         }else if(bug_type.equals("Unreleased Resource: Streams")){
             return BUG_TYPE.RESOURCE_LEAK;
+        }else if(bug_type.equals("Cross-Site Scripting")){
+            return BUG_TYPE.CROSS_SITE_SCRIPTING;
+        }else if(bug_type.equals("Race Condition: Singleton Member Field")){
+            return BUG_TYPE.SYNCHRONIZATION;
+        }else if(bug_type.equals("Redundant Null Check")){
+            return BUG_TYPE.NULL_POINTER_EXEPTION;
         }else{
             return BUG_TYPE.ANOTHER_TYPE;
         }
