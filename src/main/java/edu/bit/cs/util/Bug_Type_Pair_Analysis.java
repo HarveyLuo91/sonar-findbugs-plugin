@@ -23,6 +23,10 @@ public class Bug_Type_Pair_Analysis {
     public int J_I_npe = 0;
     public int J_FT_npe = 0;
     public int I_FT_npe = 0;
+    public int F_J_I_npe = 0;
+    public int F_J_FT_npe = 0;
+    public int F_I_FT_npe = 0;
+    public int I_J_FT_npe = 0;
     public int F_J_I_FT_npe = 0;
 
     ////////////////////////RL///////////////////////////////
@@ -30,18 +34,16 @@ public class Bug_Type_Pair_Analysis {
     public int I_rl = 0;
     public int B_rl = 0;
     public int FT_rl = 0;
-    public int F_I_rl = 0;//F_+
+    public int F_I_rl = 0;
     public int F_B_rl = 0;
     public int F_FT_rl = 0;
-    public int I_B_rl = 0;//I_+
+    public int I_B_rl = 0;
     public int I_FT_rl = 0;
-    public int B_FT_rl = 0;//B_+
-
+    public int B_FT_rl = 0;
     public int F_I_B_rl = 0;
     public int F_I_FT_rl = 0;
     public int F_B_FT_rl = 0;
     public int I_B_FT_rl = 0;
-
     public int F_I_B_FT_rl = 0;
 
     ////////////////////////SYNC///////////////////////////////
@@ -55,43 +57,52 @@ public class Bug_Type_Pair_Analysis {
     public int J_I_sync = 0;
     public int J_FT_sync = 0;
     public int I_FT_sync = 0;
-
-    public int F_J_I_FT_sync = 0;
     public int F_J_I_sync = 0;
     public int F_J_FT_sync = 0;
     public int F_I_FT_sync = 0;
     public int J_I_FT_sync = 0;
-
-
-
+    public int F_J_I_FT_sync = 0;
     ////////////////////////INJC///////////////////////////////
     public int F_injc = 0;
     public int B_injc = 0;
     public int FT_injc = 0;
     public int F_B_injc = 0;
     public int F_FT_injc = 0;
-
+    public int B_FT_injc = 0;
+    public int F_B_FT_injc = 0;
     ////////////////////////XSS///////////////////////////////
     public int F_xss = 0;
     public int B_xss = 0;
+    public int FT_xss= 0;
     public int F_B_xss = 0;
-
+    public int F_FT_xss = 0;
+    public int B_FT_xss = 0;
+    public int F_B_FT_xss = 0;
     ////////////////////////INHERIT///////////////////////////////
     public int F_inhrit = 0;
     public int J_inhrit = 0;
     public int F_J_inhrit = 0;
-
     ////////////////////////OTHERS///////////////////////////////
     public int F_other = 0;
     public int J_other = 0;
     public int I_other = 0;
     public int B_other = 0;
     public int FT_other = 0;
-    public int J_I_other = 0;
     public int F_J_other = 0;
     public int F_I_other = 0;
     public int F_B_other = 0;
+    public int F_FT_other = 0;
+    public int J_I_other = 0;
+    public int J_B_other = 0;
+    public int J_FT_other = 0;
+    public int I_B_other = 0;
+    public int I_FT_other = 0;
+    public int B_FT_other = 0;
     public int F_J_I_other = 0;
+    public int F_J_FT_other = 0;
+    public int F_FT_I_other = 0;
+    public int J_I_FT_other = 0;
+    public int F_J_I_FT_other = 0;
 
     public static void analyze(Map<String, List<ReportedBugInfo>> bugs){
         Bug_Type_Pair_Analysis analysis = new Bug_Type_Pair_Analysis();
@@ -151,6 +162,18 @@ public class Bug_Type_Pair_Analysis {
                     analysis.I_FT_npe++;
                 }
                 if(findbugs && jlint && infer){
+                    analysis.F_J_I_npe++;
+                }
+                if(findbugs && jlint && fortify){
+                    analysis.F_J_FT_npe++;
+                }
+                if(findbugs && infer && fortify){
+                    analysis.F_I_FT_npe++;
+                }
+                if(infer && jlint && fortify){
+                    analysis.I_J_FT_npe++;
+                }
+                if(findbugs && jlint && fortify && infer ){
                     analysis.F_J_I_FT_npe++;
                 }
             }
@@ -195,6 +218,18 @@ public class Bug_Type_Pair_Analysis {
                 if(findbugs && infer){
                     analysis.F_I_sync++;
                 }
+                if(findbugs && jlint && infer){
+                    analysis.F_J_I_sync++;
+                }
+                if(findbugs && jlint && fortify){
+                    analysis.F_J_FT_sync++;
+                }
+                if(findbugs && infer && fortify){
+                    analysis.F_I_FT_sync++;
+                }
+                if(jlint && infer && fortify){
+                    analysis.J_I_FT_sync++;
+                }
                 if(findbugs && jlint && infer && fortify){
                     analysis.F_J_I_FT_sync++;
                 }
@@ -230,6 +265,18 @@ public class Bug_Type_Pair_Analysis {
                 if(bit && fortify){
                     analysis.B_FT_rl++;
                 }
+                if(findbugs && infer && bit){
+                    analysis.F_I_B_rl++;
+                }
+                if(findbugs && infer && fortify){
+                    analysis.F_I_FT_rl++;
+                }
+                if(findbugs && bit && fortify){
+                    analysis.F_B_FT_rl++;
+                }
+                if(infer && bit && fortify){
+                    analysis.I_B_FT_rl++;
+                }
                 if(findbugs && bit && infer && fortify){
                     analysis.F_I_B_FT_rl++;
                 }
@@ -241,8 +288,20 @@ public class Bug_Type_Pair_Analysis {
                 if(bit){
                     analysis.B_injc++;
                 }
+                if(fortify){
+                    analysis.FT_injc++;
+                }
                 if(findbugs && bit) {
                     analysis.F_B_injc++;
+                }
+                if(findbugs && fortify){
+                    analysis.F_FT_injc++;
+                }
+                if(bit && fortify){
+                    analysis.B_FT_injc++;
+                }
+                if(findbugs && bit && fortify){
+                    analysis.F_B_FT_injc++;
                 }
             }
             if(bug_type.equals(BUG_TYPE.CROSS_SITE_SCRIPTING)){
@@ -252,8 +311,20 @@ public class Bug_Type_Pair_Analysis {
                 if(bit){
                     analysis.B_xss++;
                 }
+                if(fortify){
+                    analysis.FT_xss++;
+                }
                 if(findbugs && bit){
                     analysis.F_B_xss++;
+                }
+                if(findbugs && fortify){
+                    analysis.F_FT_xss++;
+                }
+                if(bit && fortify){
+                    analysis.B_FT_xss++;
+                }
+                if(findbugs & bit && fortify){
+                    analysis.F_B_FT_xss++;
                 }
             }
             if(bug_type.equals(BUG_TYPE.ANOTHER_TYPE)){
@@ -269,6 +340,9 @@ public class Bug_Type_Pair_Analysis {
                 if(jlint){
                     analysis.J_other++;
                 }
+                if(fortify){
+                    analysis.FT_other++;
+                }
                 if(findbugs && jlint){
                     analysis.F_J_other++;
                 }
@@ -278,11 +352,41 @@ public class Bug_Type_Pair_Analysis {
                 if(infer && jlint){
                     analysis.J_I_other++;
                 }
+                if(findbugs && bit){
+                    analysis.F_B_other++;
+                }
+                if(findbugs && fortify){
+                    analysis.F_FT_other++;
+                }
+                if(jlint && bit){
+                    analysis.J_B_other++;
+                }
+                if(jlint && fortify){
+                    analysis.J_FT_other++;
+                }
+                if(infer && bit){
+                    analysis.I_B_other++;
+                }
+                if(infer && fortify){
+                    analysis.I_FT_other++;
+                }
+                if(bit && fortify){
+                    analysis.B_FT_other++;
+                }
                 if(findbugs && infer && jlint){
                     analysis.F_J_I_other++;
                 }
-                if(findbugs && bit){
-                    analysis.F_B_other++;
+                if(findbugs && jlint && fortify){
+                    analysis.F_J_FT_other++;
+                }
+                if(findbugs && fortify && infer){
+                    analysis.F_FT_I_other++;
+                }
+                if(jlint && infer && fortify){
+                    analysis.J_I_FT_other++;
+                }
+                if(findbugs && jlint && infer && fortify){
+                    analysis.F_J_I_FT_other++;
                 }
             }
         }
@@ -294,52 +398,103 @@ public class Bug_Type_Pair_Analysis {
         System.out.println("NPE------------------------F:" + analysis.F_npe);
         System.out.println("NPE------------------------I:"+ analysis.I_npe);
         System.out.println("NPE------------------------J:"+ analysis.J_npe);
+        System.out.println("NPE------------------------FT:"+ analysis.FT_npe);
         System.out.println("NPE------------------------F_J:"+ analysis.F_J_npe);
         System.out.println("NPE------------------------F_I:"+ analysis.F_I_npe);
+        System.out.println("NPE------------------------F_FT:"+ analysis.F_FT_npe);
         System.out.println("NPE------------------------J_I:"+ analysis.J_I_npe);
+        System.out.println("NPE------------------------J_FT:"+ analysis.J_FT_npe);
+        System.out.println("NPE------------------------I_FT:"+ analysis.I_FT_npe);
+        System.out.println("NPE------------------------F_J_I:"+ analysis.F_J_I_npe);
+        System.out.println("NPE------------------------F_J_FT:"+ analysis.F_J_FT_npe);
+        System.out.println("NPE------------------------F_I_FT:"+ analysis.F_I_FT_npe);
+        System.out.println("NPE------------------------I_J_FT:"+ analysis.I_J_FT_npe);
         System.out.println("NPE------------------------F_J_I_FT:"+ analysis.F_J_I_FT_npe);
 
         System.out.println("\n");
         System.out.println("RL-------------------------F:"+ analysis.F_rl);
         System.out.println("RL-------------------------I:"+ analysis.I_rl);
         System.out.println("RL-------------------------B:"+ analysis.B_rl);
+        System.out.println("RL-------------------------FT:"+ analysis.FT_rl);
         System.out.println("RL-------------------------F_I:"+ analysis.F_I_rl);
         System.out.println("RL-------------------------F_B:"+ analysis.F_B_rl);
-        System.out.println("RL-------------------------F_B:"+ analysis.F_I_B_FT_rl);
+        System.out.println("RL-------------------------F_FT:"+ analysis.F_FT_rl);
+        System.out.println("RL-------------------------I_B:"+ analysis.I_B_rl);
+        System.out.println("RL-------------------------I_FT:"+ analysis.F_B_rl);
+        System.out.println("RL-------------------------B_FT:"+ analysis.B_FT_rl);
+        System.out.println("RL-------------------------F_I_B:"+ analysis.F_I_B_rl);
+        System.out.println("RL-------------------------B_FT:"+ analysis.F_I_FT_rl);
+        System.out.println("RL-------------------------B_FT:"+ analysis.F_B_FT_rl);
+        System.out.println("RL-------------------------B_FT:"+ analysis.I_B_FT_rl);
+        System.out.println("RL-------------------------F_I_B_FT:"+ analysis.F_I_B_FT_rl);
+
 
         System.out.println("\n");
         System.out.println("SYNC-----------------------F:"+analysis.F_sync);
         System.out.println("SYNC-----------------------J:"+analysis.J_sync);
         System.out.println("SYNC-----------------------I:"+analysis.I_sync);
-        System.out.println("SYNC-----------------------J_I:"+analysis.J_I_sync);
+        System.out.println("SYNC-----------------------FT:"+analysis.FT_sync);
         System.out.println("SYNC-----------------------F_J:"+analysis.F_J_sync);
         System.out.println("SYNC-----------------------F_I:"+analysis.F_I_sync);
+        System.out.println("SYNC-----------------------F_FT:"+analysis.F_FT_sync);
+        System.out.println("SYNC-----------------------J_I:"+analysis.J_I_sync);
+        System.out.println("SYNC-----------------------J_FT:"+analysis.J_FT_sync);
+        System.out.println("SYNC-----------------------I_FT:"+analysis.I_FT_sync);
+        System.out.println("SYNC-----------------------F_J_I:"+analysis.F_J_I_sync);
+        System.out.println("SYNC-----------------------F_J_FT:"+analysis.F_J_FT_sync);
+        System.out.println("SYNC-----------------------F_J_FT:"+analysis.F_I_FT_sync);
+        System.out.println("SYNC-----------------------J_I_FT:"+analysis.J_I_FT_sync);
         System.out.println("SYNC-----------------------F_J_I_FT:"+analysis.F_J_I_FT_sync);
+
 
         System.out.println("\n");
         System.out.println("INHERIT--------------------F:"+analysis.F_inhrit);
         System.out.println("INHERIT--------------------J:"+analysis.J_inhrit);
         System.out.println("INHERIT--------------------F_J:"+analysis.F_J_inhrit);
 
+
         System.out.println("\n");
         System.out.println("INJC-----------------------F:"+analysis.F_injc);
         System.out.println("INJC-----------------------B:"+analysis.B_injc);
+        System.out.println("INJC-----------------------FT:"+analysis.FT_injc);
         System.out.println("INJC-----------------------F_B:"+analysis.F_B_injc);
+        System.out.println("INJC-----------------------F_FT:"+analysis.F_FT_injc);
+        System.out.println("INJC-----------------------B_FT:"+analysis.B_FT_injc);
+        System.out.println("INJC-----------------------F_B_FT:"+analysis.F_B_FT_injc);
+
 
         System.out.println("\n");
         System.out.println("XSS------------------------F:"+analysis.F_xss);
         System.out.println("XSS------------------------B:"+analysis.B_xss);
+        System.out.println("XSS------------------------FT:"+analysis.FT_xss);
         System.out.println("XSS------------------------F_B:"+analysis.F_B_xss);
+        System.out.println("XSS------------------------F_FT:"+analysis.F_FT_xss);
+        System.out.println("XSS------------------------B_FT:"+analysis.B_FT_xss);
+        System.out.println("XSS------------------------F_B_FT:"+analysis.F_B_FT_xss);
+
 
         System.out.println("\n");
         System.out.println("OTHERS---------------------F:"+analysis.F_other);
-        System.out.println("OTHERS---------------------I:"+analysis.I_other);
         System.out.println("OTHERS---------------------J:"+analysis.J_other);
-        System.out.println("OTHERS---------------------F_I:"+analysis.F_I_other);
+        System.out.println("OTHERS---------------------I:"+analysis.I_other);
+        System.out.println("OTHERS---------------------B:"+analysis.B_other);
+        System.out.println("OTHERS---------------------FT:"+analysis.FT_other);
         System.out.println("OTHERS---------------------F_J:"+analysis.F_J_other);
+        System.out.println("OTHERS---------------------F_I:"+analysis.F_I_other);
+        System.out.println("OTHERS---------------------F_B:"+analysis.F_B_other);
+        System.out.println("OTHERS---------------------F_FT:"+analysis.F_FT_other);
+        System.out.println("OTHERS---------------------J_I:"+analysis.J_I_other);
+        System.out.println("OTHERS---------------------J_B:"+analysis.J_B_other);
+        System.out.println("OTHERS---------------------J_FT:"+analysis.F_FT_other);
+        System.out.println("OTHERS---------------------I_B:"+analysis.I_B_other);
+        System.out.println("OTHERS---------------------I_FT:"+analysis.I_FT_other);
+        System.out.println("OTHERS---------------------B_FT:"+analysis.B_FT_other);
         System.out.println("OTHERS---------------------F_I_J:"+analysis.F_J_I_other);
-        System.out.println("OTHERS---------------------J_I:"+analysis.F_I_other);
-        System.out.println("OTHERS---------------------J_B:"+analysis.F_B_other);
+        System.out.println("OTHERS---------------------F_I_FT:"+analysis.F_J_FT_other);
+        System.out.println("OTHERS---------------------F_FT_I:"+analysis.F_FT_I_other);
+        System.out.println("OTHERS---------------------J_I_FT:"+analysis.J_I_FT_other);
+        System.out.println("OTHERS---------------------F_I_J_FT:"+analysis.F_J_I_FT_other);
+
         System.out.println("\n");
     }
 }
