@@ -408,10 +408,6 @@ public class FindbugsSensor implements Sensor {
             System.out.println("----------------Bugs Keyset Size:" + bugs.keySet().size());
             //for test
             bugs.remove(null);
-            for (String key : bugs.keySet()) {
-                //System.out.println(key);
-            }
-
             for (String bugInstanceKey : bugs.keySet()) {
 
                 String[] splitKeyInstance = bugInstanceKey.split("-");
