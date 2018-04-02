@@ -104,7 +104,7 @@ public class Result {
     }
 
     public double getRecall() {
-        return ((double) tp.size()) / CsvParser.FAKEBUGS.size();
+        return ((double) tp.size()) / CsvParser.F_BUGS.size();
     }
 
     public Map<String, List<ReportedBugInfo>> getTp() {

@@ -28,7 +28,6 @@ import edu.bit.cs.assessment.CsvParser;
 import edu.bit.cs.assessment.Result;
 import edu.bit.cs.assessment.TestCaseModel;
 import edu.bit.cs.infer.InferReportParser;
-import edu.bit.cs.infer.InferReportedBugFromJson;
 import edu.bit.cs.jlint.JlintReportParser;
 import edu.bit.cs.util.CmdExecutor;
 import edu.bit.cs.util.ToolCollection;
@@ -53,10 +52,7 @@ import org.sonar.plugins.findbugs.rules.FindSecurityBugsRulesDefinition;
 import org.sonar.plugins.findbugs.rules.FindbugsRulesDefinition;
 import org.sonar.plugins.java.api.JavaResourceLocator;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -275,7 +271,7 @@ public class FindbugsSensor implements Sensor {
                     continue;
                 }
                 //Normalize the sourse path to the root folder of project
-                System.out.println("-------------------jlint uid:" + bugInstance.getUID());
+//                System.out.println("-------------------jlint uid:" + bugInstance.getUID());
                 List bugInstances;
                 //if we don't have current bug as a key in the bugs map, create new instance of buginstances
                 if (!bugs.containsKey(bugInstance.getUID())) {
@@ -296,6 +292,8 @@ public class FindbugsSensor implements Sensor {
             //Infer
             System.out.println("Infer dir:" + absolutePath);
             Collection<? extends ReportedBugInfo> inferReportedBugs = CmdExecutor.exeCmd(absolutePath, new InferReportParser());
+//            BufferedReader br = new BufferedReader(new InputStreamReader(FindbugsSensor.class.getClassLoader().getResourceAsStream("file/report.json")));
+//            Collection<? extends ReportedBugInfo> inferReportedBugs = new InferReportParser().getReportedBugs(br);
 
             System.out.println("***********************Infer size:" + inferReportedBugs.size());
             int jlint_infer_intersection = 0;
@@ -303,8 +301,8 @@ public class FindbugsSensor implements Sensor {
                 if (bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE)) {
                     continue;
                 }
-                System.out.println("INFER:" + ((InferReportedBugFromJson) bugInstance).toString());
-                System.out.println("-------------------Infer uid:" + bugInstance.getUID());
+//                System.out.println("INFER:" + bugInstance.toString());
+//                System.out.println("-------------------Infer uid:" + bugInstance.getUID());
                 List bugInstances;
                 if (!bugs.containsKey(bugInstance.getUID())) {
                     bugInstances = Lists.newArrayList();
@@ -317,12 +315,12 @@ public class FindbugsSensor implements Sensor {
             }
             System.out.println("**********************Infer map size:" + bugs.size() + "--jlint_infer_intersection:" + jlint_infer_intersection);
 
-            for (String str : bugs.keySet()) {
-                System.out.println(str);
-                for (ReportedBugInfo bug : bugs.get(str)) {
-                    System.out.println("tool name: " + bug.getToolName());
-                }
-            }
+//            for (String str : bugs.keySet()) {
+//                System.out.println(str);
+//                for (ReportedBugInfo bug : bugs.get(str)) {
+//                    System.out.println("tool name: " + bug.getToolName());
+//                }
+//            }
 
             //for assessment
             Map<String, Result> interSection = Maps.newHashMap();
@@ -339,7 +337,7 @@ public class FindbugsSensor implements Sensor {
 
                     ActiveRule rule = null;
                     for (String repoKey : getRepositories()) {
-                        System.out.println("\n---------------------type:" + bugInstance.getBugType().name() + "\nmessage:" + bugInstance.getMessage());
+//                        System.out.println("\n---------------------type:" + bugInstance.getBugType().name() + "\nmessage:" + bugInstance.getMessage());
                         rule = ruleFinder.findByInternalKey(repoKey, bugInstance.getBugType().name());
                         if (rule != null) {
                             break;
@@ -357,7 +355,7 @@ public class FindbugsSensor implements Sensor {
                     StringBuilder longMessage = new StringBuilder(bugInstance.getMessage());
                     int line = bugInstance.getStartLine();
 
-                    System.out.println("findbugs sourcefile:" + sourceFile);
+//                    System.out.println("findbugs sourcefile:" + sourceFile);
                     //Regular Java class mapped to their original .java
                     InputFile resource = byteCodeResourceLocator.findSourceFile(sourceFile, this.fs);
                     if (resource != null) {
@@ -421,14 +419,14 @@ public class FindbugsSensor implements Sensor {
             System.out.println("----------------Bugs Keyset Size:" + bugs.keySet().size());
             //for test
             bugs.remove(null);
-            for (String key : bugs.keySet()) {
-                System.out.println(key);
-            }
+//            for (String key : bugs.keySet()) {
+//                System.out.println(key);
+//            }
 
             for (String bugInstanceKey : bugs.keySet()) {
 
                 String[] splitKeyInstance = bugInstanceKey.split("-");
-                System.out.println("FileName:" + splitKeyInstance[0] + "\nLine Number:" + splitKeyInstance[1] + "\nBugTyp   e:" + splitKeyInstance[2]);
+//                System.out.println("FileName:" + splitKeyInstance[0] + "\nLine Number:" + splitKeyInstance[1] + "\nBugTyp   e:" + splitKeyInstance[2]);
 
                 if (splitKeyInstance[2].equals(BUG_TYPE.NULL_POINTER_EXEPTION.name())) {
                     createIssue(npe_killbugs_rule, bugs, bugInstanceKey, interSection);
@@ -530,9 +528,59 @@ public class FindbugsSensor implements Sensor {
             testCaseModels.addAll(CsvParser.F_BUGS.values());
             testCaseModels.addAll(CsvParser.T_BUGS.values());
 
-            System.out.println("-----json-------");
-            System.out.println(JSON.toJSONString(testCaseModels));
+            System.out.println("-----json size:" + testCaseModels.size());
+//            System.out.println(JSON.toJSONString(testCaseModels));
 
+            FileOutputStream out = null;
+            try {
+                out = new FileOutputStream(new File(binaries.getAbsolutePath() + "/testcases.json"));
+                out.write(JSON.toJSONString(testCaseModels).getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (out != null) {
+                        out.flush();
+                        out.close();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+            List<TestCaseModel> wantedModels = Lists.newArrayList();
+            for (TestCaseModel test : CsvParser.F_BUGS.values()) {
+                if ((test.getFindbugs() + test.getInfer() + test.getJlint() == 3) || (test.getFindbugs() + test.getInfer() + test.getJlint() == 0)) {
+                    continue;
+                }
+                wantedModels.add(test);
+            }
+            for (TestCaseModel test : CsvParser.T_BUGS.values()) {
+                if ((test.getFindbugs() + test.getInfer() + test.getJlint() == 3) || (test.getFindbugs() + test.getInfer() + test.getJlint() == 0)) {
+                    continue;
+                }
+                wantedModels.add(test);
+            }
+            System.out.println("-----wanted json size:" + wantedModels.size());
+
+            out = null;
+            try {
+                out = new FileOutputStream(new File(binaries.getAbsolutePath() + "/wantedtestcases.json"));
+                out.write(JSON.toJSONString(wantedModels).getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (out != null) {
+                        out.flush();
+                        out.close();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+//            System.out.println(JSON.toJSONString(wantedModels));
 //            findbugs.countTags();
 //            System.out.println("FindBugs Tag:");
 //            findbugs.printTags();
@@ -568,7 +616,7 @@ public class FindbugsSensor implements Sensor {
         int line = 0;
 
         for (ReportedBugInfo bug : bugs.get(bugInstanceKey)) {
-            System.out.println("-------------------" + bug.getToolName() + "\nsourcefile:" + bug.getSourcePath());
+//            System.out.println("-------------------" + bug.getToolName() + "\nsourcefile:" + bug.getSourcePath());
             index = ToolCollection.addTool(index, bug.getToolName());
         }
 
@@ -592,7 +640,7 @@ public class FindbugsSensor implements Sensor {
         if (resource != null) {
             insertIssue(rule, resource, line, longMessage.toString());
         } else {
-            System.out.println("-------------------resource is null");
+//            System.out.println("-------------------resource is null");
         }
     }
 
@@ -601,13 +649,13 @@ public class FindbugsSensor implements Sensor {
 
         if (bugs.containsKey(bug.getUID())) {
             for (ReportedBugInfo bugInfo : bugs.get(bug.getUID())) {
-                System.out.println(bugInfo.getToolName());
+//                System.out.println(bugInfo.getToolName());
                 index = ToolCollection.addTool(index, bugInfo.getToolName());
             }
             index = ToolCollection.addTool(index, ToolCollection.FINDBUGS);
 
             //for assessment
-            System.out.println("result interSection:" + ToolCollection.getTools(index));
+//            System.out.println("result interSection:" + ToolCollection.getTools(index));
             Result result = interSection.get(ToolCollection.getTools(index));
             result.judge(bugs.get(bug.getUID()));
 
@@ -626,7 +674,6 @@ public class FindbugsSensor implements Sensor {
 
 
     protected void insertIssue(ActiveRule rule, InputFile resource, int line, String message) {
-        System.out.println();
         NewIssue newIssue = sensorContext.newIssue().forRule(rule.ruleKey());
 
         NewIssueLocation location = newIssue.newLocation()

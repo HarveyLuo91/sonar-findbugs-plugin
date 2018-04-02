@@ -19,14 +19,16 @@ public interface ReportedBugInfo {
         }
     }
 
-    static String normalizeFilePath(String filePath,String root) {
+    static String normalizeFilePath(String filePath, String root) {
         String localRoot = root;
         if (filePath.contains("main/java")) {
             localRoot = "main/java";
         }
         int start_index = filePath.lastIndexOf(localRoot);
+        if (start_index == -1) {
+            return filePath.replace("\\", "/");
+        }
         return filePath.substring(start_index + localRoot.length() + 1).replace("\\", "/");
-
     }
 
     BUG_TYPE getBugType();

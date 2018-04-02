@@ -89,12 +89,12 @@ public class CsvParser {
                 test.setJlint(1);
                 test.setFindbugs(1);
                 if (T_BUGS.put(JsonParser.getUID(file, test.getError_line()), test) != null) {
-                    System.out.println("T:" + JsonParser.getUID(file, test.getError_line()));
+//                    System.out.println("T:" + JsonParser.getUID(file, test.getError_line()));
                 }
             } else {
 //                F_BUGS.put(JsonParser.getUID(file, test.getError_line()), Lists.newArrayList());
                 if (F_BUGS.put(JsonParser.getUID(file, test.getError_line()), test) != null) {
-                    System.out.println("F:" + JsonParser.getUID(file, test.getError_line()));
+//                    System.out.println("F:" + JsonParser.getUID(file, test.getError_line()));
                 }
             }
 
