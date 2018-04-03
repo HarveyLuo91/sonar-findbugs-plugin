@@ -234,7 +234,7 @@ public class FindbugsSensor implements Sensor {
             System.out.println("******************************Jlint size:" + jlintReportedBugs.size());
             //loop through the reported bugs
             for (ReportedBugInfo bugInstance : jlintReportedBugs) {
-                System.out.println("-------------------jlint uid:" + bugInstance.getUID());
+                //System.out.println("-------------------jlint uid:" + bugInstance.getUID());
                 List bugInstances;
                 if (!bugs.containsKey(bugInstance.getUID())) {
                     bugInstances = Lists.newArrayList();
@@ -242,7 +242,6 @@ public class FindbugsSensor implements Sensor {
                     bugInstances = bugs.get(bugInstance.getUID());
                 }
                 bugInstances.add(bugInstance);
-
                 bugs.put(bugInstance.getUID(), bugInstances);
             }
 
@@ -254,11 +253,8 @@ public class FindbugsSensor implements Sensor {
             System.out.println("***********************Infer size:" + inferReportedBugs.size());
             int jlint_infer_intersection = 0;
             for (ReportedBugInfo bugInstance : inferReportedBugs) {
-                //if (bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE)) {
-                //  continue;
-                // }
-                System.out.println("INFER:" + ((InferReportedBugFromJson) bugInstance).toString());
-                System.out.println("-------------------Infer uid:" + bugInstance.getUID());
+                //System.out.println("INFER:" + ((InferReportedBugFromJson) bugInstance).toString());
+                //System.out.println("-------------------Infer uid:" + bugInstance.getUID());
                 List bugInstances;
                 if (!bugs.containsKey(bugInstance.getUID())) {
                     bugInstances = Lists.newArrayList();
@@ -271,9 +267,9 @@ public class FindbugsSensor implements Sensor {
             }
             System.out.println("**********************Infer map size:" + bugs.size() + "--jlint_infer_intersection:" + jlint_infer_intersection);
 
-            for (String str : bugs.keySet()) {
-                System.out.println(str);
-            }
+//            for (String str : bugs.keySet()) {
+//                System.out.println(str);
+//            }
 
 
             //for assessment
