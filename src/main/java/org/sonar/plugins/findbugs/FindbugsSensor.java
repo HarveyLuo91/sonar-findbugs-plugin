@@ -27,6 +27,11 @@ import edu.bit.cs.ReportedBugInfo;
 import edu.bit.cs.assessment.CsvParser;
 import edu.bit.cs.assessment.Result;
 import edu.bit.cs.assessment.TestCaseModel;
+import edu.bit.cs.coverity.CoverityReportParser;
+import edu.bit.cs.coverity.CoverityReportedBugFromJson;
+import edu.bit.cs.coverity.Xml2Json.Error;
+import edu.bit.cs.coverity.Xml2Json.Parser;
+import edu.bit.cs.fortify.FortifyReportParser;
 import edu.bit.cs.infer.InferReportParser;
 import edu.bit.cs.jlint.JlintReportParser;
 import edu.bit.cs.util.CmdExecutor;
@@ -322,11 +327,72 @@ public class FindbugsSensor implements Sensor {
 //                }
 //            }
 
+            //coverity
+            System.out.println("start coverity");
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(CoverityReportParser.class.getClassLoader().getResourceAsStream("file/benchmark-for-npe-coverity.json")));
+            Collection<? extends ReportedBugInfo> coverityReportedBugs = new CoverityReportParser().getReportedBugs(br);
+            br = new BufferedReader(new InputStreamReader(CoverityReportParser.class.getClassLoader().getResourceAsStream("file/benchmark-for-npe-coverity-xml2json.json")));
+            List<Error> errors = new Parser().getReportedBugs(br);
+            Map<String, String> filePath = Maps.newHashMap();
+            for (Error err : errors) {
+                filePath.put(err.getNum(), err.getFile());
+            }
+//            Collection<? extends ReportedBugInfo> coverityReportedBugs = CmdExecutor.exeCmd(absolutePath, new CoverityReportParser());
+            for (ReportedBugInfo bugInstance : coverityReportedBugs) {
+                if (bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE)) {
+                    continue;
+                }
+
+                String num = bugInstance.getSourcePath().split("[a-zA-Z]")[0].trim();
+                ((CoverityReportedBugFromJson) bugInstance).setName(filePath.get(num));
+//                System.out.println("INFER:" + bugInstance.toString());
+//                System.out.println("-------------------Infer uid:" + bugInstance.getUID());
+                System.out.println(bugInstance.getUID());
+
+                List bugInstances;
+                if (!bugs.containsKey(bugInstance.getUID())) {
+                    bugInstances = Lists.newArrayList();
+                } else {
+//                    jlint_infer_intersection = jlint_infer_intersection + 1;
+                    bugInstances = bugs.get(bugInstance.getUID());
+                }
+                bugInstances.add(bugInstance);
+                bugs.put(bugInstance.getUID(), bugInstances);
+            }
+
+            System.out.println("***********************coverity map size:" + bugs.size());
+
+            //fortify
+            System.out.println("start fortify");
+            br = new BufferedReader(new InputStreamReader(CoverityReportParser.class.getClassLoader().getResourceAsStream("file/benchmark-for-npe-fortify.json")));
+            Collection<? extends ReportedBugInfo> fortifyReportedBugs = new FortifyReportParser().getReportedBugs(br);
+//            BufferedReader br = new BufferedReader(new InputStreamReader(FindbugsSensor.class.getClassLoader().getResourceAsStream("file/report.json")));
+//            Collection<? extends ReportedBugInfo> inferReportedBugs = new InferReportParser().getReportedBugs(br);
+
+            for (ReportedBugInfo bugInstance : fortifyReportedBugs) {
+                if (bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE)) {
+                    continue;
+                }
+                List bugInstances;
+                System.out.println(bugInstance.getUID());
+                if (!bugs.containsKey(bugInstance.getUID())) {
+                    bugInstances = Lists.newArrayList();
+                } else {
+                    bugInstances = bugs.get(bugInstance.getUID());
+                }
+                bugInstances.add(bugInstance);
+                bugs.put(bugInstance.getUID(), bugInstances);
+            }
+            System.out.println("**********************fortify map size:" + bugs.size());
+
+
             //for assessment
             Map<String, Result> interSection = Maps.newHashMap();
             for (int index = 0; index < ToolCollection.getSize(); index++) {
                 interSection.put(ToolCollection.getTools(index), new Result(ToolCollection.getTools(index)));
             }
+
 
             //findbugs
             for (ReportedBug bugInstance : collection) {
@@ -359,6 +425,7 @@ public class FindbugsSensor implements Sensor {
                     //Regular Java class mapped to their original .java
                     InputFile resource = byteCodeResourceLocator.findSourceFile(sourceFile, this.fs);
                     if (resource != null) {
+
 
                         String tools = processBugs(bugs, interSection, bugInstance);
                         longMessage.insert(0, tools + "- ");
@@ -457,6 +524,8 @@ public class FindbugsSensor implements Sensor {
             Result findbugs = new Result("FINDBUGS");
             Result jlint = new Result("JLINT");
             Result infer = new Result("INFER");
+            Result coverity = new Result("COVERITY");
+            Result fortify = new Result("FORTIFY");
             Result findbugs_jlint = new Result("FINDBUGS+JLINT");
             Result findbugs_infer = new Result("FINDBUGS+INFER");
             Result jlint_infer = new Result("JLINT+INFER");
@@ -478,6 +547,14 @@ public class FindbugsSensor implements Sensor {
                     infer.getTp().putAll(result.getTp());
                     infer.getFp().putAll(result.getFp());
                 }
+                if ((index & ToolCollection.COVERITY.getId()) != 0) {
+                    coverity.getTp().putAll(result.getTp());
+                    coverity.getFp().putAll(result.getFp());
+                }
+                if ((index & ToolCollection.FORTIFY.getId()) != 0) {
+                    fortify.getTp().putAll(result.getTp());
+                    fortify.getFp().putAll(result.getFp());
+                }
 
                 System.out.println(result);
             }
@@ -485,6 +562,8 @@ public class FindbugsSensor implements Sensor {
             System.out.println(findbugs);
             System.out.println(jlint);
             System.out.println(infer);
+            System.out.println(coverity);
+            System.out.println(fortify);
 
             for (String uid : findbugs.getTp().keySet()) {
                 TestCaseModel test = CsvParser.F_BUGS.get(uid);
@@ -501,6 +580,17 @@ public class FindbugsSensor implements Sensor {
                 test.setInfer(1);
                 CsvParser.F_BUGS.put(uid, test);
             }
+            for (String uid : coverity.getTp().keySet()) {
+                TestCaseModel test = CsvParser.F_BUGS.get(uid);
+                test.setCoverity(1);
+                CsvParser.F_BUGS.put(uid, test);
+            }
+            for (String uid : fortify.getTp().keySet()) {
+                TestCaseModel test = CsvParser.F_BUGS.get(uid);
+                test.setFortify(1);
+                CsvParser.F_BUGS.put(uid, test);
+            }
+
 
             for (String uid : findbugs.getFp().keySet()) {
                 TestCaseModel test = CsvParser.T_BUGS.get(uid);
@@ -520,6 +610,20 @@ public class FindbugsSensor implements Sensor {
                 TestCaseModel test = CsvParser.T_BUGS.get(uid);
                 if (test != null) {
                     test.setInfer(0);
+                    CsvParser.T_BUGS.put(uid, test);
+                }
+            }
+            for (String uid : coverity.getFp().keySet()) {
+                TestCaseModel test = CsvParser.T_BUGS.get(uid);
+                if (test != null) {
+                    test.setCoverity(0);
+                    CsvParser.T_BUGS.put(uid, test);
+                }
+            }
+            for (String uid : fortify.getFp().keySet()) {
+                TestCaseModel test = CsvParser.T_BUGS.get(uid);
+                if (test != null) {
+                    test.setFortify(0);
                     CsvParser.T_BUGS.put(uid, test);
                 }
             }
@@ -549,37 +653,37 @@ public class FindbugsSensor implements Sensor {
             }
 
 
-            List<TestCaseModel> wantedModels = Lists.newArrayList();
-            for (TestCaseModel test : CsvParser.F_BUGS.values()) {
-                if ((test.getFindbugs() + test.getInfer() + test.getJlint() == 3) || (test.getFindbugs() + test.getInfer() + test.getJlint() == 0)) {
-                    continue;
-                }
-                wantedModels.add(test);
-            }
-            for (TestCaseModel test : CsvParser.T_BUGS.values()) {
-                if ((test.getFindbugs() + test.getInfer() + test.getJlint() == 3) || (test.getFindbugs() + test.getInfer() + test.getJlint() == 0)) {
-                    continue;
-                }
-                wantedModels.add(test);
-            }
-            System.out.println("-----wanted json size:" + wantedModels.size());
-
-            out = null;
-            try {
-                out = new FileOutputStream(new File(binaries.getAbsolutePath() + "/wantedtestcases.json"));
-                out.write(JSON.toJSONString(wantedModels).getBytes());
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (out != null) {
-                        out.flush();
-                        out.close();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+//            List<TestCaseModel> wantedModels = Lists.newArrayList();
+//            for (TestCaseModel test : CsvParser.F_BUGS.values()) {
+//                if ((test.getFindbugs() + test.getInfer() + test.getJlint() + test.getCoverity() + test.getFortify() == 5) || (test.getFindbugs() + test.getInfer() + test.getJlint() + test.getCoverity() + test.getFortify() == 0)) {
+//                    continue;
+//                }
+//                wantedModels.add(test);
+//            }
+//            for (TestCaseModel test : CsvParser.T_BUGS.values()) {
+//                if ((test.getFindbugs() + test.getInfer() + test.getJlint() + test.getCoverity() + test.getFortify() == 5) || (test.getFindbugs() + test.getInfer() + test.getJlint() + test.getCoverity() + test.getFortify() == 0)) {
+//                    continue;
+//                }
+//                wantedModels.add(test);
+//            }
+//            System.out.println("-----wanted json size:" + wantedModels.size());
+//
+//            out = null;
+//            try {
+//                out = new FileOutputStream(new File(binaries.getAbsolutePath() + "/wantedtestcases.json"));
+//                out.write(JSON.toJSONString(wantedModels).getBytes());
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            } finally {
+//                try {
+//                    if (out != null) {
+//                        out.flush();
+//                        out.close();
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
 //            System.out.println(JSON.toJSONString(wantedModels));
 //            findbugs.countTags();
 //            System.out.println("FindBugs Tag:");
@@ -675,6 +779,8 @@ public class FindbugsSensor implements Sensor {
 
     protected void insertIssue(ActiveRule rule, InputFile resource, int line, String message) {
         NewIssue newIssue = sensorContext.newIssue().forRule(rule.ruleKey());
+
+//        System.out.println("resource:" + resource + "  line:" + line + "  message:" + message);
 
         NewIssueLocation location = newIssue.newLocation()
                 .on(resource)

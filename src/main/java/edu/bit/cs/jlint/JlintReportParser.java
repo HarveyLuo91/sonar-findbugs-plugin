@@ -26,6 +26,8 @@ public class JlintReportParser implements ReportedInfoProcessor {
             // loop until all lines are read
             while (fileRead != null) {
 
+                System.out.println(fileRead);
+
                 if (fileRead.contains("Verification completed")) {
                     fileRead = br.readLine();
                     continue;
