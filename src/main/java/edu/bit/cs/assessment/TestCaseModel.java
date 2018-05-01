@@ -13,7 +13,7 @@ public class TestCaseModel {
     private int findbugs = 0;
     private int jlint = 0;
     private int infer = 0;
-    private int coverity = 0;
+//    private int coverity = 0;
     private int fortify = 0;
     //    private List<String> tags = Lists.newArrayList();
     private String caseType;
@@ -74,13 +74,13 @@ public class TestCaseModel {
         this.infer = infer;
     }
 
-    public int getCoverity() {
-        return coverity;
-    }
-
-    public void setCoverity(int coverity) {
-        this.coverity = coverity;
-    }
+//    public int getCoverity() {
+//        return coverity;
+//    }
+//
+//    public void setCoverity(int coverity) {
+//        this.coverity = coverity;
+//    }
 
     public int getFortify() {
         return fortify;

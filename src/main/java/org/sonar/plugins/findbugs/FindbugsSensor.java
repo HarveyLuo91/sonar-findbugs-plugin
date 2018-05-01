@@ -28,9 +28,6 @@ import edu.bit.cs.assessment.CsvParser;
 import edu.bit.cs.assessment.Result;
 import edu.bit.cs.assessment.TestCaseModel;
 import edu.bit.cs.coverity.CoverityReportParser;
-import edu.bit.cs.coverity.CoverityReportedBugFromJson;
-import edu.bit.cs.coverity.Xml2Json.Error;
-import edu.bit.cs.coverity.Xml2Json.Parser;
 import edu.bit.cs.fortify.FortifyReportParser;
 import edu.bit.cs.infer.InferReportParser;
 import edu.bit.cs.jlint.JlintReportParser;
@@ -267,7 +264,9 @@ public class FindbugsSensor implements Sensor {
             System.out.println("binaries:" + binaries);
 
             //execute Jlint and get reported bugs
-            Collection<? extends ReportedBugInfo> jlintReportedBugs = CmdExecutor.exeCmd(binaries.getAbsolutePath(), new JlintReportParser());
+//            Collection<? extends ReportedBugInfo> jlintReportedBugs = CmdExecutor.exeCmd(binaries.getAbsolutePath(), new JlintReportParser());
+            BufferedReader br = new BufferedReader(new InputStreamReader(CoverityReportParser.class.getClassLoader().getResourceAsStream("file/jlint_report.txt")));
+            Collection<? extends ReportedBugInfo> jlintReportedBugs = new JlintReportParser().getReportedBugs(br);
             System.out.println("******************************Jlint size:" + jlintReportedBugs.size());
             //loop through the reported bugs
             for (ReportedBugInfo bugInstance : jlintReportedBugs) {
@@ -328,44 +327,44 @@ public class FindbugsSensor implements Sensor {
 //            }
 
             //coverity
-            System.out.println("start coverity");
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(CoverityReportParser.class.getClassLoader().getResourceAsStream("file/benchmark-for-npe-coverity.json")));
-            Collection<? extends ReportedBugInfo> coverityReportedBugs = new CoverityReportParser().getReportedBugs(br);
-            br = new BufferedReader(new InputStreamReader(CoverityReportParser.class.getClassLoader().getResourceAsStream("file/benchmark-for-npe-coverity-xml2json.json")));
-            List<Error> errors = new Parser().getReportedBugs(br);
-            Map<String, String> filePath = Maps.newHashMap();
-            for (Error err : errors) {
-                filePath.put(err.getNum(), err.getFile());
-            }
-//            Collection<? extends ReportedBugInfo> coverityReportedBugs = CmdExecutor.exeCmd(absolutePath, new CoverityReportParser());
-            for (ReportedBugInfo bugInstance : coverityReportedBugs) {
-                if (bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE)) {
-                    continue;
-                }
-
-                String num = bugInstance.getSourcePath().split("[a-zA-Z]")[0].trim();
-                ((CoverityReportedBugFromJson) bugInstance).setName(filePath.get(num));
-//                System.out.println("INFER:" + bugInstance.toString());
-//                System.out.println("-------------------Infer uid:" + bugInstance.getUID());
-                System.out.println(bugInstance.getUID());
-
-                List bugInstances;
-                if (!bugs.containsKey(bugInstance.getUID())) {
-                    bugInstances = Lists.newArrayList();
-                } else {
-//                    jlint_infer_intersection = jlint_infer_intersection + 1;
-                    bugInstances = bugs.get(bugInstance.getUID());
-                }
-                bugInstances.add(bugInstance);
-                bugs.put(bugInstance.getUID(), bugInstances);
-            }
-
-            System.out.println("***********************coverity map size:" + bugs.size());
+//            System.out.println("start coverity");
+//
+//            BufferedReader br = new BufferedReader(new InputStreamReader(CoverityReportParser.class.getClassLoader().getResourceAsStream("file/benchmark-for-npe-coverity.json")));
+//            Collection<? extends ReportedBugInfo> coverityReportedBugs = new CoverityReportParser().getReportedBugs(br);
+//            br = new BufferedReader(new InputStreamReader(CoverityReportParser.class.getClassLoader().getResourceAsStream("file/benchmark-for-npe-coverity-xml2json.json")));
+//            List<Error> errors = new Parser().getReportedBugs(br);
+//            Map<String, String> filePath = Maps.newHashMap();
+//            for (Error err : errors) {
+//                filePath.put(err.getNum(), err.getFile());
+//            }
+////            Collection<? extends ReportedBugInfo> coverityReportedBugs = CmdExecutor.exeCmd(absolutePath, new CoverityReportParser());
+//            for (ReportedBugInfo bugInstance : coverityReportedBugs) {
+//                if (bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE)) {
+//                    continue;
+//                }
+//
+//                String num = bugInstance.getSourcePath().split("[a-zA-Z]")[0].trim();
+//                ((CoverityReportedBugFromJson) bugInstance).setName(filePath.get(num));
+////                System.out.println("INFER:" + bugInstance.toString());
+////                System.out.println("-------------------Infer uid:" + bugInstance.getUID());
+//                System.out.println(bugInstance.getUID());
+//
+//                List bugInstances;
+//                if (!bugs.containsKey(bugInstance.getUID())) {
+//                    bugInstances = Lists.newArrayList();
+//                } else {
+////                    jlint_infer_intersection = jlint_infer_intersection + 1;
+//                    bugInstances = bugs.get(bugInstance.getUID());
+//                }
+//                bugInstances.add(bugInstance);
+//                bugs.put(bugInstance.getUID(), bugInstances);
+//            }
+//
+//            System.out.println("***********************coverity map size:" + bugs.size());
 
             //fortify
             System.out.println("start fortify");
-            br = new BufferedReader(new InputStreamReader(CoverityReportParser.class.getClassLoader().getResourceAsStream("file/benchmark-for-npe-fortify.json")));
+            br = new BufferedReader(new InputStreamReader(CoverityReportParser.class.getClassLoader().getResourceAsStream("file/testcases-for-npe-fortify.json")));
             Collection<? extends ReportedBugInfo> fortifyReportedBugs = new FortifyReportParser().getReportedBugs(br);
 //            BufferedReader br = new BufferedReader(new InputStreamReader(FindbugsSensor.class.getClassLoader().getResourceAsStream("file/report.json")));
 //            Collection<? extends ReportedBugInfo> inferReportedBugs = new InferReportParser().getReportedBugs(br);
@@ -524,7 +523,7 @@ public class FindbugsSensor implements Sensor {
             Result findbugs = new Result("FINDBUGS");
             Result jlint = new Result("JLINT");
             Result infer = new Result("INFER");
-            Result coverity = new Result("COVERITY");
+//            Result coverity = new Result("COVERITY");
             Result fortify = new Result("FORTIFY");
             Result findbugs_jlint = new Result("FINDBUGS+JLINT");
             Result findbugs_infer = new Result("FINDBUGS+INFER");
@@ -547,10 +546,10 @@ public class FindbugsSensor implements Sensor {
                     infer.getTp().putAll(result.getTp());
                     infer.getFp().putAll(result.getFp());
                 }
-                if ((index & ToolCollection.COVERITY.getId()) != 0) {
-                    coverity.getTp().putAll(result.getTp());
-                    coverity.getFp().putAll(result.getFp());
-                }
+//                if ((index & ToolCollection.COVERITY.getId()) != 0) {
+//                    coverity.getTp().putAll(result.getTp());
+//                    coverity.getFp().putAll(result.getFp());
+//                }
                 if ((index & ToolCollection.FORTIFY.getId()) != 0) {
                     fortify.getTp().putAll(result.getTp());
                     fortify.getFp().putAll(result.getFp());
@@ -562,7 +561,7 @@ public class FindbugsSensor implements Sensor {
             System.out.println(findbugs);
             System.out.println(jlint);
             System.out.println(infer);
-            System.out.println(coverity);
+//            System.out.println(coverity);
             System.out.println(fortify);
 
             for (String uid : findbugs.getTp().keySet()) {
@@ -580,11 +579,11 @@ public class FindbugsSensor implements Sensor {
                 test.setInfer(1);
                 CsvParser.F_BUGS.put(uid, test);
             }
-            for (String uid : coverity.getTp().keySet()) {
-                TestCaseModel test = CsvParser.F_BUGS.get(uid);
-                test.setCoverity(1);
-                CsvParser.F_BUGS.put(uid, test);
-            }
+//            for (String uid : coverity.getTp().keySet()) {
+//                TestCaseModel test = CsvParser.F_BUGS.get(uid);
+////                test.setCoverity(1);
+//                CsvParser.F_BUGS.put(uid, test);
+//            }
             for (String uid : fortify.getTp().keySet()) {
                 TestCaseModel test = CsvParser.F_BUGS.get(uid);
                 test.setFortify(1);
@@ -613,13 +612,13 @@ public class FindbugsSensor implements Sensor {
                     CsvParser.T_BUGS.put(uid, test);
                 }
             }
-            for (String uid : coverity.getFp().keySet()) {
-                TestCaseModel test = CsvParser.T_BUGS.get(uid);
-                if (test != null) {
-                    test.setCoverity(0);
-                    CsvParser.T_BUGS.put(uid, test);
-                }
-            }
+//            for (String uid : coverity.getFp().keySet()) {
+//                TestCaseModel test = CsvParser.T_BUGS.get(uid);
+//                if (test != null) {
+////                    test.setCoverity(0);
+//                    CsvParser.T_BUGS.put(uid, test);
+//                }
+//            }
             for (String uid : fortify.getFp().keySet()) {
                 TestCaseModel test = CsvParser.T_BUGS.get(uid);
                 if (test != null) {

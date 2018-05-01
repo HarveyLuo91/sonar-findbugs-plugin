@@ -89,7 +89,7 @@ public class CsvParser {
                 test.setJlint(1);
                 test.setFindbugs(1);
                 test.setFortify(1);
-                test.setCoverity(1);
+//                test.setCoverity(1);
                 if (T_BUGS.put(JsonParser.getUID(file, test.getError_line()), test) != null) {
 //                    System.out.println("T:" + JsonParser.getUID(file, test.getError_line()));
                 }
