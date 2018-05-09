@@ -364,7 +364,7 @@ public class FindbugsSensor implements Sensor {
 
             //fortify
             System.out.println("start fortify");
-            br = new BufferedReader(new InputStreamReader(CoverityReportParser.class.getClassLoader().getResourceAsStream("file/testcases-for-npe-fortify.json")));
+            br = new BufferedReader(new InputStreamReader(CoverityReportParser.class.getClassLoader().getResourceAsStream("file/benchmark-for-aminu-fortify.json")));
             Collection<? extends ReportedBugInfo> fortifyReportedBugs = new FortifyReportParser().getReportedBugs(br);
 //            BufferedReader br = new BufferedReader(new InputStreamReader(FindbugsSensor.class.getClassLoader().getResourceAsStream("file/report.json")));
 //            Collection<? extends ReportedBugInfo> inferReportedBugs = new InferReportParser().getReportedBugs(br);

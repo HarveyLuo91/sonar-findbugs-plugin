@@ -14,7 +14,7 @@ public class JsonParser {
 
     public static List<TestCaseModel> getTestCases() {
         List<TestCaseModel> graphs = Lists.newArrayList();
-        BufferedReader br = new BufferedReader(new InputStreamReader(JsonParser.class.getClassLoader().getResourceAsStream("file/testcases-for-npe-testcases.json")));
+        BufferedReader br = new BufferedReader(new InputStreamReader(JsonParser.class.getClassLoader().getResourceAsStream("file/benchmark-for-aminu-testcases.json")));
         try {
             //Reading the json file
             StringBuilder json = new StringBuilder("");
