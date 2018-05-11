@@ -23,6 +23,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import edu.bit.cs.BUG_TYPE;
+import edu.bit.cs.Constant;
 import edu.bit.cs.ReportedBugInfo;
 import edu.bit.cs.assessment.CsvParser;
 import edu.bit.cs.assessment.Result;
@@ -68,7 +69,6 @@ public class FindbugsSensor implements Sensor {
             FindSecurityBugsRulesDefinition.REPOSITORY_KEY, FindSecurityBugsJspRulesDefinition.REPOSITORY_KEY
     };
 
-    public static String ROOT = "";
 
     private List<String> repositories = Lists.newArrayList();
 
@@ -127,7 +127,7 @@ public class FindbugsSensor implements Sensor {
     @Override
     public void execute(SensorContext context) {
 
-        ROOT = context.settings().getString("sonar.root");
+        Constant.ROOT = context.settings().getString("sonar.root");
 
         if (!hasActiveFindbugsRules() && !hasActiveFbContribRules() && !hasActiveFindSecBugsRules()) {
             return;
@@ -264,9 +264,9 @@ public class FindbugsSensor implements Sensor {
             System.out.println("binaries:" + binaries);
 
             //execute Jlint and get reported bugs
-//            Collection<? extends ReportedBugInfo> jlintReportedBugs = CmdExecutor.exeCmd(binaries.getAbsolutePath(), new JlintReportParser());
-            BufferedReader br = new BufferedReader(new InputStreamReader(CoverityReportParser.class.getClassLoader().getResourceAsStream("file/jlint_report.txt")));
-            Collection<? extends ReportedBugInfo> jlintReportedBugs = new JlintReportParser().getReportedBugs(br);
+            Collection<? extends ReportedBugInfo> jlintReportedBugs = CmdExecutor.exeCmd(binaries.getAbsolutePath(), new JlintReportParser());
+//            BufferedReader br = new BufferedReader(new InputStreamReader(CoverityReportParser.class.getClassLoader().getResourceAsStream("file/jlint_report.txt")));
+//            Collection<? extends ReportedBugInfo> jlintReportedBugs = new JlintReportParser().getReportedBugs(br);
             System.out.println("******************************Jlint size:" + jlintReportedBugs.size());
             //loop through the reported bugs
             for (ReportedBugInfo bugInstance : jlintReportedBugs) {
@@ -295,9 +295,9 @@ public class FindbugsSensor implements Sensor {
 
             //Infer
             System.out.println("Infer dir:" + absolutePath);
-            Collection<? extends ReportedBugInfo> inferReportedBugs = CmdExecutor.exeCmd(absolutePath, new InferReportParser());
-//            BufferedReader br = new BufferedReader(new InputStreamReader(FindbugsSensor.class.getClassLoader().getResourceAsStream("file/report.json")));
-//            Collection<? extends ReportedBugInfo> inferReportedBugs = new InferReportParser().getReportedBugs(br);
+//            Collection<? extends ReportedBugInfo> inferReportedBugs = CmdExecutor.exeCmd(absolutePath, new InferReportParser());
+            BufferedReader br = new BufferedReader(new InputStreamReader(FindbugsSensor.class.getClassLoader().getResourceAsStream("file/report.json")));
+            Collection<? extends ReportedBugInfo> inferReportedBugs = new InferReportParser().getReportedBugs(br);
 
             System.out.println("***********************Infer size:" + inferReportedBugs.size());
             int jlint_infer_intersection = 0;

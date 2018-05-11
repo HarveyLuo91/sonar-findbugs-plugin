@@ -2,6 +2,7 @@ package edu.bit.cs.jlint;
 
 
 import edu.bit.cs.BUG_TYPE;
+import edu.bit.cs.Constant;
 import edu.bit.cs.ReportedBugInfo;
 import edu.bit.cs.util.ToolCollection;
 import org.sonar.plugins.findbugs.FindbugsSensor;
@@ -51,7 +52,7 @@ public class JlintReportedBug implements ReportedBugInfo {
     }
 
     public String getSourcePath() {
-        return ReportedBugInfo.normalizeFilePath(sourcePath, FindbugsSensor.ROOT);
+        return ReportedBugInfo.normalizeFilePath(sourcePath, Constant.ROOT);
     }
 
     @Override

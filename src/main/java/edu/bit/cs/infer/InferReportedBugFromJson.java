@@ -1,6 +1,7 @@
 package edu.bit.cs.infer;
 
 import edu.bit.cs.BUG_TYPE;
+import edu.bit.cs.Constant;
 import edu.bit.cs.ReportedBugInfo;
 import edu.bit.cs.util.ToolCollection;
 import org.sonar.plugins.findbugs.FindbugsSensor;
@@ -349,7 +350,7 @@ public class InferReportedBugFromJson implements ReportedBugInfo {
 
     @Override
     public String getSourcePath() {
-        return ReportedBugInfo.normalizeFilePath(file, FindbugsSensor.ROOT);
+        return ReportedBugInfo.normalizeFilePath(file, Constant.ROOT);
     }
 
     @Override

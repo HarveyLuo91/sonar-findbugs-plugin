@@ -1,6 +1,7 @@
 package edu.bit.cs.fortify;
 
 import edu.bit.cs.BUG_TYPE;
+import edu.bit.cs.Constant;
 import edu.bit.cs.ReportedBugInfo;
 import edu.bit.cs.util.ToolCollection;
 import org.sonar.plugins.findbugs.FindbugsSensor;
@@ -48,7 +49,7 @@ public class FortifyReportedBugFromJson implements ReportedBugInfo {
 
     @Override
     public String getSourcePath() {
-        return ReportedBugInfo.normalizeFilePath(path, FindbugsSensor.ROOT);
+        return ReportedBugInfo.normalizeFilePath(path, Constant.ROOT);
     }
 
     @Override

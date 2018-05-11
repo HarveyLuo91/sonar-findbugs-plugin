@@ -5,6 +5,7 @@ import edu.bit.cs.ReportedInfoProcessor;
 import edu.bit.cs.infer.InferReportParser;
 import edu.bit.cs.BUG_TYPE;
 import edu.bit.cs.jlint.JlintReportParser;
+import edu.bit.cs.findbugs.findBugReportParser;
 
 import java.io.*;
 import java.util.Collection;
@@ -46,6 +47,19 @@ public class CmdExecutor {
                     }
                 }
             }
+        }else if(processor instanceof findBugReportParser){
+            BufferedReader br;
+            try {
+                Process p = Runtime.getRuntime().exec(genCmdStr("FINDBUGS", projectPath));
+                p.waitFor();
+                String reporterPath = projectPath + "/res.xml";
+                System.out.println("reporterPath:" + reporterPath);
+                br = new BufferedReader(new FileReader(new File(reporterPath)));
+                return processor.getReportedBugs(br);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
         }
         return Collections.EMPTY_LIST;
     }
@@ -57,6 +71,10 @@ public class CmdExecutor {
             }
             case "INFER": {
                 return "infer -- mvn clean package";
+            }
+            case "FINDBUGS":{
+                return "java -jar /root/tools/spotbugs-3.1.3/lib/spotbugs.jar -textui -xml:withMessages -output" +
+                        " " + projectPath + "/res.xml " + projectPath+"/target";
             }
             default: {
                 return "";
