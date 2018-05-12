@@ -5,7 +5,6 @@ import edu.bit.cs.BUG_TYPE;
 import edu.bit.cs.Constant;
 import edu.bit.cs.ReportedBugInfo;
 import edu.bit.cs.util.ToolCollection;
-import org.sonar.plugins.findbugs.FindbugsSensor;
 
 
 public class JlintReportedBug implements ReportedBugInfo {
@@ -27,16 +26,19 @@ public class JlintReportedBug implements ReportedBugInfo {
 
     @Override
     public BUG_TYPE getBugType() {
-        if(message.contains("NULL")){
+        if (message.contains("NULL")) {
             return BUG_TYPE.NULL_POINTER_EXEPTION;
-        }else{
+        } else if (message.contains("synchronized") || message.contains("lock") || message.contains("synchronizing")) {
+            return BUG_TYPE.SYNCHRONIZATION;
+        } else {
             return BUG_TYPE.ANOTHER_TYPE;
         }
 
     }
-   // @Override
+
+    // @Override
     //public String getType(){
-      //  return this.type;
+    //  return this.type;
     //}
     @Override
     public String getBugMessage() {

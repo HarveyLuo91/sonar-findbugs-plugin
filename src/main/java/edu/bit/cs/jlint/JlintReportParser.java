@@ -108,6 +108,8 @@ public class JlintReportParser implements ReportedInfoProcessor {
         BUG_TYPE bugType;
         if (errorMessage.contains("NULL") || errorMessage.contains("null")) {
             bugType = BUG_TYPE.NULL_POINTER_EXEPTION;
+        } else if (errorMessage.contains("synchronized") || errorMessage.contains("lock") || errorMessage.contains("synchronizing")) {
+            bugType = BUG_TYPE.SYNCHRONIZATION;
         } else {
             bugType = BUG_TYPE.ANOTHER_TYPE;
         }
