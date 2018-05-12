@@ -1,7 +1,9 @@
 package edu.bit.cs.executor;
 
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.gson.JsonObject;
 import edu.bit.cs.BUG_TYPE;
 import edu.bit.cs.Constant;
 import edu.bit.cs.ReportedBugInfo;
@@ -17,9 +19,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import java.io.File;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+
 public class BugDetector {
 
     public static void executor(String path){
+//    public static void main(String[] args){
         Map<String, List<ReportedBugInfo>> bugs = Maps.newHashMap();
         Constant.ROOT = path.split("/")[path.split("/").length-2];
         //FindBugs
@@ -52,7 +62,9 @@ public class BugDetector {
             bugs.put(bugInstance.getUID(), bugInstances);
         }
         System.out.println("**********************Jlint map size:" + bugs.size());
+        JSONObject bugJSon = new JSONObject();
         Iterator bugIt = bugs.entrySet().iterator();
+        int num = 0;
         while(bugIt.hasNext()){
             Map.Entry entry = (Map.Entry)bugIt.next();
             Object key = entry.getKey();
@@ -81,9 +93,34 @@ public class BugDetector {
                         continue;
                     tools.append("1");
                     label.append("[Jlint]");
+                    if(message.length()==0){
+                        message = b.getBugMessage();
+                        linenumber = b.getBugLineNumber();
+                        bugClass = b.getClassName();
+                        bugType = b.getBugType().toString();
+                        bugPath = b.getSourcePath();
+                    }
                 }
-                System.out.println(label.toString()+bugType+"\t"+bugPath+"\t"+bugClass+"\t"+message+"\t"+linenumber);
+                JSONObject node = new JSONObject();
+                node.put("tools", label);
+                node.put("message", message);
+                node.put("line_number", linenumber);
+                node.put("bug_type", bugType);
+                node.put("bug_path", bugPath);
+                node.put("bug_class", bugClass);
+                bugJSon.put("bug"+String.valueOf(num), node);
+                num += 1;
             }
+        }
+        try {
+            File writename = new File(path+"/detect_res.txt");
+            writename.createNewFile(); // 创建新文件
+            BufferedWriter out = new BufferedWriter(new FileWriter(writename));
+            out.write(bugJSon.toJSONString());
+            out.flush();
+            out.close();
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 }
