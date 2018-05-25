@@ -73,7 +73,7 @@ public class CmdExecutor {
 //                        " " + projectPath + "/res.xml " + projectPath + "/target";
                 return "/home/test/java/jre1.8.0_171/bin/java -jar /home/test/bit-detector/spotbugs-3.1.3/lib/spotbugs.jar -textui -xml:withMessages -output" +
                         " " + projectPath + "/res.xml " + projectPath + "/target";
-//                return "/home/test/bit-detector/findbugs-2.0.3/bin/findbugs -textui -xml:withMessages -output" +
+//                return "/Users/Lion/Downloads/findbugs-3.0.1/bin/findbugs -textui -xml:withMessages -output" +
 //                        " " + projectPath + "/res.xml " + projectPath + "/target";
             }
             default: {

@@ -1,5 +1,6 @@
 package edu.bit.cs.executor;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -21,6 +22,7 @@ public class BugDetector {
 
     public static void executor(String path) {
 //    public static void main(String[] args){
+//        String path = "/Users/Lion/Downloads/test/";
         Map<String, List<ReportedBugInfo>> bugs = Maps.newHashMap();
         Constant.ROOT = path.split("/")[path.split("/").length - 2];
         //FindBugs
@@ -49,7 +51,7 @@ public class BugDetector {
 //            bugInstances.add(bugInstance);
 //            bugs.put(bugInstance.getUID(), bugInstances);
 //        }
-        JSONObject bugJSon = new JSONObject();
+        JSONArray bugJSon = new JSONArray();
         Iterator bugIt = bugs.entrySet().iterator();
         int num = 0;
         while (bugIt.hasNext()) {
@@ -89,13 +91,14 @@ public class BugDetector {
                     }
                 }
                 JSONObject node = new JSONObject();
-                node.put("tools", label);
+//                node.put("tools", label);
+                node.put("bug_number", num);
                 node.put("message", message);
                 node.put("line_number", linenumber);
                 node.put("bug_type", bugType);
                 node.put("bug_path", bugPath);
                 node.put("bug_class", bugClass);
-                bugJSon.put("bug" + String.valueOf(num), node);
+                bugJSon.add(node);
                 num += 1;
             }
         }
