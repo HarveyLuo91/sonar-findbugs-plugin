@@ -2,15 +2,13 @@ package edu.bit.cs.util;
 
 import edu.bit.cs.ReportedBugInfo;
 import edu.bit.cs.ReportedInfoProcessor;
-import edu.bit.cs.infer.InferReportParser;
-import edu.bit.cs.BUG_TYPE;
-import edu.bit.cs.jlint.JlintReportParser;
 import edu.bit.cs.findbugs.findBugReportParser;
+import edu.bit.cs.infer.InferReportParser;
+import edu.bit.cs.jlint.JlintReportParser;
 
 import java.io.*;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 public class CmdExecutor {
     public static Collection<? extends ReportedBugInfo> exeCmd(String projectPath, ReportedInfoProcessor processor) {
@@ -47,17 +45,15 @@ public class CmdExecutor {
                     }
                 }
             }
-        }else if(processor instanceof findBugReportParser){
+        } else if (processor instanceof findBugReportParser) {
             BufferedReader br;
             try {
                 Process p = Runtime.getRuntime().exec(genCmdStr("FINDBUGS", projectPath));
                 p.waitFor();
                 String reporterPath = projectPath + "/res.xml";
-                System.out.println("reporterPath:" + reporterPath);
                 br = new BufferedReader(new FileReader(new File(reporterPath)));
                 return processor.getReportedBugs(br);
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -72,9 +68,13 @@ public class CmdExecutor {
             case "INFER": {
                 return "infer -- mvn clean package";
             }
-            case "FINDBUGS":{
-                return "java -jar /root/tools/spotbugs-3.1.3/lib/spotbugs.jar -textui -xml:withMessages -output" +
-                        " " + projectPath + "/res.xml " + projectPath+"/target";
+            case "FINDBUGS": {
+//                return "/home/test/java/jre1.8.0_171/bin/java -jar /root/tools/spotbugs-3.1.3/lib/spotbugs.jar -textui -xml:withMessages -output" +
+//                        " " + projectPath + "/res.xml " + projectPath + "/target";
+                return "/home/test/java/jre1.8.0_171/bin/java -jar /home/test/bit-detector/spotbugs-3.1.3/lib/spotbugs.jar -textui -xml:withMessages -output" +
+                        " " + projectPath + "/res.xml " + projectPath + "/target";
+//                return "/home/test/bit-detector/findbugs-2.0.3/bin/findbugs -textui -xml:withMessages -output" +
+//                        " " + projectPath + "/res.xml " + projectPath + "/target";
             }
             default: {
                 return "";
@@ -82,7 +82,7 @@ public class CmdExecutor {
         }
     }
 
-   // public static void main(String[] args) {
+    // public static void main(String[] args) {
 //        String commandStr = "ping www.taobao.com";
 //        CmdExecutor cmdExecutor = new CmdExecutor();
 //        JlintReportParser jlintReportParser = new JlintReportParser();
@@ -90,23 +90,23 @@ public class CmdExecutor {
 //
 //        cmdExecutor.exeCmd(commandStr, jlintReportParser);
 
-        //String cmd = CmdExecutor.genCmdStr("JLINT", "C:\\Users\\Luo\\program\\testcases-for-npe\\killbugs-testcases-src\\target");
-        //Collection<? extends ReportedBugInfo> jlintReportedBugs = CmdExecutor.exeCmd(cmd, new JlintReportParser());
+    //String cmd = CmdExecutor.genCmdStr("JLINT", "C:\\Users\\Luo\\program\\testcases-for-npe\\killbugs-testcases-src\\target");
+    //Collection<? extends ReportedBugInfo> jlintReportedBugs = CmdExecutor.exeCmd(cmd, new JlintReportParser());
 //            List<JlintReportedBug> jlintReportedBugs = JlintReportParser.get_Reported_jlint_Bugs();
 
-        //System.out.println("******************************Jlint size:" + jlintReportedBugs.size());
-        //for (ReportedBugInfo bugInstance : jlintReportedBugs) {
-          //  if (bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE.toString())) {
-            //    continue;
-            //}
+    //System.out.println("******************************Jlint size:" + jlintReportedBugs.size());
+    //for (ReportedBugInfo bugInstance : jlintReportedBugs) {
+    //  if (bugInstance.getBugType().equals(BUG_TYPE.ANOTHER_TYPE.toString())) {
+    //    continue;
+    //}
 //                String className = bugInstance.getClassName();
-            //String sourceFile = bugInstance.getSourcePath();
+    //String sourceFile = bugInstance.getSourcePath();
 //                String longMessage = bugInstance.getMessage();
-            //int line = bugInstance.getBugLineNumber();
-            //System.out.println("-------------------jlint sourceFile+line:" + sourceFile + line);
-            //List bugInstances;
+    //int line = bugInstance.getBugLineNumber();
+    //System.out.println("-------------------jlint sourceFile+line:" + sourceFile + line);
+    //List bugInstances;
 
-        //}
+    //}
 //        System.out.println("**********************jlint map size:" + bugs.size());
 
 //    }
